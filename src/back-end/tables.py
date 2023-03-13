@@ -32,7 +32,7 @@ class Tables:
                 )"""
         cur.execute(create_table_sql)
         con.commit()
-        con.close()    
+        con.close()
 
     @classmethod
     def create_user(self):
@@ -51,7 +51,7 @@ class Tables:
                 )"""
         cur.execute(create_table_sql)
         con.commit()
-        con.close()        
+        con.close()
 
     @classmethod
     def create_menu_items(self):
@@ -69,4 +69,22 @@ class Tables:
                 )"""
         cur.execute(create_table_sql)
         con.commit()
-        con.close()      
+        con.close()
+
+    @classmethod
+    def create_order_items(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("drop table if exists tests.rr_order_items")
+        create_table_sql = """
+        create tests.rr_order_items (
+                id int NOT NULL AUTO_INCREMENT,
+                reservation_id int,
+                menu_item_id int,
+                count int,
+                total_price int,
+                comment varchar(200)
+                )"""
+        cur.execute(create_table_sql)
+        con.commit()
+        con.close()
