@@ -1,6 +1,16 @@
 from database import Database
 
 
+DROP_ROLE_TABLE_SQL = "drop table if exists tests.rr_roles"
+CREATE_ROLE_TABLE_SQL = """
+        create table tests.rr_roles (
+                id int NOT NULL AUTO_INCREMENT,
+                name varchar(100),
+                PRIMARY KEY (id)
+                )"""
+SELECT_ROLE_TABLE_COUNT_SQL = "SELECT COUNT(*) FROM tests.rr_roles"
+
+
 class Tables:
     def __init__(self):
         pass
@@ -9,14 +19,8 @@ class Tables:
     def create_roles(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute("drop table if exists tests.rr_roles")
-        create_table_sql = """
-        create table tests.rr_roles (
-                id int NOT NULL AUTO_INCREMENT,
-                name varchar(100),
-                PRIMARY KEY (id)
-                )"""
-        cur.execute(create_table_sql)
+        cur.execute(DROP_ROLE_TABLE_SQL)
+        cur.execute(CREATE_ROLE_TABLE_SQL)
         con.commit()
         con.close()
 
@@ -33,6 +37,15 @@ class Tables:
         cur.execute(create_table_sql)
         con.commit()
         con.close()
+
+    @classmethod
+    def select_roles_count(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(SELECT_ROLE_TABLE_COUNT_SQL)
+        rows = cur.fetchall()
+        con.close()
+        return rows[0][0] if rows is not None and len(rows) == 1 else -1
 
     @classmethod
     def create_user(self):
@@ -130,4 +143,4 @@ class Tables:
                 )"""
         cur.execute(create_table_sql)
         con.commit()
-        con.close()    
+        con.close()
