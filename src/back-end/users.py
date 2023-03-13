@@ -47,7 +47,8 @@ class Users:
         return result
 
     @classmethod
-    def load(self):
+    def load(self, id):
+        #  return user information as dictionary
         pass
 
     @classmethod
