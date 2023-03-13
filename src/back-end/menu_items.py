@@ -10,7 +10,7 @@ class MenuItems:
         db = Database()
         con, cur = db.open_database()
         sql = """INSERT INTO tests.rr_menu_items (name, category, price, description)
-                VALUES(%s,%s,%s,%s,%s)"""
+                VALUES(%s,%s,%s,%s)"""
         data = (name, category, price, description)
         cur.execute(sql, data)
         rows = cur.fetchall()
