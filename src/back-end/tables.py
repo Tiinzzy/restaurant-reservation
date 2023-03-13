@@ -13,7 +13,8 @@ class Tables:
         create_table_sql = """
         create table tests.rr_roles (
                 id int NOT NULL AUTO_INCREMENT,
-                name(150)
+                name varchar(100),
+                PRIMARY KEY (id)
                 )"""
         cur.execute(create_table_sql)
         con.commit()
@@ -32,3 +33,22 @@ class Tables:
         cur.execute(create_table_sql)
         con.commit()
         con.close()    
+
+    @classmethod
+    def create_user(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("drop table if exists tests.rr_user")
+        create_table_sql = """
+        create tests.rr_user (
+                id int NOT NULL AUTO_INCREMENT,
+                name varchar(200),
+                lastName varchar(200),
+                email varchar(200),
+                password varchar(200),
+                birthday varchar(200),
+                PRIMARY KEY (id)
+                )"""
+        cur.execute(create_table_sql)
+        con.commit()
+        con.close()        
