@@ -14,6 +14,7 @@ class OrderItems:
         data = (reservation_id, menu_item_id, count, total_price, comment)
         cur.execute(sql, data)
         rows = cur.fetchall()
+        con.commit()
         result = []
         for row in rows:
             result.append({'result': row[0]})
