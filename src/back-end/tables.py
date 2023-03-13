@@ -52,3 +52,21 @@ class Tables:
         cur.execute(create_table_sql)
         con.commit()
         con.close()        
+
+    @classmethod
+    def create_menu_items(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("drop table if exists tests.rr_menu_items")
+        create_table_sql = """
+        create tests.rr_menu_items (
+                id int NOT NULL AUTO_INCREMENT,
+                name varchar(200),
+                category varchar(200),
+                price int,
+                description varchar(200),
+                PRIMARY KEY (id)
+                )"""
+        cur.execute(create_table_sql)
+        con.commit()
+        con.close()      
