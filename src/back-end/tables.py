@@ -88,3 +88,19 @@ class Tables:
         cur.execute(create_table_sql)
         con.commit()
         con.close()
+
+    @classmethod
+    def create_tables(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("drop table if exists tests.rr_tables")
+        create_table_sql = """
+        create tests.rr_tables (
+                id int NOT NULL AUTO_INCREMENT,
+                seat_count int,
+                available varchar(20),
+                PRIMARY KEY (id)
+                )"""
+        cur.execute(create_table_sql)
+        con.commit()
+        con.close()
