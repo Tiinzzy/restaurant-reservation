@@ -6,13 +6,25 @@ class Reservation:
         pass
 
     @classmethod
-    def add(self, timestamp, customer_name, customer_id, name, seat_count, table_id, for_date, for_how_long, status, latest_comment, waiter_id, total_price, tip_percent):
+    def add(self, user_info):
+        data = (user_info['timestamp'],
+                user_info['customer_name'],
+                user_info['customer_id'],
+                user_info['name'],
+                user_info['seat_count'],
+                user_info['table_id'],
+                user_info['for_date'],
+                user_info['for_how_long'],
+                user_info['status'],
+                user_info['latest_comment'],
+                user_info['status'],
+                user_info['waiter_id'],
+                user_info['total_price'],
+                user_info['tip_percent'])
         db = Database()
         con, cur = db.open_database()
         sql = """INSERT INTO tests.rr_reservation (timestamp, customer_name, customer_id, name, seat_count, table_id, for_date, for_how_long, status, latest_comment, waiter_id, total_price, tip_percent)
                 VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-        data = (timestamp, customer_name, customer_id, name, seat_count, table_id, for_date,
-                for_how_long, status, latest_comment, waiter_id, total_price, tip_percent)
         cur.execute(sql, data)
         rows = cur.fetchall()
         con.commit()
@@ -29,6 +41,7 @@ class Reservation:
         con, cur = db.open_database()
         sql = """DELETE FROM tests.rr_reservation WHERE status = '%s'"""
         cur.execute(sql, status)
+        con.commit()
         rows = cur.fetchall()
         result = []
         for row in rows:

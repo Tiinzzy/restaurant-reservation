@@ -1,0 +1,1 @@
+drop table if exists tests.rr_menu_items;
