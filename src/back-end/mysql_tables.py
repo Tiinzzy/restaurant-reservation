@@ -1,17 +1,16 @@
 from database import Database
 
-
-DROP_ROLE_TABLE_SQL = "drop table if exists tests.rr_roles"
-CREATE_ROLE_TABLE_SQL = """
-        create table tests.rr_roles (
-                id int NOT NULL AUTO_INCREMENT,
-                name varchar(100),
-                PRIMARY KEY (id)
-                )"""
 SELECT_ROLE_TABLE_COUNT_SQL = "SELECT COUNT(*) FROM tests.rr_roles"
 
 
-class Tables:
+def read_sql_file(sql_filename):
+    file = open("sql/"+sql_filename, "r")
+    content = file.read()
+    file.close()
+    return content
+
+
+class MysqlTables:
     def __init__(self):
         pass
 
@@ -19,10 +18,19 @@ class Tables:
     def create_roles(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(DROP_ROLE_TABLE_SQL)
-        cur.execute(CREATE_ROLE_TABLE_SQL)
+        cur.execute(read_sql_file('drop_roles.sql'))
+        cur.execute(read_sql_file('create_roles.sql'))
         con.commit()
         con.close()
+
+    @classmethod
+    def select_roles_count(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(SELECT_ROLE_TABLE_COUNT_SQL)
+        rows = cur.fetchall()
+        con.close()
+        return rows[0][0] if rows is not None and len(rows) == 1 else -1
 
     @classmethod
     def create_user_roles(self):
@@ -39,7 +47,7 @@ class Tables:
         con.close()
 
     @classmethod
-    def select_roles_count(self):
+    def select_user_roles_count(self):
         db = Database()
         con, cur = db.open_database()
         cur.execute(SELECT_ROLE_TABLE_COUNT_SQL)
