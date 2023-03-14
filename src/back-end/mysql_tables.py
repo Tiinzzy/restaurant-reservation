@@ -45,18 +45,8 @@ class MysqlTables:
     def create_user(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute("drop table if exists tests.rr_user")
-        create_table_sql = """
-        create tests.rr_user (
-                id int NOT NULL AUTO_INCREMENT,
-                name varchar(200),
-                lastName varchar(200),
-                email varchar(200),
-                password varchar(200),
-                birthday varchar(200),
-                PRIMARY KEY (id)
-                )"""
-        cur.execute(create_table_sql)
+        cur.execute(read_sql_file('drop_user.sql'))
+        cur.execute(read_sql_file('create_user.sql'))
         con.commit()
         con.close()
 
@@ -64,17 +54,8 @@ class MysqlTables:
     def create_menu_items(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute("drop table if exists tests.rr_menu_items")
-        create_table_sql = """
-        create tests.rr_menu_items (
-                id int NOT NULL AUTO_INCREMENT,
-                name varchar(200),
-                category varchar(200),
-                price int,
-                description varchar(200),
-                PRIMARY KEY (id)
-                )"""
-        cur.execute(create_table_sql)
+        cur.execute(read_sql_file('drop_menu_items.sql'))
+        cur.execute(read_sql_file('create_menu_items.sql'))
         con.commit()
         con.close()
 
@@ -82,17 +63,8 @@ class MysqlTables:
     def create_order_items(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute("drop table if exists tests.rr_order_items")
-        create_table_sql = """
-        create tests.rr_order_items (
-                id int NOT NULL AUTO_INCREMENT,
-                reservation_id int,
-                menu_item_id int,
-                count int,
-                total_price int,
-                comment varchar(200)
-                )"""
-        cur.execute(create_table_sql)
+        cur.execute(read_sql_file('drop_order_items.sql'))
+        cur.execute(read_sql_file('create_order_items.sql'))
         con.commit()
         con.close()
 
