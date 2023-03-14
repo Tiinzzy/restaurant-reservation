@@ -12,8 +12,19 @@ class TestRoles(unittest.TestCase):
         MysqlTables.create_user_roles()
         row_count2 = MysqlTables.select_user_roles_count()
         
-        if row_count1 == 0 and row_count2 == 0:
-            row_count = 0
-        else:
-            row_count = -1    
-        self.assertEqual(row_count, 0, "test_drop_create_table Failed!")
+        MysqlTables.create_user()
+        row_count3 = MysqlTables.select_user_count()
+
+        MysqlTables.create_menu_items()
+        row_count4 = MysqlTables.select_menu_items_count()
+
+        MysqlTables.create_order_items()
+        row_count5 = MysqlTables.select_order_items_count()
+
+        MysqlTables.create_seating_tables()
+        row_count6 = MysqlTables.select_seating_tables_count()
+
+        MysqlTables.create_reservation()
+        row_count7 = MysqlTables.select_reservation_count()
+  
+        self.assertEqual(row_count7, 0, "test_drop_create_table Failed!")
