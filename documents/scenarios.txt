@@ -1,0 +1,73 @@
+Customer -> Make Reservation:
+a.1. Customer can checks menu on website on top left corner next homepage and click on make reservation at the end of menu(after browsing our options).
+a.2. As clicking on make reservation, login pgae comes up.
+a.3. Customer logs in and is taken to make reservation page.
+a.4. Customer can make reservation by entering data and submitting. 
+
+b.1. Customer clicks on login button on top right of the page.
+b.2. Customer enters data and logs into their account.
+b.3. Customer clicks on the make reservation button.
+b.4. Customer is taken to make reservation page.
+b.5. Customer can make reservation by entering data and submitting.
+b.6. Key fields for a reservation are: date, time, number of people
+
+------------
+Customer -> Create Online Account:
+1. Customer clicks on sign up button on top right of the page.
+2. Customer is taken to page for signing up.
+3. Customer has to enter their data to create an account.
+4. After creating account, user gets email for success.
+5. Customer is taken to their page after submitting their information.
+6. Customer's home page contains these critial features: edit profile, make reservation, reservation history.
+
+------------
+Waiter -> Make Reservation:
+1. Waiter clicks on login on top right of the page.
+2. Waiter is taken to login page and will enter email and password.
+3. Waiter will be taken to their home page, where they have access to making reservations.
+4. Clicks on making reservation.
+5. Enters the customer information either by phone or walk in.
+6. Submits the data for the reservation.
+
+------------
+Waiter -> Checkin:
+1. Asks what name the reservation is under.
+2. Pull ups the reservation and markes it as arrived/cutomer-is-her.
+3. Guids the customer to their table and updates the reservation with table number.
+
+------------
+Waiter -> Order Management:
+1. Waiter clicks on login on top right of the page.
+2. Waiter is taken to login page and will enter email and password.
+3. Waiter will be taken to their home page, where they have access to making orders.
+4. Waiter goes to the customer's table
+5. Pulls up the reservation by table id not the customer name.
+6. Clicks on making orders.
+7. Enters the customers order information.
+8. Submits the data for the order.
+
+------------
+Cashier -> Bill Management:
+1. Cashier clicks on login on top right of the page.
+2. Cashier is taken to login page and will enter email and password.
+3. Cashier will be taken to their home page, where they have access to all the bills for the tables.
+4. Clicks on checking out for a selected table.
+5. Gets the total of the order amount for that table of customer.
+6. Prints the total and takes it to customer for payment.
+
+------------
+Admin -> Setup Menu:
+1. Admin clicks on login on top right of the page.
+2. Admin is taken to login page and will enter email and password.
+3. Admin is taken to their home page where they have access to fixing the menu and the items.
+4. Clicks on fixing menu button.
+5. Taken to apage where admin can make changes, add or remove menu items, prices.
+
+------------
+Admin -> User Management: 
+1. Admin clicks on login on top right of the page.
+2. Admin is taken to login page and will enter email and password.
+3. Admin is taken to their home page where they have access to adding new users(restaurant staff).
+4. Clicks on adding new staff button.
+5. Enters the data for the new employee and submits it to create account for them.
+6. Gives temporary password to the staff untill they change it.
