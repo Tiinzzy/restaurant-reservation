@@ -37,7 +37,7 @@ class Users:
     def delete(self, email):
         db = Database()
         con, cur = db.open_database()
-        sql = """DELETE FROM tests.rr_user WHERE email = '%s'"""
+        sql = """SELECT  id, name, lastName, email, birthday FROM tests.rr_user WHERE email = '%s'"""
         cur.execute(sql, email)
         rows = cur.fetchall()
         result = []
@@ -48,8 +48,16 @@ class Users:
 
     @classmethod
     def load(self, id):
-        #  return user information as dictionary
-        pass
+        db = Database()
+        con, cur = db.open_database()
+        sql = """DELETE FROM tests.rr_user WHERE email = '%s'"""
+        cur.execute(sql)
+        rows = cur.fetchall()
+        result = []
+        for row in rows:
+            result.append({'result': row[0]})
+        db.close_database()
+        return result
 
     @classmethod
     def get_users_role(self):
