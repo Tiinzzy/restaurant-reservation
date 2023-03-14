@@ -1,5 +1,5 @@
 from database import Database
-
+import create_tables_sql as create_table
 
 def read_sql_file(sql_filename):
     file = open("sql/"+sql_filename, "r")
@@ -17,7 +17,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_roles.sql'))
-        cur.execute(read_sql_file('create_roles.sql'))
+        cur.execute(create_table.roles_sql)
         con.commit()
         con.close()
 
