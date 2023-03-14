@@ -36,24 +36,10 @@ class MysqlTables:
     def create_user_roles(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute("drop table if exists tests.rr_user_roles")
-        create_table_sql = """
-        create tests.rr_user_roles (
-                user_id int,
-                role_id int
-                )"""
-        cur.execute(create_table_sql)
+        cur.execute(read_sql_file('drop_user_roles.sql'))
+        cur.execute(read_sql_file('create_user_roles.sql'))
         con.commit()
         con.close()
-
-    @classmethod
-    def select_user_roles_count(self):
-        db = Database()
-        con, cur = db.open_database()
-        cur.execute(SELECT_ROLE_TABLE_COUNT_SQL)
-        rows = cur.fetchall()
-        con.close()
-        return rows[0][0] if rows is not None and len(rows) == 1 else -1
 
     @classmethod
     def create_user(self):
