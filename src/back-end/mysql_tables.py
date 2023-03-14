@@ -69,18 +69,11 @@ class MysqlTables:
         con.close()
 
     @classmethod
-    def create_tables(self):
+    def create_seating_tables(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute("drop table if exists tests.rr_tables")
-        create_table_sql = """
-        create tests.rr_tables (
-                id int NOT NULL AUTO_INCREMENT,
-                seat_count int,
-                available varchar(20),
-                PRIMARY KEY (id)
-                )"""
-        cur.execute(create_table_sql)
+        cur.execute(read_sql_file('drop_seating_tables.sql'))
+        cur.execute(read_sql_file('create_seating_tables.sql'))
         con.commit()
         con.close()
 
@@ -90,7 +83,7 @@ class MysqlTables:
         con, cur = db.open_database()
         cur.execute("drop table if exists tests.rr_reservation")
         create_table_sql = """
-        create tests.rr_reservation (
+        create table tests.rr_reservation (
                 id int NOT NULL AUTO_INCREMENT,
                 timestamp varchar(100),
                 customer_name varchar(20),
