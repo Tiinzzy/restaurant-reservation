@@ -1,11 +1,48 @@
 import unittest
 
-from mysql_tables import Tables
+from mysql_tables import MysqlTables
 
+from users import Users
 
 class TestRoles(unittest.TestCase):
-    
+
+    def test_drop_create_roles(self):
+        MysqlTables.create_roles()
+        row_count = MysqlTables.select_roles_count()
+        self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
+
+    def test_drop_create_user_roles(self):
+        MysqlTables.create_user_roles()
+        row_count = MysqlTables.select_user_roles_count()
+        self.assertEqual(row_count, 0, "Create Table USER-ROLES Failed!")
+
     def test_drop_create_table(self):
-        Tables.create_roles()
-        row_count = Tables.select_roles_count()
-        self.assertEqual(row_count, 0, "test_drop_create_table Failed!")
+        result = Users.add('name', 'lastName', 'email', 'password', 'birthday')
+        self.assertEqual(result['count'], 1)
+        
+        result = Users.load('email')
+        self.assertEqual(result['data_row'][1], 'name')
+        self.assertEqual(result['data_row'][2], 'lastName')
+        self.assertEqual(result['data_row'][3], 'email')
+        self.assertEqual(result['data_row'][4], 'password')
+        self.assertEqual(result['data_row'][5], 'birthday')
+
+        # MysqlTables.create_user()
+        # row_count = MysqlTables.select_user_count()
+        # self.assertEqual(row_count, 0, "Create Table USER Failed!")
+
+        # MysqlTables.create_menu_items()
+        # row_count = MysqlTables.select_menu_items_count()
+        # self.assertEqual(row_count, 0, "Create Table MENU-ITEMS Failed!")
+
+        # MysqlTables.create_order_items()
+        # row_count = MysqlTables.select_order_items_count()
+        # self.assertEqual(row_count, 0, "Create Table MENU-ITEMS Failed!")
+
+        # MysqlTables.create_seating_tables()
+        # row_count = MysqlTables.select_seating_tables_count()
+        # self.assertEqual(row_count, 0, "Create Table SEATING-TABLES Failed!")
+
+        # MysqlTables.create_reservation()
+        # row_count = MysqlTables.select_reservation_count()
+        # self.assertEqual(row_count, 0, "Create Table RESERVATION Failed!")
