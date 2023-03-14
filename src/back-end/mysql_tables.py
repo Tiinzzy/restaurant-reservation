@@ -114,6 +114,16 @@ class MysqlTables:
         con.close()
 
     @classmethod
+    def select_seating_tables_count(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(read_sql_file('select_seating_tables_count.sql'))
+        rows = cur.fetchall()
+        con.close()
+        return rows[0][0] if rows is not None and len(rows) == 1 else -1        
+    
+
+    @classmethod
     def create_reservation(self):
         db = Database()
         con, cur = db.open_database()
