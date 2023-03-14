@@ -4,5 +4,6 @@ create table tests.rr_order_items (
     menu_item_id int,
     count int,
     total_price int,
-    comment varchar(200)
+    comment varchar(200),
+    PRIMARY KEY (id)
 );

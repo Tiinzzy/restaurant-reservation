@@ -12,5 +12,6 @@ create table tests.rr_reservation (
     latest_comment varchar(100),
     waiter_id int,
     total_price int,
-    tip_percent int PRIMARY KEY (id)
+    tip_percent int,
+    PRIMARY KEY (id)
 );
