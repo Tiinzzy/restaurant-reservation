@@ -12,7 +12,6 @@ class Users:
         con, cur = db.open_database()
         cur.execute(users_table.select_all_users_sql)
         rows = cur.fetchall()
-
         return rows
 
     @classmethod
