@@ -45,6 +45,7 @@ class Reservation:
 
     @classmethod
     def load(self, id):
+        self.id = id
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.load_sql, (int(id),))
@@ -80,13 +81,16 @@ class Reservation:
         return result
 
     @classmethod
-    def add_ordero_items(self):
+    def add_order_item(self, menu_item_id, count):
+        # Method 1 >> insert into order_items (reservation_id, menu_item_id, count) values (self.id, menu_item_id, count)
+        # Method 2 >> order = OrderItems()
+        #             order.add_item(reservation_id, menu_item_id, count)   
         pass
 
     @classmethod
-    def delete_ordero_items(self):
+    def delete_order_item(self, menu_item_id):        
         pass
 
     @classmethod
-    def update_ordero_items(self):
+    def update_order_items(self, menu_item_id, count):
         pass
