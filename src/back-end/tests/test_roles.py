@@ -137,9 +137,20 @@ class TestRoles(unittest.TestCase):
     def test_menu_items_class_methods(self):
         data = {'name': 'name', 'category': 'category',
                 'price': 16, 'description': 'description'}
-        
+
+        data1 = {'name': 'name', 'category': 'category',
+                 'price': 28, 'description': 'description'}
+
+        result = MenuItems.add(data1)
         result = MenuItems.add(data)
         self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+
+        result = MenuItems.select(1)
+        self.assertEqual(result['data_row'][0], 1, 'Wrong ID')
+        self.assertEqual(result['data_row'][1], 'name', 'Wrong NAME')
+        self.assertEqual(result['data_row'][2], 'category', 'Wrong CATEGORY')
+        self.assertEqual(result['data_row'][3], 16, 'Wrong PRICE')
+        self.assertEqual(result['data_row'][4], 'description', 'Wrong DESCRIPTION')
 
         result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
