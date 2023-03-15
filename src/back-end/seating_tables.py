@@ -13,7 +13,6 @@ class SeatingTables:
         con, cur = db.open_database()
         data = (int(seat_count), available)
         cur.execute(seating_tables.add_sql, data)
-        rows = cur.fetchall()
         con.commit()
         result = {'count': cur.rowcount}
         db.close_database()
@@ -24,8 +23,8 @@ class SeatingTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(seating_tables.delete_sql, (int(id),))
-        rows = cur.fetchall()
         con.commit()
+        rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
             result['data_row'] = rows[0]
