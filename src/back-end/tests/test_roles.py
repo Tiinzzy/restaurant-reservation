@@ -4,6 +4,7 @@ from mysql_tables import MysqlTables
 from users import Users
 from reservation import Reservation
 from seating_tables import SeatingTables
+from menu_items import MenuItems
 
 
 class TestRoles(unittest.TestCase):
@@ -120,14 +121,25 @@ class TestRoles(unittest.TestCase):
         result = SeatingTables.add(2, 'False')
         self.assertEqual(result['count'], 1,
                          'Couldn\'t add DATA to SEATING TABLES!')
-        
+
         result = SeatingTables.select(2)
-        self.assertEqual(result['data_row'][0], 1,'NO TABLE AVAILABLE!')
+        self.assertEqual(result['data_row'][0], 1, 'NO TABLE AVAILABLE!')
 
         result = SeatingTables.update('False', 1)
         self.assertEqual(result['count'], 1, 'Couldn\'t UPDATE table')
         result = SeatingTables.load(1)
-        self.assertEqual(result['data_row'][0], 'False', 'Wrong UPDATE HAPPENED!')
+        self.assertEqual(result['data_row'][0], 'False',
+                         'Wrong UPDATE HAPPENED!')
 
         result = SeatingTables.delete(1)
+        self.assertEqual(len(result), 0, 'Couldn\'t delete row')
+
+    def test_menu_items_class_methods(self):
+        data = {'name': 'name', 'category': 'category',
+                'price': 16, 'description': 'description'}
+        
+        result = MenuItems.add(data)
+        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+
+        result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
