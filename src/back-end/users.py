@@ -44,12 +44,12 @@ class Users:
     def delete(self, email):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT  id, name, lastName, email, birthday FROM tests.rr_user WHERE email = '%s'"""
-        cur.execute(sql, email)
+        cur.execute(users_table.delete_sql, (email,))
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append({'result': row[0]})
+        con.commit()
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
@@ -57,8 +57,7 @@ class Users:
     def load(self, email):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT * FROM tests.rr_user WHERE email = %s limit 1"""
-        cur.execute(sql, (email,))
+        cur.execute(users_table.load_sql, (email,))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
@@ -70,16 +69,10 @@ class Users:
     def get_users_role(self):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT r.name as role FROM tests.rr_user u
-                join tests.rr_user_roles ur on u.id = ur.user_id
-                join tests.rr_roles r on r.id = ur.role_id"""
-        cur.execute(sql)
+        cur.execute(users_table.users_role_sql)
         rows = cur.fetchall()
         result = []
         for row in rows:
             result.append({'user_role': row[0]})
         db.close_database()
         return result
-
-# if __name__ == "__main__":
-#     result = Users.select_all_roles()
