@@ -7,10 +7,10 @@ from users import Users
 
 class TestRoles(unittest.TestCase):
 
-    # def test_drop_create_roles(self):
-    #     MysqlTables.create_roles()
-    #     row_count = MysqlTables.select_roles_count()
-    #     self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
+    def test_drop_create_roles(self):
+        MysqlTables.create_roles()
+        row_count = MysqlTables.select_roles_count()
+        self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
 
     def test_drop_create_user_roles(self):
         MysqlTables.create_user_roles()
@@ -43,8 +43,19 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(row_count, 0, "Create Table RESERVATION Failed!")
 
     def test_select_roles(self):
-        result = Users.select_all_roles()
+        result = Users.insert_into_roles('Admin')
+        self.assertEqual(result['count'], 1)
 
+        result = Users.insert_into_roles('Customer')
+        self.assertEqual(result['count'], 1)
+
+        result = Users.insert_into_roles('Waiter')
+        self.assertEqual(result['count'], 1)
+
+        result = Users.insert_into_roles('Cashier')
+        self.assertEqual(result['count'], 1)
+
+        result = Users.select_all_roles()
         self.assertEqual(result[0][1], 'Admin')
         self.assertEqual(result[1][1], 'Customer')
         self.assertEqual(result[2][1], 'Waiter')
