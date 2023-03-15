@@ -48,16 +48,21 @@ class SeatingTables:
     def update(self, available, id):
         db = Database()
         con, cur = db.open_database()
-        sql = """UPDATE tests.rr_seating_tables
-                SET available = '%s'
-                WHERE id = '%s'"""
-        data = (available, id)
-        cur.execute(sql, data)
+        data = (available, int(id))
+        cur.execute(seating_tables.update_sql, data)
         con.commit()
+        result = {'count': cur.rowcount}
+        db.close_database()
+        return result
+
+    @classmethod
+    def load(self, id):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(seating_tables.load_sql, (int(id),))
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append(
-                {'result': row[0]})
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
