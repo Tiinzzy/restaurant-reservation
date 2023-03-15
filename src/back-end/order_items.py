@@ -1,18 +1,18 @@
 from database import Database
 
+import order_items_class_sql as order_items_table
 
 class OrderItems:
     def __init__(self):
         pass
 
     @classmethod
-    def add(self, reservation_id, menu_item_id, count, total_price, comment):
+    def add(self, info):
+        data = (int(info['reservation_id']), int(info['menu_item_id']),
+                int(info['count']), int(info['total_price']), info['comment'])
         db = Database()
         con, cur = db.open_database()
-        sql = """INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count, total_price, comment)
-                VALUES(%s,%s,%s,%s,%s)"""
-        data = (reservation_id, menu_item_id, count, total_price, comment)
-        cur.execute(sql, data)
+        cur.execute(order_items_table.add_sql, data)
         con.commit()
         result = {'count': cur.rowcount}
         db.close_database()
