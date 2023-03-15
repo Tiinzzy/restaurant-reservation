@@ -37,7 +37,6 @@ class Reservation:
         cur.execute(reservation_table.delete_sql, (status,))
         con.commit()
         rows = cur.fetchall()
-        con.commit()
         result = {}
         if len(rows) == 1:
             result['data_row'] = rows[0]
@@ -74,10 +73,9 @@ class Reservation:
         cur.execute(reservation_table.order_item_sql, (id,))
         con.commit()
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append(
-                {'menu_item_id': row[0], 'count': row[1], 'total': row[2]})
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
