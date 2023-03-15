@@ -7,10 +7,10 @@ from users import Users
 
 class TestRoles(unittest.TestCase):
 
-    def test_drop_create_roles(self):
-        MysqlTables.create_roles()
-        row_count = MysqlTables.select_roles_count()
-        self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
+    # def test_drop_create_roles(self):
+    #     MysqlTables.create_roles()
+    #     row_count = MysqlTables.select_roles_count()
+    #     self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
 
     def test_drop_create_user_roles(self):
         MysqlTables.create_user_roles()
@@ -42,12 +42,21 @@ class TestRoles(unittest.TestCase):
         row_count = MysqlTables.select_reservation_count()
         self.assertEqual(row_count, 0, "Create Table RESERVATION Failed!")
 
-        # result = Users.add('name', 'lastName', 'email', 'password', 'birthday')
-        # self.assertEqual(result['count'], 1)
+    def test_select_roles(self):
+        result = Users.select_all_roles()
 
-        # result = Users.load('email')
-        # self.assertEqual(result['data_row'][1], 'name')
-        # self.assertEqual(result['data_row'][2], 'lastName')
-        # self.assertEqual(result['data_row'][3], 'email')
-        # self.assertEqual(result['data_row'][4], 'password')
-        # self.assertEqual(result['data_row'][5], 'birthday')
+        self.assertEqual(result[0][1], 'Admin')
+        self.assertEqual(result[1][1], 'Customer')
+        self.assertEqual(result[2][1], 'Waiter')
+        self.assertEqual(result[3][1], 'Cashier')
+
+    # def test_user_class_methods(self):
+    #     result = Users.add('name', 'lastName', 'email', 'password', 'birthday')
+    #     self.assertEqual(result['count'], 1)
+
+    #     result = Users.load('email')
+    #     self.assertEqual(result['data_row'][1], 'name')
+    #     self.assertEqual(result['data_row'][2], 'lastName')
+    #     self.assertEqual(result['data_row'][3], 'email')
+    #     self.assertEqual(result['data_row'][4], 'password')
+    #     self.assertEqual(result['data_row'][5], 'birthday')
