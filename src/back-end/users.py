@@ -26,12 +26,15 @@ class Users:
         return result
 
     @classmethod
-    def add(self, name, lastName, email, password, birthday):
+    def add(self, user_info):
+        data = (user_info['name'],
+                user_info['lastName'],
+                user_info['email'],
+                user_info['password'],
+                user_info['birthday'])
         db = Database()
         con, cur = db.open_database()
-        sql = """INSERT INTO tests.rr_user (name, lastName, email, password, birthday) VALUES (%s, %s, %s, %s, %s)"""
-        data = (name, lastName, email, password, birthday)
-        cur.execute(sql, data)
+        cur.execute(users_table.add_sql, data)
         con.commit()
         result = {'count': cur.rowcount}
         db.close_database()
