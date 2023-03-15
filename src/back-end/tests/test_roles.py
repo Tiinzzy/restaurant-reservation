@@ -82,4 +82,4 @@ class TestRoles(unittest.TestCase):
                 'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status', 'latest_comment': 'latest_comment', 'waiter_id': 5,
                 'reservation_type': 'reservation_type', 'total_price': 65, 'tip_percent': 15}
         result = Reservation.add(data)
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
