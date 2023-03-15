@@ -1,5 +1,6 @@
 from database import Database
 
+import users_class_sql as users_table
 
 class Users:
     def __init__(self):
@@ -9,14 +10,10 @@ class Users:
     def select_all_roles(self):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT * FROM tests.rr_roles"""
-        cur.execute(sql)
+        cur.execute(users_table.select_all_users_sql)
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append({'all_roles': row[0]})
-        db.close_database()
-        return result
+
+        return rows
 
     @classmethod
     def add(self, name, lastName, email, password, birthday):
@@ -70,3 +67,6 @@ class Users:
             result.append({'user_role': row[0]})
         db.close_database()
         return result
+
+# if __name__ == "__main__":
+#     result = Users.select_all_roles()
