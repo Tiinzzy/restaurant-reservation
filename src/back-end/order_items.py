@@ -13,13 +13,9 @@ class OrderItems:
                 VALUES(%s,%s,%s,%s,%s)"""
         data = (reservation_id, menu_item_id, count, total_price, comment)
         cur.execute(sql, data)
-        rows = cur.fetchall()
         con.commit()
-        result = []
-        for row in rows:
-            result.append({'result': row[0]})
+        result = {'count': cur.rowcount}
         db.close_database()
-
         return result
 
     @classmethod
@@ -28,10 +24,11 @@ class OrderItems:
         con, cur = db.open_database()
         sql = """DELETE FROM tests.rr_order_items WHERE name = '%s'"""
         cur.execute(sql, name)
+        con.commit()
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append({'result': row[0]})
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
@@ -43,9 +40,9 @@ class OrderItems:
         join tests.rr_menu_items mi on mi.id = oi.menu_item_id"""
         cur.execute(sql)
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append({'name': row[0], 'category': row[1], 'price': row[2]})
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
