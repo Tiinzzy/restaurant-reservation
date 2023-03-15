@@ -61,13 +61,15 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(result[2][1], 'Waiter')
         self.assertEqual(result[3][1], 'Cashier')
 
-    # def test_user_class_methods(self):
-    #     result = Users.add('name', 'lastName', 'email', 'password', 'birthday')
-    #     self.assertEqual(result['count'], 1)
+    def test_user_class_methods(self):
+        data = {'name': 'name', 'lastName': 'lastName', 'email': 'email',
+                'password': 'password', 'birthday': 'birthday'}
+        result = Users.add(data)
+        self.assertEqual(result['count'], 1)
 
-    #     result = Users.load('email')
-    #     self.assertEqual(result['data_row'][1], 'name')
-    #     self.assertEqual(result['data_row'][2], 'lastName')
-    #     self.assertEqual(result['data_row'][3], 'email')
-    #     self.assertEqual(result['data_row'][4], 'password')
-    #     self.assertEqual(result['data_row'][5], 'birthday')
+        result = Users.load('email')
+        self.assertEqual(result['data_row'][1], 'name')
+        self.assertEqual(result['data_row'][2], 'lastName')
+        self.assertEqual(result['data_row'][3], 'email')
+        self.assertEqual(result['data_row'][4], 'password')
+        self.assertEqual(result['data_row'][5], 'birthday')
