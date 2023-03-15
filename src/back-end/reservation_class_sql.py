@@ -4,8 +4,8 @@ INSERT INTO tests.rr_reservation (timestamp, customer_name, customer_id, seat_co
 """
 
 load_sql = """
-SELECT * tests.rr_reservation
-    WHER id = %s ;
+SELECT * FROM tests.rr_reservation
+    WHERE id = %s ;
 """
 
 delete_sql = """
