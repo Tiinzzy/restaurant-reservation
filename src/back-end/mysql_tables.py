@@ -35,7 +35,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_user_roles.sql'))
-        cur.execute(read_sql_file('create_user_roles.sql'))
+        cur.execute(create_table.user_roles_sql)
         con.commit()
         con.close()
 
@@ -53,7 +53,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_user.sql'))
-        cur.execute(read_sql_file('create_user.sql'))
+        cur.execute(create_table.users_sql)
         con.commit()
         con.close()
 
@@ -71,7 +71,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_menu_items.sql'))
-        cur.execute(read_sql_file('create_menu_items.sql'))
+        cur.execute(create_table.menu_sql)
         con.commit()
         con.close()
 
@@ -89,7 +89,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_order_items.sql'))
-        cur.execute(read_sql_file('create_order_items.sql'))
+        cur.execute(create_table.order_sql)
         con.commit()
         con.close()
 
@@ -107,7 +107,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_seating_tables.sql'))
-        cur.execute(read_sql_file('create_seating_tables.sql'))
+        cur.execute(create_table.seating_sql)
         con.commit()
         con.close()
 
@@ -125,7 +125,7 @@ class MysqlTables:
         db = Database()
         con, cur = db.open_database()
         cur.execute(read_sql_file('drop_reservation.sql'))
-        cur.execute(read_sql_file('create_reservation.sql'))
+        cur.execute(create_table.reservation_sql)
         con.commit()
         con.close()
 
