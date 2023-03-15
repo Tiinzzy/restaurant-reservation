@@ -25,7 +25,7 @@ class MysqlTables:
     def select_roles_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_roles_count.sql'))
+        cur.execute(create_table.select_roles_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
@@ -43,7 +43,7 @@ class MysqlTables:
     def select_user_roles_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_user_roles_count.sql'))
+        cur.execute(create_table.select_user_roles_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
@@ -61,7 +61,7 @@ class MysqlTables:
     def select_user_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_user_count.sql'))
+        cur.execute(create_table.select_user_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
@@ -79,7 +79,7 @@ class MysqlTables:
     def select_menu_items_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_menu_items_count.sql'))
+        cur.execute(create_table.select_menu_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
@@ -97,7 +97,7 @@ class MysqlTables:
     def select_order_items_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_order_items_count.sql'))
+        cur.execute(create_table.select_order_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
@@ -115,7 +115,7 @@ class MysqlTables:
     def select_seating_tables_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_seating_tables_count.sql'))
+        cur.execute(create_table.select_seating_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
@@ -133,7 +133,7 @@ class MysqlTables:
     def select_reservation_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('select_reservation_count.sql'))
+        cur.execute(create_table.reservation_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
