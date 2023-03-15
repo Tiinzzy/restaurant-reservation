@@ -19,11 +19,10 @@ class OrderItems:
         return result
 
     @classmethod
-    def delete(self, name):
+    def delete(self, item_id):
         db = Database()
         con, cur = db.open_database()
-        sql = """DELETE FROM tests.rr_order_items WHERE name = '%s'"""
-        cur.execute(sql, name)
+        cur.execute(order_items_table.delete_sql, (int(item_id),))
         con.commit()
         rows = cur.fetchall()
         result = {}
