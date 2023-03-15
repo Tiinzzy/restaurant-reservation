@@ -8,7 +8,7 @@ from menu_items import MenuItems
 from order_items import OrderItems
 
 
-class TestRoles(unittest.TestCase):
+class TestAllClasses(unittest.TestCase):
 
     def test_drop_create_roles(self):
         MysqlTables.create_roles()
