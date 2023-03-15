@@ -123,5 +123,11 @@ class TestRoles(unittest.TestCase):
         
         result = SeatingTables.select(2)
         self.assertEqual(result['data_row'][0], 1,'NO TABLE AVAILABLE!')
-        # result = SeatingTables.delete(1)
-        # self.assertEqual(len(result), 0, 'Couldn\'t delete row')
+
+        result = SeatingTables.update('False', 1)
+        self.assertEqual(result['count'], 1, 'Couldn\'t UPDATE table')
+        result = SeatingTables.load(1)
+        self.assertEqual(result['data_row'][0], 'False', 'Wrong UPDATE HAPPENED!')
+
+        result = SeatingTables.delete(1)
+        self.assertEqual(len(result), 0, 'Couldn\'t delete row')
