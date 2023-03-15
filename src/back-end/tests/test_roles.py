@@ -1,8 +1,8 @@
 import unittest
 
 from mysql_tables import MysqlTables
-
 from users import Users
+from reservation import Reservation
 
 
 class TestRoles(unittest.TestCase):
@@ -76,3 +76,10 @@ class TestRoles(unittest.TestCase):
 
         result = Users.delete('email')
         self.assertEqual(len(result), 0, 'Didnd\'t delete the row')
+
+    def test_reservation_class_methods(self):
+        data = {'timestamp': 'timestamp', 'customer_name': 'customer_name', 'customer_id': 134, 'seat_count': 4, 'table_id': 10,
+                'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status', 'latest_comment': 'latest_comment', 'waiter_id': 5,
+                'reservation_type': 'reservation_type', 'total_price': 65, 'tip_percent': 15}
+        result = Reservation.add(data)
+        self.assertEqual(result['count'], 1)
