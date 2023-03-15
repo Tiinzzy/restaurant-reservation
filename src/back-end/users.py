@@ -3,6 +3,14 @@ from database import Database
 import users_class_sql as users_table
 
 
+class RootObject:
+    def describe(self):
+        attrs = [a for a in dir(self) if not a.startswith('__')]
+        for a in attrs:
+            if a != 'describe':
+                print(a+':', getattr(self, a))
+
+
 class Users:
     def __init__(self):
         pass
@@ -54,6 +62,15 @@ class Users:
         return result
 
     @classmethod
+    def __get_row_with_column(self, row, cursor_description):
+        columns = list(map(lambda c: c[0], cursor_description))
+        result = RootObject()
+        for i in range(len(columns)):
+            setattr(result, columns[i], row[i])
+            # result[columns[i]] = row[i]
+        return result
+
+    @classmethod
     def load(self, email):
         db = Database()
         con, cur = db.open_database()
@@ -61,7 +78,7 @@ class Users:
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result['data_row'] = rows[0]
+            result = self.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
