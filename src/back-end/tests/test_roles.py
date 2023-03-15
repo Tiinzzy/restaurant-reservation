@@ -117,3 +117,6 @@ class TestRoles(unittest.TestCase):
     def test_seating_tables_class_methods(self):
         result = SeatingTables.add(2,'True')
         self.assertEqual(result['count'], 1, 'Couldn\'t add DATA to SEATING TABLES!')
+
+        result = SeatingTables.delete(1)
+        self.assertEqual(len(result), 0, 'Couldn\'t delete row')
