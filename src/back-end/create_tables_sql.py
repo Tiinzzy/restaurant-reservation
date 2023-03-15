@@ -104,3 +104,31 @@ drop table if exists tests.rr_user_roles;
 drop_user_sql= """
 drop table if exists tests.rr_user;
 """
+
+select_menu_sql = """
+SELECT COUNT(*) FROM tests.rr_menu_items;
+"""
+
+select_order_sql = """
+SELECT COUNT(*) FROM tests.rr_order_items;
+"""
+
+select_reservation_sql = """
+SELECT COUNT(*) FROM tests.rr_reservation;
+"""
+
+select_roles_sql = """
+SELECT COUNT(*) FROM tests.rr_roles;
+"""
+
+select_seating_sql = """
+SELECT COUNT(*) FROM tests.rr_seating_tables;
+"""
+
+select_user_sql = """
+SELECT COUNT(*) FROM tests.rr_user;
+"""
+
+select_user_roles_sql = """
+SELECT COUNT(*) FROM tests.rr_user_roles;
+"""
