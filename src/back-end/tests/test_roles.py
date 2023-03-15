@@ -5,6 +5,7 @@ from users import Users
 from reservation import Reservation
 from seating_tables import SeatingTables
 from menu_items import MenuItems
+from order_items import OrderItems
 
 
 class TestRoles(unittest.TestCase):
@@ -149,8 +150,15 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(result['data_row'][0], 1, 'Wrong ID')
         self.assertEqual(result['data_row'][1], 'name', 'Wrong NAME')
         self.assertEqual(result['data_row'][2], 'category', 'Wrong CATEGORY')
-        self.assertEqual(result['data_row'][3], 16, 'Wrong PRICE')
-        self.assertEqual(result['data_row'][4], 'description', 'Wrong DESCRIPTION')
+        self.assertEqual(result['data_row'][3], 28, 'Wrong PRICE')
+        self.assertEqual(result['data_row'][4],
+                         'description', 'Wrong DESCRIPTION')
 
         result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
+
+    def test_order_items_class_methods(self):
+        data = {'reservation_id': 1, 'menu_item_id': 1,
+                'count': 3, 'total_price': 43, 'comment': 'comment'}
+        result = OrderItems.add(data)
+        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
