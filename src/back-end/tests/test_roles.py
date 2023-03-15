@@ -7,35 +7,35 @@ from users import Users
 
 class TestRoles(unittest.TestCase):
 
-    # def test_drop_create_roles(self):
-    #     MysqlTables.create_roles()
-    #     row_count = MysqlTables.select_roles_count()
-    #     self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
+    def test_drop_create_roles(self):
+        MysqlTables.create_roles()
+        row_count = MysqlTables.select_roles_count()
+        self.assertEqual(row_count, 0, "Create Table ROLES Failed!")
 
-    # def test_drop_create_user_roles(self):
-    #     MysqlTables.create_user_roles()
-    #     row_count = MysqlTables.select_user_roles_count()
-    #     self.assertEqual(row_count, 0, "Create Table USER-ROLES Failed!")
+    def test_drop_create_user_roles(self):
+        MysqlTables.create_user_roles()
+        row_count = MysqlTables.select_user_roles_count()
+        self.assertEqual(row_count, 0, "Create Table USER-ROLES Failed!")
 
-    # def test_drop_create_user(self):
-    #     MysqlTables.create_user()
-    #     row_count = MysqlTables.select_user_count()
-    #     self.assertEqual(row_count, 0, "Create Table USER Failed!")
+    def test_drop_create_user(self):
+        MysqlTables.create_user()
+        row_count = MysqlTables.select_user_count()
+        self.assertEqual(row_count, 0, "Create Table USER Failed!")
 
-    # def test_drop_create_menu_items(self):
-    #     MysqlTables.create_menu_items()
-    #     row_count = MysqlTables.select_menu_items_count()
-    #     self.assertEqual(row_count, 0, "Create Table MENU-ITEMS Failed!")
+    def test_drop_create_menu_items(self):
+        MysqlTables.create_menu_items()
+        row_count = MysqlTables.select_menu_items_count()
+        self.assertEqual(row_count, 0, "Create Table MENU-ITEMS Failed!")
 
-    # def test_drop_create_order_items(self):
-    #     MysqlTables.create_order_items()
-    #     row_count = MysqlTables.select_order_items_count()
-    #     self.assertEqual(row_count, 0, "Create Table MENU-ITEMS Failed!")
+    def test_drop_create_order_items(self):
+        MysqlTables.create_order_items()
+        row_count = MysqlTables.select_order_items_count()
+        self.assertEqual(row_count, 0, "Create Table MENU-ITEMS Failed!")
 
-    # def test_drop_create_seating_tables(self):
-    #     MysqlTables.create_seating_tables()
-    #     row_count = MysqlTables.select_seating_tables_count()
-    #     self.assertEqual(row_count, 0, "Create Table SEATING-TABLES Failed!")
+    def test_drop_create_seating_tables(self):
+        MysqlTables.create_seating_tables()
+        row_count = MysqlTables.select_seating_tables_count()
+        self.assertEqual(row_count, 0, "Create Table SEATING-TABLES Failed!")
 
     def test_drop_create_reservation(self):
         MysqlTables.create_reservation()
