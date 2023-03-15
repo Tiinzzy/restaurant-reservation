@@ -37,9 +37,10 @@ class Reservation:
         cur.execute(reservation_table.delete_sql, (status,))
         con.commit()
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append({'result': row[0]})
+        con.commit()
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
@@ -47,28 +48,22 @@ class Reservation:
     def load(self, id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.load_sql, (id,))
+        cur.execute(reservation_table.load_sql, (int(id),))
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append(
-                {'id': row[0], 'timestamp': row[1], 'customer_name': row[2], 'customer_id': row[3], 'name': row[4], 'seat_count': row[5], 'table_id': row[6],
-                 'for_date': row[7], 'for_how_long': row[8], 'status': row[9], 'latest_comment': row[10], 'waiter_id': row[11], 'total_price': row[12], 'tip_percent': row[13]})
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
     @classmethod
-    def update(self, status, id):
+    def update(self, info):
+        data = (info['status'], info['id'])
         db = Database()
         con, cur = db.open_database()
-        data = (status, id)
         cur.execute(reservation_table.update_sql, data)
         con.commit()
-        rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append(
-                {'result': row[0]})
+        result = {'count': cur.rowcount}
         db.close_database()
         return result
 
