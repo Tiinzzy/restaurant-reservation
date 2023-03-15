@@ -2,6 +2,7 @@ from database import Database
 
 import users_class_sql as users_table
 
+
 class Users:
     def __init__(self):
         pass
@@ -13,6 +14,16 @@ class Users:
         cur.execute(users_table.select_all_users_sql)
         rows = cur.fetchall()
         return rows
+
+    @classmethod
+    def insert_into_roles(self, role):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(users_table.insert_in_users_sql, (role,))
+        con.commit()
+        result = {'count': cur.rowcount}
+        db.close_database()
+        return result
 
     @classmethod
     def add(self, name, lastName, email, password, birthday):
