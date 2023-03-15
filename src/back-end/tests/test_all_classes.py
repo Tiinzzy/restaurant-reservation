@@ -59,10 +59,12 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(result['count'], 1)
 
         result = Users.select_all_roles()
-        self.assertEqual(result[0][1], 'Admin')
-        self.assertEqual(result[1][1], 'Customer')
-        self.assertEqual(result[2][1], 'Waiter')
-        self.assertEqual(result[3][1], 'Cashier')
+        roles = set(list(map(lambda x: x[1], result)))
+
+        self.assertTrue('Admin' in roles)
+        self.assertTrue('Customer' in roles)
+        self.assertTrue('Waiter' in roles)
+        self.assertTrue('Cashier' in roles)
 
     def test_user_class_methods(self):
         data = {'name': 'name', 'lastName': 'lastName', 'email': 'email',
@@ -71,11 +73,12 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(result['count'], 1)
 
         result = Users.load('email')
-        self.assertEqual(result['data_row'][1], 'name')
-        self.assertEqual(result['data_row'][2], 'lastName')
-        self.assertEqual(result['data_row'][3], 'email')
-        self.assertEqual(result['data_row'][4], 'password')
-        self.assertEqual(result['data_row'][5], 'birthday')
+        result.describe()
+        self.assertEqual(result.name, 'name')
+        self.assertEqual(result.lastName, 'lastName')
+        self.assertEqual(result.email, 'email')
+        self.assertEqual(result.password, 'password')
+        self.assertEqual(result.birthday, 'birthday')
 
         result = Users.delete('email')
         self.assertEqual(len(result), 0, 'Didnd\'t delete the row')
@@ -109,7 +112,7 @@ class TestAllClasses(unittest.TestCase):
 
         data = {'status': 'Arrived', 'id': 1}
         result = Reservation.update(data)
-        self.assertEqual(result['count'], 1, 'Couldn\'t UPDATE table')
+        self.assertEqual(result['count'], 1, "Couldn't UPDATE table")
         result = Reservation.load(1)
         self.assertEqual(result['data_row'][8], 'Arrived', 'Wrong STATUS')
 
@@ -127,7 +130,7 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(result['data_row'][0], 1, 'NO TABLE AVAILABLE!')
 
         result = SeatingTables.update('False', 1)
-        self.assertEqual(result['count'], 1, 'Couldn\'t UPDATE table')
+        self.assertEqual(result['count'], 1, "Couldn't UPDATE table")
         result = SeatingTables.load(1)
         self.assertEqual(result['data_row'][0], 'False',
                          'Wrong UPDATE HAPPENED!')
@@ -165,4 +168,3 @@ class TestAllClasses(unittest.TestCase):
 
         result = OrderItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
-
