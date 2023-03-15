@@ -22,12 +22,12 @@ class SeatingTables:
     def delete(self, id):
         db = Database()
         con, cur = db.open_database()
-        sql = """DELETE FROM tests.rr_seating_tables WHERE id = '%s'"""
-        cur.execute(sql, id)
+        cur.execute(seating_tables.delete_sql, (int(id),))
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append({'result': row[0]})
+        con.commit()
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
