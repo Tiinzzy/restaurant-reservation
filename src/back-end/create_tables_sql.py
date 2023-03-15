@@ -76,3 +76,31 @@ create table tests.rr_user (
     PRIMARY KEY (id)
 );
 """
+
+drop_menu_sql = """
+drop table if exists tests.rr_menu_items;
+"""
+
+drop_order_sql = """
+drop table if exists tests.rr_order_items;
+"""
+
+drop_reservation_sql = """
+drop table if exists tests.rr_reservation;
+"""
+
+drop_roles_sql = """
+drop table if exists tests.rr_roles;
+"""
+
+drop_seating_sql = """
+drop table if exists tests.rr_seating_tables;
+"""
+
+drop_user_roles_sql = """
+drop table if exists tests.rr_user_roles;
+"""
+
+drop_user_sql= """
+drop table if exists tests.rr_user;
+"""
