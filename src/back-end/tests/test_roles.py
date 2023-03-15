@@ -3,6 +3,7 @@ import unittest
 from mysql_tables import MysqlTables
 from users import Users
 from reservation import Reservation
+from seating_tables import SeatingTables
 
 
 class TestRoles(unittest.TestCase):
@@ -112,3 +113,7 @@ class TestRoles(unittest.TestCase):
 
         result = Reservation.delete('status')
         self.assertEqual(len(result), 0)
+
+    def test_seating_tables_class_methods(self):
+        result = SeatingTables.add(2,'True')
+        self.assertEqual(result['count'], 1, 'Couldn\'t add DATA to SEATING TABLES!')
