@@ -2,6 +2,7 @@ from database import Database
 
 import seatin_class_sql as seating_tables
 
+
 class SeatingTables:
     def __init__(self):
         pass
@@ -32,17 +33,14 @@ class SeatingTables:
         return result
 
     @classmethod
-    def select(self):
+    def select(self, seat_count):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT id, seat_count FROM tests.rr_seating_tables
-                WHER available = 'true'"""
-        cur.execute(sql)
+        cur.execute(seating_tables.select_sql, (int(seat_count),))
         rows = cur.fetchall()
-        result = []
-        for row in rows:
-            result.append(
-                {'available_tables': row[0], 'seat_count': row[1]})
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
         db.close_database()
         return result
 
