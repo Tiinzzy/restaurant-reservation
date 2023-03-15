@@ -1,1 +1,0 @@
-SELECT COUNT(*) FROM tests.rr_order_items;
