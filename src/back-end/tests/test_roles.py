@@ -73,3 +73,6 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(result['data_row'][3], 'email')
         self.assertEqual(result['data_row'][4], 'password')
         self.assertEqual(result['data_row'][5], 'birthday')
+
+        result = Users.delete('email')
+        self.assertEqual(len(result), 0, 'Didnd\'t delete the row')
