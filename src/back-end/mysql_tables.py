@@ -16,7 +16,7 @@ class MysqlTables:
     def create_roles(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_roles.sql'))
+        cur.execute(create_table.drop_roles_sql)
         cur.execute(create_table.roles_sql)
         con.commit()
         con.close()
@@ -34,7 +34,7 @@ class MysqlTables:
     def create_user_roles(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_user_roles.sql'))
+        cur.execute(create_table.drop_user_roles_sql)
         cur.execute(create_table.user_roles_sql)
         con.commit()
         con.close()
@@ -52,7 +52,7 @@ class MysqlTables:
     def create_user(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_user.sql'))
+        cur.execute(create_table.drop_user_sql)
         cur.execute(create_table.users_sql)
         con.commit()
         con.close()
@@ -70,7 +70,7 @@ class MysqlTables:
     def create_menu_items(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_menu_items.sql'))
+        cur.execute(create_table.drop_menu_sql)
         cur.execute(create_table.menu_sql)
         con.commit()
         con.close()
@@ -88,7 +88,7 @@ class MysqlTables:
     def create_order_items(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_order_items.sql'))
+        cur.execute(create_table.drop_order_sql)
         cur.execute(create_table.order_sql)
         con.commit()
         con.close()
@@ -106,7 +106,7 @@ class MysqlTables:
     def create_seating_tables(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_seating_tables.sql'))
+        cur.execute(create_table.drop_seating_sql)
         cur.execute(create_table.seating_sql)
         con.commit()
         con.close()
@@ -124,7 +124,7 @@ class MysqlTables:
     def create_reservation(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(read_sql_file('drop_reservation.sql'))
+        cur.execute(create_table.drop_reservation_sql)
         cur.execute(create_table.reservation_sql)
         con.commit()
         con.close()
