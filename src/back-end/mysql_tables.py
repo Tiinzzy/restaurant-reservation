@@ -133,7 +133,7 @@ class MysqlTables:
     def select_reservation_count(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(create_table.reservation_sql)
+        cur.execute(create_table.select_reservation_sql)
         rows = cur.fetchall()
         con.close()
         return rows[0][0] if rows is not None and len(rows) == 1 else -1
