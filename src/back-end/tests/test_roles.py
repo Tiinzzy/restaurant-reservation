@@ -162,3 +162,7 @@ class TestRoles(unittest.TestCase):
                 'count': 3, 'total_price': 43, 'comment': 'comment'}
         result = OrderItems.add(data)
         self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+
+        result = OrderItems.delete(1)
+        self.assertEqual(len(result), 0, 'Couldn\'t delete row')
+
