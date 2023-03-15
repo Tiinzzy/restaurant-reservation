@@ -35,9 +35,7 @@ class OrderItems:
     def select(self):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT mi.name as name, mi.category as category, mi.price as price FROM tests.rr_order_items oi
-        join tests.rr_menu_items mi on mi.id = oi.menu_item_id"""
-        cur.execute(sql)
+        cur.execute(order_items_table.select_sql)
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
