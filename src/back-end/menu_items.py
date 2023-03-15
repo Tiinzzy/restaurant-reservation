@@ -35,11 +35,10 @@ class MenuItems:
         return result
 
     @classmethod
-    def select(self):
+    def select(self, id):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT * FROM tests.rr_menu_items WHERE"""
-        cur.execute(sql)
+        cur.execute(menu_items_table.select_sql, (int(id),))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
