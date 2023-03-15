@@ -1,4 +1,5 @@
 from database import Database
+import reservation_class_sql as reservation_table
 
 
 class Reservation:
@@ -9,38 +10,31 @@ class Reservation:
     def add(self, user_info):
         data = (user_info['timestamp'],
                 user_info['customer_name'],
-                user_info['customer_id'],
-                user_info['name'],
-                user_info['seat_count'],
-                user_info['table_id'],
+                int(user_info['customer_id']),
+                int(user_info['seat_count']),
+                int(user_info['table_id']),
                 user_info['for_date'],
                 user_info['for_how_long'],
                 user_info['status'],
                 user_info['latest_comment'],
-                user_info['status'],
-                user_info['waiter_id'],
-                user_info['total_price'],
-                user_info['tip_percent'])
+                int(user_info['waiter_id']),
+                user_info['reservation_type'],
+                int(user_info['total_price']),
+                int(user_info['tip_percent']))
         db = Database()
         con, cur = db.open_database()
-        sql = """INSERT INTO tests.rr_reservation (timestamp, customer_name, customer_id, name, seat_count, table_id, for_date, for_how_long, status, latest_comment, waiter_id, total_price, tip_percent)
-                VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-        cur.execute(sql, data)
+        cur.execute(reservation_table.add_sql, data)
         rows = cur.fetchall()
         con.commit()
-        result = []
-        for row in rows:
-            result.append({'result': row[0]})
+        result = {'count': cur.rowcount}
         db.close_database()
-
         return result
 
     @classmethod
     def delete(self, status):
         db = Database()
         con, cur = db.open_database()
-        sql = """DELETE FROM tests.rr_reservation WHERE status = '%s'"""
-        cur.execute(sql, status)
+        cur.execute(reservation_table.delete_sql, (status,))
         con.commit()
         rows = cur.fetchall()
         result = []
@@ -53,9 +47,7 @@ class Reservation:
     def load(self, id):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT * tests.rr_reservation
-                WHER id = '%s'"""
-        cur.execute(sql, id)
+        cur.execute(reservation_table.load_sql, (id,))
         rows = cur.fetchall()
         result = []
         for row in rows:
@@ -69,11 +61,8 @@ class Reservation:
     def update(self, status, id):
         db = Database()
         con, cur = db.open_database()
-        sql = """UPDATE tests.rr_reservation
-                SET status = '%s'
-                WHERE id = '%s'"""
         data = (status, id)
-        cur.execute(sql, data)
+        cur.execute(reservation_table.update_sql, data)
         con.commit()
         rows = cur.fetchall()
         result = []
@@ -87,10 +76,7 @@ class Reservation:
     def get_ordero_items(self, id):
         db = Database()
         con, cur = db.open_database()
-        sql = """SELECT mi.id as id, mi.count as count, mi.total_price as total FROM tests.rr_reservation res
-        join tests.rr_menu_items mi on mi.reservation_id = res.id
-        WHERE res.id = '%s'"""
-        cur.execute(sql, id)
+        cur.execute(reservation_table.order_item_sql, (id,))
         con.commit()
         rows = cur.fetchall()
         result = []
