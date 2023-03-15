@@ -1,5 +1,5 @@
 from database import Database
-import create_tables_sql as create_table
+import mysql_tables_class_sql as create_table
 
 def read_sql_file(sql_filename):
     file = open("sql/"+sql_filename, "r")
