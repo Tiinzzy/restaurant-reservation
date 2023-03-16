@@ -160,15 +160,15 @@ class TestAllClasses(unittest.TestCase):
 
         result = MenuItems.add(data1)
         result = MenuItems.add(data)
-        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
 
         result = MenuItems.select(1)
-        self.assertEqual(result['data_row'][0], 1, 'Wrong ID')
-        self.assertEqual(result['data_row'][1], 'name', 'Wrong NAME')
-        self.assertEqual(result['data_row'][2], 'category', 'Wrong CATEGORY')
-        self.assertEqual(result['data_row'][3], 28, 'Wrong PRICE')
-        self.assertEqual(result['data_row'][4],
-                         'description', 'Wrong DESCRIPTION')
+        self.assertEqual(result.id, 1, 'Wrong ID')
+        self.assertEqual(result.name, 'name', 'Wrong NAME')
+        self.assertEqual(result.category, 'category', 'Wrong CATEGORY')
+        self.assertEqual(result.price, 28, 'Wrong PRICE')
+        self.assertEqual(result.description, 'description',
+                         'Wrong DESCRIPTION')
 
         result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
