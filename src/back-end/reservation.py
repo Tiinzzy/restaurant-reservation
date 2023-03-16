@@ -1,5 +1,14 @@
 from database import Database
+
 import reservation_class_sql as reservation_table
+
+
+class RootObject:
+    def describe(self):
+        attrs = [a for a in dir(self) if not a.startswith('__')]
+        for a in attrs:
+            if a != 'describe':
+                print(a+':', getattr(self, a))
 
 
 class Reservation:
@@ -44,6 +53,15 @@ class Reservation:
         return result
 
     @classmethod
+    def __get_row_with_column(self, row, cursor_description):
+        columns = list(map(lambda c: c[0], cursor_description))
+        result = RootObject()
+        for i in range(len(columns)):
+            setattr(result, columns[i], row[i])
+            # result[columns[i]] = row[i]
+        return result
+
+    @classmethod
     def load(self, id):
         self.id = id
         db = Database()
@@ -52,7 +70,7 @@ class Reservation:
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result['data_row'] = rows[0]
+            result = self.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
@@ -84,11 +102,11 @@ class Reservation:
     def add_order_item(self, menu_item_id, count):
         # Method 1 >> insert into order_items (reservation_id, menu_item_id, count) values (self.id, menu_item_id, count)
         # Method 2 >> order = OrderItems()
-        #             order.add_item(reservation_id, menu_item_id, count)   
+        #             order.add_item(reservation_id, menu_item_id, count)
         pass
 
     @classmethod
-    def delete_order_item(self, menu_item_id):        
+    def delete_order_item(self, menu_item_id):
         pass
 
     @classmethod
