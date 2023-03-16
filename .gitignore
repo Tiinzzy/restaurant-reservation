@@ -135,6 +135,8 @@ dist
 # TernJS port file
 .tern-port
 
+# pycharm
+.idea
 
 #python
 **/__pycache__
