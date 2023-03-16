@@ -101,7 +101,7 @@ drop_user_roles_sql = """
 drop table if exists tests.rr_user_roles;
 """
 
-drop_user_sql= """
+drop_user_sql = """
 drop table if exists tests.rr_user;
 """
 
