@@ -29,6 +29,11 @@ Latest commit e72c352 on Jan 30
  0 contributors
 113 lines (82 sloc)  1.65 KB
 
+
+
+#ignore these kinds of logs
+documents/*.bkp
+
 # Logs
 logs
 *.log
@@ -135,6 +140,8 @@ dist
 # TernJS port file
 .tern-port
 
+# pycharm
+.idea
 
 #python
 **/__pycache__

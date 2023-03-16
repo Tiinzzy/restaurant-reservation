@@ -6,9 +6,9 @@ import users_class_sql as users_table
 class RootObject:
     def describe(self):
         attrs = [a for a in dir(self) if not a.startswith('__')]
-        for a in attrs:
-            if a != 'describe':
-                print(a+':', getattr(self, a))
+        # for a in attrs:
+        #     if a != 'describe':
+        #         print(a+':', getattr(self, a))
 
 
 class Users:
@@ -29,7 +29,8 @@ class Users:
         con, cur = db.open_database()
         cur.execute(users_table.insert_in_users_sql, (role,))
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
         return result
 

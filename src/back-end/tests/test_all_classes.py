@@ -5,7 +5,6 @@ from users import Users
 from reservation import Reservation
 from seating_tables import SeatingTables
 from menu_items import MenuItems
-from order_items import OrderItems
 
 
 class TestAllClasses(unittest.TestCase):
@@ -47,16 +46,16 @@ class TestAllClasses(unittest.TestCase):
 
     def test_select_roles(self):
         result = Users.insert_into_roles('Admin')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.insert_into_roles('Customer')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.insert_into_roles('Waiter')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.insert_into_roles('Cashier')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.select_all_roles()
         roles = set(list(map(lambda x: x[1], result)))
@@ -84,55 +83,71 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(len(result), 0, 'Didnd\'t delete the row')
 
     def test_reservation_class_methods(self):
-        data = {'timestamp': 'timestamp', 'customer_name': 'customer_name', 'customer_id': 134, 'seat_count': 4, 'table_id': 10,
-                'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status', 'latest_comment': 'latest_comment', 'waiter_id': 5,
+        data = {'timestamp': 'timestamp', 'customer_name': 'customer_name', 'customer_id': 134, 'seat_count': 4,
+                'table_id': 10,
+                'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status',
+                'latest_comment': 'latest_comment', 'waiter_id': 5,
                 'reservation_type': 'reservation_type', 'total_price': 65, 'tip_percent': 15}
         result = Reservation.add(data)
-        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
 
         result = Reservation.load(1)
-        self.assertEqual(result['data_row'][0], 1, 'Wrong ID')
-        self.assertEqual(result['data_row'][1], 'timestamp', 'Wrong TIMESTAMP')
-        self.assertEqual(result['data_row'][2],
+        self.assertEqual(result.id, 1, 'Wrong ID')
+        self.assertEqual(result.timestamp, 'timestamp', 'Wrong TIMESTAMP')
+        self.assertEqual(result.customer_name,
                          'customer_name', 'Wrong CUSTOMER NAME')
-        self.assertEqual(result['data_row'][3], 134, 'Wrong CUSTOMER ID')
-        self.assertEqual(result['data_row'][4], 4, 'Wrong SEAT COUNT')
-        self.assertEqual(result['data_row'][5], 10, 'Wrong TABLE ID')
-        self.assertEqual(result['data_row'][6], 'for_date', 'Wrong FOR DATE')
-        self.assertEqual(result['data_row'][7],
+        self.assertEqual(result.customer_id, 134, 'Wrong CUSTOMER ID')
+        self.assertEqual(result.seat_count, 4, 'Wrong SEAT COUNT')
+        self.assertEqual(result.table_id, 10, 'Wrong TABLE ID')
+        self.assertEqual(result.for_date, 'for_date', 'Wrong FOR DATE')
+        self.assertEqual(result.for_how_long,
                          'for_how_long', 'Wrong FOR HOW LONG')
-        self.assertEqual(result['data_row'][8], 'status', 'Wrong STATUS')
-        self.assertEqual(result['data_row'][9],
+        self.assertEqual(result.status, 'status', 'Wrong STATUS')
+        self.assertEqual(result.latest_comment,
                          'latest_comment', 'Wrong LATEST COMMENT')
-        self.assertEqual(result['data_row'][10], 5, 'Wrong WAITER ID')
-        self.assertEqual(result['data_row'][11],
+        self.assertEqual(result.waiter_id, 5, 'Wrong WAITER ID')
+        self.assertEqual(result.reservation_type,
                          'reservation_type', 'Wrong RESERVATION TYPE')
-        self.assertEqual(result['data_row'][12], 65, 'Wrong TOTAL PRICE')
-        self.assertEqual(result['data_row'][13], 15, 'Wrong TIP PERCENT')
+        self.assertEqual(result.total_price, 65, 'Wrong TOTAL PRICE')
+        self.assertEqual(result.tip_percent, 15, 'Wrong TIP PERCENT')
 
         data = {'status': 'Arrived', 'id': 1}
         result = Reservation.update(data)
-        self.assertEqual(result['count'], 1, "Couldn't UPDATE table")
+        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
         result = Reservation.load(1)
-        self.assertEqual(result['data_row'][8], 'Arrived', 'Wrong STATUS')
+        self.assertEqual(result.status, 'Arrived', 'Wrong STATUS')
+
+        result = Reservation.add_order_item(1, 3)
+        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
+
+        result = Reservation.update_order_items(1, 5)
+        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
+        result = Reservation.load_order_items()
+        self.assertEqual(result.id, 1, "WRONG ID")
+        self.assertEqual(result.reservation_id, 1, "WRONG RESERVATION ID")
+        self.assertEqual(result.menu_item_id, 1, "WRONG MENU ITEM ID")
+        self.assertEqual(result.count, 5, "WRONG COUNT")
+
+        result = Reservation.delete_order_item(1)
+        self.assertEqual(len(result), 0)
 
         result = Reservation.delete('status')
         self.assertEqual(len(result), 0)
 
     def test_seating_tables_class_methods(self):
-        result = SeatingTables.add(2, 'True')
-        result = SeatingTables.add(4, 'True')
+        SeatingTables.add(2, 'True')
+        SeatingTables.add(4, 'True')
         result = SeatingTables.add(2, 'False')
-        self.assertEqual(result['count'], 1,
+        self.assertEqual(result.count, 1,
                          'Couldn\'t add DATA to SEATING TABLES!')
 
         result = SeatingTables.select(2)
-        self.assertEqual(result['data_row'][0], 1, 'NO TABLE AVAILABLE!')
+        self.assertEqual(result.id, 1, 'NO TABLE AVAILABLE!')
 
         result = SeatingTables.update('False', 1)
-        self.assertEqual(result['count'], 1, "Couldn't UPDATE table")
+        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
         result = SeatingTables.load(1)
-        self.assertEqual(result['data_row'][0], 'False',
+        self.assertEqual(result.available, 'False',
                          'Wrong UPDATE HAPPENED!')
 
         result = SeatingTables.delete(1)
@@ -145,26 +160,17 @@ class TestAllClasses(unittest.TestCase):
         data1 = {'name': 'name', 'category': 'category',
                  'price': 28, 'description': 'description'}
 
-        result = MenuItems.add(data1)
+        MenuItems.add(data1)
         result = MenuItems.add(data)
-        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
 
         result = MenuItems.select(1)
-        self.assertEqual(result['data_row'][0], 1, 'Wrong ID')
-        self.assertEqual(result['data_row'][1], 'name', 'Wrong NAME')
-        self.assertEqual(result['data_row'][2], 'category', 'Wrong CATEGORY')
-        self.assertEqual(result['data_row'][3], 28, 'Wrong PRICE')
-        self.assertEqual(result['data_row'][4],
-                         'description', 'Wrong DESCRIPTION')
+        self.assertEqual(result.id, 1, 'Wrong ID')
+        self.assertEqual(result.name, 'name', 'Wrong NAME')
+        self.assertEqual(result.category, 'category', 'Wrong CATEGORY')
+        self.assertEqual(result.price, 28, 'Wrong PRICE')
+        self.assertEqual(result.description, 'description',
+                         'Wrong DESCRIPTION')
 
         result = MenuItems.delete(1)
-        self.assertEqual(len(result), 0, 'Couldn\'t delete row')
-
-    def test_order_items_class_methods(self):
-        data = {'reservation_id': 1, 'menu_item_id': 1,
-                'count': 3, 'total_price': 43, 'comment': 'comment'}
-        result = OrderItems.add(data)
-        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
-
-        result = OrderItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')

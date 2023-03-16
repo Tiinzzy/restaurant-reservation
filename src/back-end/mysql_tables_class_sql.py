@@ -15,8 +15,6 @@ create table tests.rr_order_items (
     reservation_id int,
     menu_item_id int,
     count int,
-    total_price int,
-    comment varchar(200),
     PRIMARY KEY (id)
 );
 """
@@ -101,7 +99,7 @@ drop_user_roles_sql = """
 drop table if exists tests.rr_user_roles;
 """
 
-drop_user_sql= """
+drop_user_sql = """
 drop table if exists tests.rr_user;
 """
 

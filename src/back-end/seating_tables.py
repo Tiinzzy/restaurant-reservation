@@ -3,6 +3,14 @@ from database import Database
 import seatin_class_sql as seating_tables
 
 
+class RootObject:
+    def describe(self):
+        attrs = [a for a in dir(self) if not a.startswith('__')]
+        # for a in attrs:
+        #     if a != 'describe':
+        #         print(a+':', getattr(self, a))
+
+
 class SeatingTables:
     def __init__(self):
         pass
@@ -14,7 +22,8 @@ class SeatingTables:
         data = (int(seat_count), available)
         cur.execute(seating_tables.add_sql, data)
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
         return result
 
@@ -39,7 +48,7 @@ class SeatingTables:
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result['data_row'] = rows[0]
+            result = self.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
@@ -50,8 +59,18 @@ class SeatingTables:
         data = (available, int(id))
         cur.execute(seating_tables.update_sql, data)
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
+        return result
+
+    @classmethod
+    def __get_row_with_column(self, row, cursor_description):
+        columns = list(map(lambda c: c[0], cursor_description))
+        result = RootObject()
+        for i in range(len(columns)):
+            setattr(result, columns[i], row[i])
+            # result[columns[i]] = row[i]
         return result
 
     @classmethod
@@ -62,6 +81,6 @@ class SeatingTables:
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result['data_row'] = rows[0]
+            result = self.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
