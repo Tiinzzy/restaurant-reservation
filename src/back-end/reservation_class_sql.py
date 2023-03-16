@@ -31,3 +31,13 @@ INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
 delete_order_items_sql = """
 DELETE FROM tests.rr_order_items WHERE menu_item_id = %s ;
 """
+
+update_order_items_sql = """UPDATE tests.rr_order_items
+    SET count = %s
+    WHERE menu_item_id = %s ;
+"""
+
+load_order_items_sql ="""
+SELECT * FROM tests.rr_order_items
+    WHERE reservation_id = %s ; 
+"""
