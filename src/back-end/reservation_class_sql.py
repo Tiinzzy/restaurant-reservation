@@ -27,3 +27,7 @@ add_order_items_sql = """
 INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
     VALUES(%s,%s,%s);
 """
+
+delete_order_items_sql = """
+DELETE FROM tests.rr_order_items WHERE menu_item_id = %s ;
+"""
