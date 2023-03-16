@@ -6,9 +6,9 @@ import users_class_sql as users_table
 class RootObject:
     def describe(self):
         attrs = [a for a in dir(self) if not a.startswith('__')]
-        for a in attrs:
-            if a != 'describe':
-                print(a+':', getattr(self, a))
+        # for a in attrs:
+        #     if a != 'describe':
+        #         print(a+':', getattr(self, a))
 
 
 class Users:
