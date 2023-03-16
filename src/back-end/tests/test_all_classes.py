@@ -119,6 +119,9 @@ class TestAllClasses(unittest.TestCase):
         result = Reservation.add_order_item(1,3)
         self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
 
+        result = Reservation.delete_order_item(1)
+        self.assertEqual(len(result), 0)
+
         result = Reservation.delete('status')
         self.assertEqual(len(result), 0)
 
