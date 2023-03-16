@@ -123,14 +123,14 @@ class TestAllClasses(unittest.TestCase):
         result = SeatingTables.add(2, 'True')
         result = SeatingTables.add(4, 'True')
         result = SeatingTables.add(2, 'False')
-        self.assertEqual(result['count'], 1,
+        self.assertEqual(result.count, 1,
                          'Couldn\'t add DATA to SEATING TABLES!')
 
         result = SeatingTables.select(2)
         self.assertEqual(result.id, 1, 'NO TABLE AVAILABLE!')
 
         result = SeatingTables.update('False', 1)
-        self.assertEqual(result['count'], 1, "Couldn't UPDATE table")
+        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
         result = SeatingTables.load(1)
         self.assertEqual(result.available, 'False',
                          'Wrong UPDATE HAPPENED!')
