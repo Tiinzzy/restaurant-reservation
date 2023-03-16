@@ -22,7 +22,8 @@ class SeatingTables:
         data = (int(seat_count), available)
         cur.execute(seating_tables.add_sql, data)
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
         return result
 
@@ -58,7 +59,8 @@ class SeatingTables:
         data = (available, int(id))
         cur.execute(seating_tables.update_sql, data)
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
         return result
 
