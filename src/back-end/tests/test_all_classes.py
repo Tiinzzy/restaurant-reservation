@@ -47,16 +47,16 @@ class TestAllClasses(unittest.TestCase):
 
     def test_select_roles(self):
         result = Users.insert_into_roles('Admin')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.insert_into_roles('Customer')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.insert_into_roles('Waiter')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.insert_into_roles('Cashier')
-        self.assertEqual(result['count'], 1)
+        self.assertEqual(result.count, 1)
 
         result = Users.select_all_roles()
         roles = set(list(map(lambda x: x[1], result)))
