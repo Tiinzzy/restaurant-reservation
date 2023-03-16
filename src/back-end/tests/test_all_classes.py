@@ -83,8 +83,10 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(len(result), 0, 'Didnd\'t delete the row')
 
     def test_reservation_class_methods(self):
-        data = {'timestamp': 'timestamp', 'customer_name': 'customer_name', 'customer_id': 134, 'seat_count': 4, 'table_id': 10,
-                'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status', 'latest_comment': 'latest_comment', 'waiter_id': 5,
+        data = {'timestamp': 'timestamp', 'customer_name': 'customer_name', 'customer_id': 134, 'seat_count': 4,
+                'table_id': 10,
+                'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status',
+                'latest_comment': 'latest_comment', 'waiter_id': 5,
                 'reservation_type': 'reservation_type', 'total_price': 65, 'tip_percent': 15}
         result = Reservation.add(data)
         self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
@@ -133,8 +135,8 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(len(result), 0)
 
     def test_seating_tables_class_methods(self):
-        result = SeatingTables.add(2, 'True')
-        result = SeatingTables.add(4, 'True')
+        SeatingTables.add(2, 'True')
+        SeatingTables.add(4, 'True')
         result = SeatingTables.add(2, 'False')
         self.assertEqual(result.count, 1,
                          'Couldn\'t add DATA to SEATING TABLES!')
@@ -158,7 +160,7 @@ class TestAllClasses(unittest.TestCase):
         data1 = {'name': 'name', 'category': 'category',
                  'price': 28, 'description': 'description'}
 
-        result = MenuItems.add(data1)
+        MenuItems.add(data1)
         result = MenuItems.add(data)
         self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
 
