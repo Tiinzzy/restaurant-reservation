@@ -91,30 +91,30 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
 
         result = Reservation.load(1)
-        self.assertEqual(result['data_row'][0], 1, 'Wrong ID')
-        self.assertEqual(result['data_row'][1], 'timestamp', 'Wrong TIMESTAMP')
-        self.assertEqual(result['data_row'][2],
+        self.assertEqual(result.id, 1, 'Wrong ID')
+        self.assertEqual(result.timestamp, 'timestamp', 'Wrong TIMESTAMP')
+        self.assertEqual(result.customer_name,
                          'customer_name', 'Wrong CUSTOMER NAME')
-        self.assertEqual(result['data_row'][3], 134, 'Wrong CUSTOMER ID')
-        self.assertEqual(result['data_row'][4], 4, 'Wrong SEAT COUNT')
-        self.assertEqual(result['data_row'][5], 10, 'Wrong TABLE ID')
-        self.assertEqual(result['data_row'][6], 'for_date', 'Wrong FOR DATE')
-        self.assertEqual(result['data_row'][7],
+        self.assertEqual(result.customer_id, 134, 'Wrong CUSTOMER ID')
+        self.assertEqual(result.seat_count, 4, 'Wrong SEAT COUNT')
+        self.assertEqual(result.table_id, 10, 'Wrong TABLE ID')
+        self.assertEqual(result.for_date, 'for_date', 'Wrong FOR DATE')
+        self.assertEqual(result.for_how_long,
                          'for_how_long', 'Wrong FOR HOW LONG')
-        self.assertEqual(result['data_row'][8], 'status', 'Wrong STATUS')
-        self.assertEqual(result['data_row'][9],
+        self.assertEqual(result.status, 'status', 'Wrong STATUS')
+        self.assertEqual(result.latest_comment,
                          'latest_comment', 'Wrong LATEST COMMENT')
-        self.assertEqual(result['data_row'][10], 5, 'Wrong WAITER ID')
-        self.assertEqual(result['data_row'][11],
+        self.assertEqual(result.waiter_id, 5, 'Wrong WAITER ID')
+        self.assertEqual(result.reservation_type,
                          'reservation_type', 'Wrong RESERVATION TYPE')
-        self.assertEqual(result['data_row'][12], 65, 'Wrong TOTAL PRICE')
-        self.assertEqual(result['data_row'][13], 15, 'Wrong TIP PERCENT')
+        self.assertEqual(result.total_price, 65, 'Wrong TOTAL PRICE')
+        self.assertEqual(result.tip_percent, 15, 'Wrong TIP PERCENT')
 
         data = {'status': 'Arrived', 'id': 1}
         result = Reservation.update(data)
         self.assertEqual(result['count'], 1, "Couldn't UPDATE table")
         result = Reservation.load(1)
-        self.assertEqual(result['data_row'][8], 'Arrived', 'Wrong STATUS')
+        self.assertEqual(result.status, 'Arrived', 'Wrong STATUS')
 
         result = Reservation.delete('status')
         self.assertEqual(len(result), 0)
