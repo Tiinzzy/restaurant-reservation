@@ -101,10 +101,15 @@ class Reservation:
 
     @classmethod
     def add_order_item(self, menu_item_id, count):
-        # Method 1 >> insert into order_items (reservation_id, menu_item_id, count) values (self.id, menu_item_id, count)
-        # Method 2 >> order = OrderItems()
-        #             order.add_item(reservation_id, menu_item_id, count)
-        pass
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.add_order_items_sql,
+                    (self.id, menu_item_id, count))
+        con.commit()
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
+        db.close_database()
+        return result
 
     @classmethod
     def delete_order_item(self, menu_item_id):
