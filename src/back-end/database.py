@@ -1,5 +1,6 @@
 import mysql.connector
 
+
 class Database:
     @classmethod
     def open_database(self):
@@ -11,4 +12,3 @@ class Database:
     def close_database(self):
         Database.con.cursor().close()
         Database.con.close()
-
