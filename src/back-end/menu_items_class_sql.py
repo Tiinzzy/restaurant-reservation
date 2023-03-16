@@ -6,6 +6,7 @@ INSERT INTO tests.rr_menu_items (name, category, price, description)
 delete_sql = """
 DELETE FROM tests.rr_menu_items WHERE id = %s ; 
 """
+
 select_sql = """
 SELECT * FROM tests.rr_menu_items WHERE id = %s ; 
 """
