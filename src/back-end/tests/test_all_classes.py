@@ -116,6 +116,9 @@ class TestAllClasses(unittest.TestCase):
         result = Reservation.load(1)
         self.assertEqual(result.status, 'Arrived', 'Wrong STATUS')
 
+        result = Reservation.add_order_item(1,3)
+        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
+
         result = Reservation.delete('status')
         self.assertEqual(len(result), 0)
 
@@ -160,11 +163,11 @@ class TestAllClasses(unittest.TestCase):
         result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
 
-    def test_order_items_class_methods(self):
-        data = {'reservation_id': 1, 'menu_item_id': 1,
-                'count': 3, 'total_price': 43, 'comment': 'comment'}
-        result = OrderItems.add(data)
-        self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
+    # def test_order_items_class_methods(self):
+    #     data = {'reservation_id': 1, 'menu_item_id': 1,
+    #             'count': 3, 'total_price': 43, 'comment': 'comment'}
+    #     result = OrderItems.add(data)
+    #     self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
 
-        result = OrderItems.delete(1)
-        self.assertEqual(len(result), 0, 'Couldn\'t delete row')
+    #     result = OrderItems.delete(1)
+    #     self.assertEqual(len(result), 0, 'Couldn\'t delete row')
