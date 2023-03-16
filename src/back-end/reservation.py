@@ -126,4 +126,24 @@ class Reservation:
 
     @classmethod
     def update_order_items(self, menu_item_id, count):
-        pass
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.update_order_items_sql,
+                    (count, menu_item_id))
+        con.commit()
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
+        db.close_database()
+        return result
+
+    @classmethod
+    def load_order_items(self,):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.load_order_items_sql, (self.id,))
+        rows = cur.fetchall()
+        result = {}
+        if len(rows) == 1:
+            result = self.__get_row_with_column(rows[0], cur.description)
+        db.close_database()
+        return result
