@@ -5,7 +5,6 @@ from users import Users
 from reservation import Reservation
 from seating_tables import SeatingTables
 from menu_items import MenuItems
-from order_items import OrderItems
 
 
 class TestAllClasses(unittest.TestCase):
@@ -116,8 +115,16 @@ class TestAllClasses(unittest.TestCase):
         result = Reservation.load(1)
         self.assertEqual(result.status, 'Arrived', 'Wrong STATUS')
 
-        result = Reservation.add_order_item(1,3)
+        result = Reservation.add_order_item(1, 3)
         self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
+
+        result = Reservation.update_order_items(1, 5)
+        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
+        result = Reservation.load_order_items()
+        self.assertEqual(result.id, 1, "WRONG ID")
+        self.assertEqual(result.reservation_id, 1, "WRONG RESERVATION ID")
+        self.assertEqual(result.menu_item_id, 1, "WRONG MENU ITEM ID")
+        self.assertEqual(result.count, 5, "WRONG COUNT")
 
         result = Reservation.delete_order_item(1)
         self.assertEqual(len(result), 0)
@@ -165,12 +172,3 @@ class TestAllClasses(unittest.TestCase):
 
         result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
-
-    # def test_order_items_class_methods(self):
-    #     data = {'reservation_id': 1, 'menu_item_id': 1,
-    #             'count': 3, 'total_price': 43, 'comment': 'comment'}
-    #     result = OrderItems.add(data)
-    #     self.assertEqual(result['count'], 1, 'Couldn\'t add data to table')
-
-    #     result = OrderItems.delete(1)
-    #     self.assertEqual(len(result), 0, 'Couldn\'t delete row')
