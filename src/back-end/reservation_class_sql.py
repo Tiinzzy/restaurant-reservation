@@ -22,3 +22,8 @@ ELECT mi.id as id, mi.count as count, mi.total_price as total FROM tests.rr_rese
     join tests.rr_menu_items mi on mi.reservation_id = res.id
     WHERE res.id = %s ;
 """
+
+add_order_items_sql = """
+INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
+    VALUES(%s,%s,%s);
+"""
