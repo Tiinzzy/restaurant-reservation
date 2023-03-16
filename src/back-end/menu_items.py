@@ -4,11 +4,12 @@ import menu_items_class_sql as menu_items_table
 
 
 class RootObject:
-    def describe(self):
-        attrs = [a for a in dir(self) if not a.startswith('__')]
-        # for a in attrs:
-        #     if a != 'describe':
-        #         print(a+':', getattr(self, a))
+    @classmethod
+    def describe(cls):
+        attrs = [a for a in dir(cls) if not a.startswith('__')]
+        for a in attrs:
+            if a != 'describe':
+                print(a + ':', getattr(cls, a))
 
 
 class MenuItems:
@@ -16,7 +17,7 @@ class MenuItems:
         pass
 
     @classmethod
-    def add(self, info):
+    def add(cls, info):
         data = (info['name'],
                 info['category'],
                 info['price'],
@@ -31,10 +32,10 @@ class MenuItems:
         return result
 
     @classmethod
-    def delete(self, id):
+    def delete(cls, item_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(menu_items_table.delete_sql, (int(id),))
+        cur.execute(menu_items_table.delete_sql, (int(item_id),))
         con.commit()
         rows = cur.fetchall()
         result = {}
@@ -44,19 +45,19 @@ class MenuItems:
         return result
 
     @classmethod
-    def select(self, id):
+    def select(cls, item_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(menu_items_table.select_sql, (int(id),))
+        cur.execute(menu_items_table.select_sql, (int(item_id),))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = self.__get_row_with_column(rows[0], cur.description)
+            result = cls.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
     @classmethod
-    def __get_row_with_column(self, row, cursor_description):
+    def __get_row_with_column(cls, row, cursor_description):
         columns = list(map(lambda c: c[0], cursor_description))
         result = RootObject()
         for i in range(len(columns)):
@@ -65,5 +66,5 @@ class MenuItems:
         return result
 
     @classmethod
-    def update(self):
+    def update(cls):
         pass
