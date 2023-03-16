@@ -33,9 +33,9 @@ class Reservation:
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.add_sql, data)
-        rows = cur.fetchall()
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
         return result
 
@@ -81,7 +81,8 @@ class Reservation:
         con, cur = db.open_database()
         cur.execute(reservation_table.update_sql, data)
         con.commit()
-        result = {'count': cur.rowcount}
+        result = RootObject()
+        setattr(result, 'count', cur.rowcount)
         db.close_database()
         return result
 
