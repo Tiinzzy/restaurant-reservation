@@ -113,7 +113,16 @@ class Reservation:
 
     @classmethod
     def delete_order_item(self, menu_item_id):
-        pass
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.delete_order_items_sql, (menu_item_id,))
+        con.commit()
+        rows = cur.fetchall()
+        result = {}
+        if len(rows) == 1:
+            result['data_row'] = rows[0]
+        db.close_database()
+        return result
 
     @classmethod
     def update_order_items(self, menu_item_id, count):
