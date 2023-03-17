@@ -4,11 +4,12 @@ import users_class_sql as users_table
 
 
 class RootObject:
-    def describe(self):
-        attrs = [a for a in dir(self) if not a.startswith('__')]
-        # for a in attrs:
-        #     if a != 'describe':
-        #         print(a+':', getattr(self, a))
+    @classmethod
+    def describe(cls):
+        attrs = [a for a in dir(cls) if not a.startswith('__')]
+        for a in attrs:
+            if a != 'describe':
+                print(a+':', getattr(cls, a))
 
 
 class Users:
@@ -16,7 +17,7 @@ class Users:
         pass
 
     @classmethod
-    def select_all_roles(self):
+    def select_all_roles(cls):
         db = Database()
         con, cur = db.open_database()
         cur.execute(users_table.select_all_users_sql)
@@ -24,7 +25,7 @@ class Users:
         return rows
 
     @classmethod
-    def insert_into_roles(self, role):
+    def insert_into_roles(cls, role):
         db = Database()
         con, cur = db.open_database()
         cur.execute(users_table.insert_in_users_sql, (role,))
@@ -35,7 +36,7 @@ class Users:
         return result
 
     @classmethod
-    def add(self, user_info):
+    def add(cls, user_info):
         data = (user_info['name'],
                 user_info['lastName'],
                 user_info['email'],
@@ -50,7 +51,7 @@ class Users:
         return result
 
     @classmethod
-    def delete(self, email):
+    def delete(cls, email):
         db = Database()
         con, cur = db.open_database()
         cur.execute(users_table.delete_sql, (email,))
@@ -63,7 +64,7 @@ class Users:
         return result
 
     @classmethod
-    def __get_row_with_column(self, row, cursor_description):
+    def __get_row_with_column(cls, row, cursor_description):
         columns = list(map(lambda c: c[0], cursor_description))
         result = RootObject()
         for i in range(len(columns)):
@@ -72,19 +73,19 @@ class Users:
         return result
 
     @classmethod
-    def load(self, email):
+    def load(cls, email):
         db = Database()
         con, cur = db.open_database()
         cur.execute(users_table.load_sql, (email,))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = self.__get_row_with_column(rows[0], cur.description)
+            result = cls.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
     @classmethod
-    def get_users_role(self):
+    def get_users_role(cls):
         db = Database()
         con, cur = db.open_database()
         cur.execute(users_table.users_role_sql)
