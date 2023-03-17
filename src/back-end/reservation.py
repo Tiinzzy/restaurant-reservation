@@ -13,11 +13,15 @@ class RootObject:
 
 
 class Reservation:
+    reservation_id = -1
+
     def __init__(self):
         pass
 
-    @classmethod
-    def add(cls, user_info):
+    def get_reservation_id(self):
+        return self.reservation_id
+
+    def add(self, user_info):
         data = (user_info['timestamp'],
                 user_info['customer_name'],
                 int(user_info['customer_id']),
@@ -35,21 +39,51 @@ class Reservation:
         con, cur = db.open_database()
         cur.execute(reservation_table.add_sql, data)
         con.commit()
-        result = RootObject()
-        setattr(result, 'count', cur.rowcount)
+        self.reservation_id = cur.lastrowid if cur.rowcount == 1 else -1
+        db.close_database()
+        return self.reservation_id
+
+    def load(self, reservation_id):
+        self.reservation_id = reservation_id
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.load_sql, (self.reservation_id,))
+        rows = cur.fetchall()
+        result = None
+        if len(rows) == 1:
+            result = self.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
-    @classmethod
-    def delete(cls, status):
+    def update_status(self, user_info):
+        data = (user_info['timestamp'],
+                user_info['customer_name'],
+                int(user_info['customer_id']),
+                int(user_info['seat_count']),
+                int(user_info['table_id']),
+                user_info['for_date'],
+                user_info['for_how_long'],
+                user_info['status'],
+                user_info['latest_comment'],
+                int(user_info['waiter_id']),
+                user_info['reservation_type'],
+                int(user_info['total_price']),
+                int(user_info['tip_percent']),
+                self.reservation_id)
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.delete_sql, (status,))
+        cur.execute(reservation_table.update_sql, data)
         con.commit()
-        rows = cur.fetchall()
-        result = {}
-        if len(rows) == 1:
-            result['data_row'] = rows[0]
+        result = cur.rowcount
+        db.close_database()
+        return result
+
+    def delete(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.delete_sql, (self.reservation_id,))
+        con.commit()
+        result = cur.rowcount
         db.close_database()
         return result
 
@@ -60,31 +94,6 @@ class Reservation:
         for i in range(len(columns)):
             setattr(result, columns[i], row[i])
             # result[columns[i]] = row[i]
-        return result
-
-    @classmethod
-    def load(cls, reservation_id):
-        cls.reservation_id = reservation_id
-        db = Database()
-        con, cur = db.open_database()
-        cur.execute(reservation_table.load_sql, (int(reservation_id),))
-        rows = cur.fetchall()
-        result = {}
-        if len(rows) == 1:
-            result = cls.__get_row_with_column(rows[0], cur.description)
-        db.close_database()
-        return result
-
-    @classmethod
-    def update(cls, info):
-        data = (info['status'], info['id'])
-        db = Database()
-        con, cur = db.open_database()
-        cur.execute(reservation_table.update_sql, data)
-        con.commit()
-        result = RootObject()
-        setattr(result, 'count', cur.rowcount)
-        db.close_database()
         return result
 
     @classmethod
@@ -137,14 +146,13 @@ class Reservation:
         db.close_database()
         return result
 
-    @classmethod
-    def load_order_items(cls):
+    def load_order_items(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.load_order_items_sql, (cls.reservation_id,))
+        cur.execute(reservation_table.load_order_items_sql, (self.reservation_id,))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = cls.__get_row_with_column(rows[0], cur.description)
+            result = self.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
