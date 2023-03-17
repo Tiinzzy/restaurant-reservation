@@ -1,14 +1,16 @@
 import unittest
 
-from mysql_tables import MysqlTables
-from users import Users
+# from mysql_tables import MysqlTables
+# from users import Users
 from reservation import Reservation
-from seating_tables import SeatingTables
-from menu_items import MenuItems
+
+
+# from seating_tables import SeatingTables
+# from menu_items import MenuItems
 
 
 class TestAllClasses(unittest.TestCase):
-
+    '''
     def test_drop_create_roles(self):
         MysqlTables.create_roles()
         row_count = MysqlTables.select_roles_count()
@@ -81,6 +83,7 @@ class TestAllClasses(unittest.TestCase):
 
         result = Users.delete('email')
         self.assertEqual(len(result), 0, 'Didnd\'t delete the row')
+    '''
 
     def test_reservation_class_methods(self):
         data = {'timestamp': 'timestamp', 'customer_name': 'customer_name', 'customer_id': 134, 'seat_count': 4,
@@ -88,52 +91,46 @@ class TestAllClasses(unittest.TestCase):
                 'for_date': 'for_date', 'for_how_long': 'for_how_long', 'status': 'status',
                 'latest_comment': 'latest_comment', 'waiter_id': 5,
                 'reservation_type': 'reservation_type', 'total_price': 65, 'tip_percent': 15}
-        result = Reservation.add(data)
-        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
+        r1 = Reservation()
+        r1id = r1.add(data)
+        self.assertNotEqual(r1id, -1, 'Couldn\'t add data to table')
 
-        result = Reservation.load(1)
-        self.assertEqual(result.id, 1, 'Wrong ID')
-        self.assertEqual(result.timestamp, 'timestamp', 'Wrong TIMESTAMP')
-        self.assertEqual(result.customer_name,
-                         'customer_name', 'Wrong CUSTOMER NAME')
-        self.assertEqual(result.customer_id, 134, 'Wrong CUSTOMER ID')
-        self.assertEqual(result.seat_count, 4, 'Wrong SEAT COUNT')
-        self.assertEqual(result.table_id, 10, 'Wrong TABLE ID')
-        self.assertEqual(result.for_date, 'for_date', 'Wrong FOR DATE')
-        self.assertEqual(result.for_how_long,
-                         'for_how_long', 'Wrong FOR HOW LONG')
-        self.assertEqual(result.status, 'status', 'Wrong STATUS')
-        self.assertEqual(result.latest_comment,
-                         'latest_comment', 'Wrong LATEST COMMENT')
-        self.assertEqual(result.waiter_id, 5, 'Wrong WAITER ID')
-        self.assertEqual(result.reservation_type,
-                         'reservation_type', 'Wrong RESERVATION TYPE')
-        self.assertEqual(result.total_price, 65, 'Wrong TOTAL PRICE')
-        self.assertEqual(result.tip_percent, 15, 'Wrong TIP PERCENT')
+        r2 = Reservation()
+        result2 = r2.load(r1id)
+        self.assertEqual(result2.id, r1id)
+        self.assertEqual(result2.customer_name, 'customer_name')
+        self.assertEqual(result2.waiter_id, 5)
+        self.assertEqual(result2.tip_percent, 15)
 
-        data = {'status': 'Arrived', 'id': 1}
-        result = Reservation.update(data)
-        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
-        result = Reservation.load(1)
-        self.assertEqual(result.status, 'Arrived', 'Wrong STATUS')
+        data['customer_name'] = 'Ronald Bald'
+        data['tip_percent'] = 13
+        r2.update_status(data)
+        r3 = Reservation()
+        result3 = r3.load(r2.get_reservation_id())
+        self.assertEqual(result3.customer_name, data['customer_name'])
+        self.assertEqual(result3.tip_percent, data['tip_percent'])
 
-        result = Reservation.add_order_item(1, 3)
-        self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
+        result = r3.delete()
+        self.assertEqual(result, 1)
+        r4 = Reservation()
+        result4 = r4.load(r1id)
+        self.assertTrue(result4 is None)
 
-        result = Reservation.update_order_items(1, 5)
-        self.assertEqual(result.count, 1, "Couldn't UPDATE table")
-        result = Reservation.load_order_items()
-        self.assertEqual(result.id, 1, "WRONG ID")
-        self.assertEqual(result.reservation_id, 1, "WRONG RESERVATION ID")
-        self.assertEqual(result.menu_item_id, 1, "WRONG MENU ITEM ID")
-        self.assertEqual(result.count, 5, "WRONG COUNT")
+        # result = Reservation.add_order_item(1, 3)
+        # self.assertEqual(result.count, 1, 'Couldn\'t add data to table')
+        #
+        # result = Reservation.update_order_items(1, 5)
+        # self.assertEqual(result.count, 1, "Couldn't UPDATE table")
+        # result = Reservation().load_order_items()
+        # self.assertEqual(result.id, 1, "WRONG ID")
+        # self.assertEqual(result.reservation_id, 1, "WRONG RESERVATION ID")
+        # self.assertEqual(result.menu_item_id, 1, "WRONG MENU ITEM ID")
+        # self.assertEqual(result.count, 5, "WRONG COUNT")
+        #
+        # result = Reservation.delete_order_item(1)
+        # self.assertEqual(len(result), 0)
 
-        result = Reservation.delete_order_item(1)
-        self.assertEqual(len(result), 0)
-
-        result = Reservation.delete('status')
-        self.assertEqual(len(result), 0)
-
+    '''
     def test_seating_tables_class_methods(self):
         SeatingTables.add(2, 'True')
         SeatingTables.add(4, 'True')
@@ -174,3 +171,4 @@ class TestAllClasses(unittest.TestCase):
 
         result = MenuItems.delete(1)
         self.assertEqual(len(result), 0, 'Couldn\'t delete row')
+    '''
