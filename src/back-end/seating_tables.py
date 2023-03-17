@@ -1,6 +1,6 @@
 from database import Database
 
-import seatin_class_sql as seating_tables
+import seating_class_sql as seating_tables
 
 
 class RootObject:
