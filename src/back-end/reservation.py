@@ -4,11 +4,12 @@ import reservation_class_sql as reservation_table
 
 
 class RootObject:
-    def describe(self):
-        attrs = [a for a in dir(self) if not a.startswith('__')]
-        # for a in attrs:
-        #     if a != 'describe':
-        #         print(a+':', getattr(self, a))
+    @classmethod
+    def describe(cls):
+        attrs = [a for a in dir(cls) if not a.startswith('__')]
+        for a in attrs:
+            if a != 'describe':
+                print(a + ':', getattr(cls, a))
 
 
 class Reservation:
@@ -16,7 +17,7 @@ class Reservation:
         pass
 
     @classmethod
-    def add(self, user_info):
+    def add(cls, user_info):
         data = (user_info['timestamp'],
                 user_info['customer_name'],
                 int(user_info['customer_id']),
@@ -40,7 +41,7 @@ class Reservation:
         return result
 
     @classmethod
-    def delete(self, status):
+    def delete(cls, status):
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.delete_sql, (status,))
@@ -53,7 +54,7 @@ class Reservation:
         return result
 
     @classmethod
-    def __get_row_with_column(self, row, cursor_description):
+    def __get_row_with_column(cls, row, cursor_description):
         columns = list(map(lambda c: c[0], cursor_description))
         result = RootObject()
         for i in range(len(columns)):
@@ -62,20 +63,20 @@ class Reservation:
         return result
 
     @classmethod
-    def load(self, id):
-        self.id = id
+    def load(cls, reservation_id):
+        cls.reservation_id = reservation_id
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.load_sql, (int(id),))
+        cur.execute(reservation_table.load_sql, (int(reservation_id),))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = self.__get_row_with_column(rows[0], cur.description)
+            result = cls.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
     @classmethod
-    def update(self, info):
+    def update(cls, info):
         data = (info['status'], info['id'])
         db = Database()
         con, cur = db.open_database()
@@ -87,10 +88,10 @@ class Reservation:
         return result
 
     @classmethod
-    def get_ordero_items(self, id):
+    def get_order_items(cls, reservation_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.order_item_sql, (id,))
+        cur.execute(reservation_table.order_item_sql, (reservation_id,))
         con.commit()
         rows = cur.fetchall()
         result = {}
@@ -100,11 +101,11 @@ class Reservation:
         return result
 
     @classmethod
-    def add_order_item(self, menu_item_id, count):
+    def add_order_item(cls, menu_item_id, count):
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.add_order_items_sql,
-                    (self.id, menu_item_id, count))
+                    (cls.reservation_id, menu_item_id, count))
         con.commit()
         result = RootObject()
         setattr(result, 'count', cur.rowcount)
@@ -112,7 +113,7 @@ class Reservation:
         return result
 
     @classmethod
-    def delete_order_item(self, menu_item_id):
+    def delete_order_item(cls, menu_item_id):
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.delete_order_items_sql, (menu_item_id,))
@@ -125,7 +126,7 @@ class Reservation:
         return result
 
     @classmethod
-    def update_order_items(self, menu_item_id, count):
+    def update_order_items(cls, menu_item_id, count):
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.update_order_items_sql,
@@ -137,13 +138,13 @@ class Reservation:
         return result
 
     @classmethod
-    def load_order_items(self,):
+    def load_order_items(cls):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.load_order_items_sql, (self.id,))
+        cur.execute(reservation_table.load_order_items_sql, (cls.reservation_id,))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = self.__get_row_with_column(rows[0], cur.description)
+            result = cls.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
