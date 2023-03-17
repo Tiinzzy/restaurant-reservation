@@ -4,11 +4,12 @@ import seating_class_sql as seating_tables
 
 
 class RootObject:
-    def describe(self):
-        attrs = [a for a in dir(self) if not a.startswith('__')]
-        # for a in attrs:
-        #     if a != 'describe':
-        #         print(a+':', getattr(self, a))
+    @classmethod
+    def describe(cls):
+        attrs = [a for a in dir(cls) if not a.startswith('__')]
+        for a in attrs:
+            if a != 'describe':
+                print(a+':', getattr(cls, a))
 
 
 class SeatingTables:
@@ -16,7 +17,7 @@ class SeatingTables:
         pass
 
     @classmethod
-    def add(self, seat_count, available):
+    def add(cls, seat_count, available):
         db = Database()
         con, cur = db.open_database()
         data = (int(seat_count), available)
@@ -28,10 +29,10 @@ class SeatingTables:
         return result
 
     @classmethod
-    def delete(self, id):
+    def delete(cls, seating_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(seating_tables.delete_sql, (int(id),))
+        cur.execute(seating_tables.delete_sql, (int(seating_id),))
         con.commit()
         rows = cur.fetchall()
         result = {}
@@ -41,22 +42,22 @@ class SeatingTables:
         return result
 
     @classmethod
-    def select(self, seat_count):
+    def select(cls, seat_count):
         db = Database()
         con, cur = db.open_database()
         cur.execute(seating_tables.select_sql, (int(seat_count),))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = self.__get_row_with_column(rows[0], cur.description)
+            result = cls.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
 
     @classmethod
-    def update(self, available, id):
+    def update(cls, available, seating_id):
         db = Database()
         con, cur = db.open_database()
-        data = (available, int(id))
+        data = (available, int(seating_id))
         cur.execute(seating_tables.update_sql, data)
         con.commit()
         result = RootObject()
@@ -65,7 +66,7 @@ class SeatingTables:
         return result
 
     @classmethod
-    def __get_row_with_column(self, row, cursor_description):
+    def __get_row_with_column(cls, row, cursor_description):
         columns = list(map(lambda c: c[0], cursor_description))
         result = RootObject()
         for i in range(len(columns)):
@@ -74,13 +75,13 @@ class SeatingTables:
         return result
 
     @classmethod
-    def load(self, id):
+    def load(cls, seating_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(seating_tables.load_sql, (int(id),))
+        cur.execute(seating_tables.load_sql, (int(seating_id),))
         rows = cur.fetchall()
         result = {}
         if len(rows) == 1:
-            result = self.__get_row_with_column(rows[0], cur.description)
+            result = cls.__get_row_with_column(rows[0], cur.description)
         db.close_database()
         return result
