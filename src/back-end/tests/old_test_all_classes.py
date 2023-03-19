@@ -1,8 +1,6 @@
 import unittest
 
-from mysql_tables import MysqlTables
-from users import Users
-from reservation import Reservation
+from old_implementation.reservation import Reservation
 
 
 # from seating_tables import SeatingTables

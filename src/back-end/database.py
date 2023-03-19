@@ -2,6 +2,8 @@ import mysql.connector
 
 
 class Database:
+    MySqlError = mysql.connector.Error
+
     @classmethod
     def open_database(cls):
         Database.con = mysql.connector.connect(
