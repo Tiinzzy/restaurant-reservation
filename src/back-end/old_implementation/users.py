@@ -1,6 +1,6 @@
 from database import Database
 
-import users_class_sql as users_table
+from business import users_class_sql as users_table
 
 
 class RootObject:
