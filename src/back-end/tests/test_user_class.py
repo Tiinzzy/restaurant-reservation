@@ -33,11 +33,9 @@ class TestUserClass(unittest.TestCase):
 
         self.assertTrue(u1.get_id() is not None)
         self.assertTrue(u1.get_id() >= 0)
-        print(u1.get_id())
 
-    def test_load_user(self):
+    def test_load_and_update_user(self):
         data = User.select_all_users()
-
         if len(data) > 0:
             u1 = User()
             self.assertTrue(u1.get_id() is None)
@@ -49,6 +47,7 @@ class TestUserClass(unittest.TestCase):
             letters = string.ascii_lowercase
             new_pass_word = ''.join(random.choice(letters) for i in range(10))
             u1.set_password(new_pass_word)
+            u1.set_name("Jennifer")
             self.assertTrue(u1.update())
 
     def test_delete_user(self):
@@ -62,4 +61,39 @@ class TestUserClass(unittest.TestCase):
 
         u1.load_by_email("chuck@buymore.com")
         self.assertTrue(u1.get_email(), "chuck@buymore.com")
-        print(u1.to_string())
+
+    def test_add_user_roles(self):
+        data = User.select_all_users()
+        if len(data) > 0:
+            sample_user_id = data[0][0]
+            user = User()
+            user.load(sample_user_id)
+            self.assertEqual(user.get_id(), sample_user_id)
+
+            user.add_role("Waiter")
+            result, error = user.add_role("Waiter")
+            self.assertTrue(error is not None)
+
+            roles = user.get_roles()
+            self.assertTrue(len(roles) >= 0)
+
+            result, error = user.add_role("ADMIN")
+            self.assertTrue(error is not None)
+
+    def test_delete_user_roles(self):
+        data = User.select_all_users()
+        if len(data) > 0:
+            sample_user_id = data[0][0]
+            user = User()
+            user.load(sample_user_id)
+            self.assertEqual(user.get_id(), sample_user_id)
+
+            user.add_role("Waiter")
+            roles = user.get_roles()
+            roles = [x[1] for x in roles]
+            self.assertTrue("Waiter" in roles)
+
+            user.delete_role("Waiter")
+            roles = user.get_roles()
+            roles = [x[1] for x in roles]
+            self.assertFalse("Waiter" in roles)
