@@ -1,5 +1,5 @@
 from database import Database
-import users_class_sql as users_table
+import business.users_class_sql as users_table
 
 
 class User:
@@ -139,14 +139,41 @@ class User:
         return data
 
     def get_roles(self):
-        pass
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(users_table.select_user_roles_sql, (self.__id,))
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append((row[0], row[1]))
+        return data
 
     def add_role(self, role_name):
-        pass
+        data = (self.__id, role_name)
+        db = Database()
+        con, cur = db.open_database()
+        error = None
+        try:
+            cur.execute(users_table.insert_user_role_sql, data)
+            con.commit()
+            result = (cur.rowcount == 1)
+        except Database.MySqlError as err:
+            error = err.msg
+            result = False
 
-    @staticmethod
+        db.close_database()
+        return result, error
+
     def delete_role(self, role_name):
-        pass
+        data = (self.__id, role_name)
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(users_table.delete_user_role_sql, data)
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
 
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__email) + ', ' + str(
