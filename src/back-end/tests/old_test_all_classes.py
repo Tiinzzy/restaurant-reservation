@@ -1,7 +1,7 @@
 import unittest
 
-# from mysql_tables import MysqlTables
-# from users import Users
+from mysql_tables import MysqlTables
+from users import Users
 from reservation import Reservation
 
 
