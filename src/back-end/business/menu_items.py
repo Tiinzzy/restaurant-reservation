@@ -58,6 +58,15 @@ class MenuItems:
         db.close_database()
         return result
 
+    def delete(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(menu_items_table.delete_sql, (self.__id,))
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__category) + ', ' + str(
             self.__price) + ', ' + str(self.__description)
