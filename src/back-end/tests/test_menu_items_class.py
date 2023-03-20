@@ -71,3 +71,15 @@ class TestUserClass(unittest.TestCase):
         # print(m1)
         self.assertTrue(len(m1) >= 0)
 
+    def test_select_all_menu_items(self):
+        m1 = MenuItems.build('Fries', 'Entrees', 10, 'potato fries')
+        result = m1.add()
+        self.assertTrue(result)
+        item_id = m1.get_id()
+        self.assertTrue(item_id == m1.get_id())
+        result = MenuItems.select(item_id)
+        self.assertEqual(result[0]['id'], m1.get_id())
+        self.assertEqual(result[0]['name'], m1.get_name())
+        self.assertEqual(result[0]['category'], m1.get_category())
+        self.assertEqual(result[0]['price'], m1.get_price())
+        self.assertEqual(result[0]['description'], m1.get_description())
