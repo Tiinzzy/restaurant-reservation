@@ -73,5 +73,17 @@ class SeatingTables:
         db.close_database()
         return result
 
+    @staticmethod
+    def load():
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(seatings_tables.load_all_sql)
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append({'id': row[0], 'seat_count': row[1], 'available': row[2]})
+        return data
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__seat_count) + ', ' + str(self.__available)
