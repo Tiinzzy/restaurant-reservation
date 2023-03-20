@@ -71,15 +71,25 @@ class TestUserClass(unittest.TestCase):
         # print(m1)
         self.assertTrue(len(m1) >= 0)
 
-    def test_select_all_menu_items(self):
+    def test_select_menu_item(self):
         m1 = MenuItems.build('Fries', 'Entrees', 10, 'potato fries')
         result = m1.add()
         self.assertTrue(result)
         item_id = m1.get_id()
         self.assertTrue(item_id == m1.get_id())
-        result = MenuItems.select(item_id)
-        self.assertEqual(result[0]['id'], m1.get_id())
-        self.assertEqual(result[0]['name'], m1.get_name())
-        self.assertEqual(result[0]['category'], m1.get_category())
-        self.assertEqual(result[0]['price'], m1.get_price())
-        self.assertEqual(result[0]['description'], m1.get_description())
+        result = m1.select(item_id)
+        self.assertTrue(result)
+        self.assertEqual(m1.get_id(), item_id)
+        self.assertEqual(m1.get_name(), 'Fries')
+        self.assertEqual(m1.get_category(), 'Entrees')
+        self.assertEqual(m1.get_price(), 10)
+        self.assertEqual(m1.get_description(), 'potato fries')
+
+    def test_update_menu_item(self):
+        data = MenuItems.load()
+        sample_id = data[7]['id']
+        m1 = MenuItems()
+        m1.select(sample_id)
+        m1.set_price(67)
+        m1.set_name('Diet Coke')
+        self.assertTrue(m1.update())
