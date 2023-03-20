@@ -1,7 +1,6 @@
 from database import Database
-import business.users_class_sql as users_table
 
-
+import business.seating_tables_class_sql as seatings_tables
 class SeatingTables:
 
     def __init__(self):
@@ -30,6 +29,17 @@ class SeatingTables:
 
     def get_available(self):
         return self.__available
+
+    def add(self):
+        data = (self.__seat_count, self.__available)
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(seatings_tables.add_sql, data)
+        con.commit()
+        result = (cur.rowcount == 1)
+        self.__id = cur.lastrowid if cur.rowcount == 1 else -1
+        db.close_database()
+        return result
 
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__seat_count) + ', ' + str(self.__available)
