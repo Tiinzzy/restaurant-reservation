@@ -17,5 +17,12 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(s2.get_seat_count(), 4)
 
         s2.set_available('False')
-        self.assertEqual(s2.get_available(),'False')
+        self.assertEqual(s2.get_available(), 'False')
         print(s2.to_string())
+
+    def test_build_seating(self):
+        s1 = SeatingTables.build(2, 'True')
+        self.assertEqual(s1.get_seat_count(), 2)
+        self.assertEqual(s1.get_available(), 'True')
+
+        print(s1.to_string())
