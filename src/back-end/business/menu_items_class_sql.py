@@ -16,5 +16,6 @@ SELECT * FROM tests.rr_menu_items WHERE id = %s ;
 """
 
 update_sql = """
-UPDATE tests.rr_menu_items name = %s , category = %s , price = %s , description = %s ;
+UPDATE tests.rr_menu_items SET name = %s , category = %s , price = %s , description = %s 
+WHERE id = %s;
 """
