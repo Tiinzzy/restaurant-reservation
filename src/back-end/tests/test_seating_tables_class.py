@@ -11,3 +11,11 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(s1.get_available(), None)
 
         print(s1.to_string())
+
+        s2 = SeatingTables()
+        s2.set_seat_count(4)
+        self.assertEqual(s2.get_seat_count(), 4)
+
+        s2.set_available('False')
+        self.assertEqual(s2.get_available(),'False')
+        print(s2.to_string())
