@@ -28,8 +28,8 @@ class TestUserClass(unittest.TestCase):
         # print(s1.to_string())
 
     def test_add_seating_tables(self):
-        s1 = SeatingTables.build(6, 'True')
-        self.assertEqual(s1.get_seat_count(), 6)
+        s1 = SeatingTables.build(4, 'True')
+        self.assertEqual(s1.get_seat_count(), 4)
         self.assertEqual(s1.get_available(), 'True')
 
         s1.add()
@@ -48,6 +48,11 @@ class TestUserClass(unittest.TestCase):
         s1 = SeatingTables.build(12, 'True')
         s1.add()
         result = s1.update('False')
-        print(result, '<<<<<<<<<')
         self.assertTrue(result)
-   
+
+    def test_delete_seating_table(self):
+        s1 = SeatingTables.build(4, 'True')
+        s1.add()
+        # print(s1.to_string())
+        result = s1.delete()
+        self.assertTrue(result)
