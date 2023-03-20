@@ -67,6 +67,18 @@ class MenuItems:
         db.close_database()
         return result
 
+    @staticmethod
+    def load():
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(menu_items_table.load_sql)
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append({'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3], 'description': row[4]})
+        return data
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__category) + ', ' + str(
             self.__price) + ', ' + str(self.__description)
