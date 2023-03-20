@@ -9,6 +9,13 @@ class SeatingTables:
         self.__seat_count = None
         self.__available = None
 
+    @staticmethod
+    def build(seat_count, available):
+        seating = SeatingTables()
+        seating.__seat_count = seat_count
+        seating.__available = available
+        return seating
+
     def get_id(self):
         return self.__id
 
