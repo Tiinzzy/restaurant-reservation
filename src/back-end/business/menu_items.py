@@ -79,19 +79,33 @@ class MenuItems:
             data.append({'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3], 'description': row[4]})
         return data
 
-    @staticmethod
-    def select(item_id):
+    def select(self, item_id):
         db = Database()
         con, cur = db.open_database()
         cur.execute(menu_items_table.select_sql, (item_id,))
         rows = cur.fetchall()
         db.close_database()
-        data = []
-        for row in rows:
-            data.append({'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3], 'description': row[4]})
-        return data
 
+        if len(rows) == 1:
+            self.__id = rows[0][0]
+            self.__name = rows[0][1]
+            self.__category = rows[0][2]
+            self.__price = rows[0][3]
+            self.__description = rows[0][4]
+            return True
+        else:
+            return False
 
-def to_string(self):
-    return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__category) + ', ' + str(
-        self.__price) + ', ' + str(self.__description)
+    def update(self):
+        data = (self.__name, self.__category, self.__price, self.__description, self.__id)
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(menu_items_table.update_sql, data)
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
+    def to_string(self):
+        return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__category) + ', ' + str(
+            self.__price) + ', ' + str(self.__description)
