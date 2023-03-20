@@ -49,4 +49,19 @@ class TestUserClass(unittest.TestCase):
         result = m2.add()
         self.assertTrue(result)
         self.assertTrue(m2.get_id() is not None)
-        self.assertTrue(m2.get_id() >=0)
+        self.assertTrue(m2.get_id() >= 0)
+
+    def test_delete_menu_item(self):
+        m1 = MenuItems.build('Fries', 'Entrees', 10, 'potato fries')
+        result = m1.add()
+        self.assertTrue(result)
+        result = m1.delete()
+        self.assertTrue(result)
+
+        m2 = MenuItems()
+        m2.set_name('Salad')
+        m2.set_price(14)
+        m2.set_category('Entrees')
+        m2.set_description('caesar salad')
+        result = m2.add()
+        self.assertTrue(result)
