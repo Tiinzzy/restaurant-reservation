@@ -65,3 +65,9 @@ class TestUserClass(unittest.TestCase):
         m2.set_description('caesar salad')
         result = m2.add()
         self.assertTrue(result)
+
+    def test_load_all_menu_items(self):
+        m1 = MenuItems.load()
+        # print(m1)
+        self.assertTrue(len(m1) >= 0)
+
