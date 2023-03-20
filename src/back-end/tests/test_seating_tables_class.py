@@ -28,12 +28,17 @@ class TestUserClass(unittest.TestCase):
         # print(s1.to_string())
 
     def test_add_seating_tables(self):
-        s1 = SeatingTables.build(4, 'False')
-        self.assertEqual(s1.get_seat_count(), 4)
-        self.assertEqual(s1.get_available(), 'False')
+        s1 = SeatingTables.build(6, 'True')
+        self.assertEqual(s1.get_seat_count(), 6)
+        self.assertEqual(s1.get_available(), 'True')
 
         s1.add()
         self.assertTrue(s1.get_id() is not None)
         self.assertTrue(s1.get_id() >= 0)
 
         # print(s1.to_string())
+
+    def test_select_available_seats(self):
+        s1 = SeatingTables.select_available_seats(2)
+
+        self.assertTrue(len(s1) >= 0)
