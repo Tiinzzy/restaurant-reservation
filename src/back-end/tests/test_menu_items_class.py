@@ -38,6 +38,8 @@ class TestUserClass(unittest.TestCase):
         m1 = MenuItems.build('Pasta', 'Main Course', 25, 'rottini with meatballs')
         result = m1.add()
         self.assertTrue(result)
+        self.assertTrue(m1.get_id() is not None)
+        self.assertTrue(m1.get_id() >= 0)
 
         m2 = MenuItems()
         m2.set_name('Pizza')
@@ -46,3 +48,5 @@ class TestUserClass(unittest.TestCase):
         m2.set_description('Margharita pizza')
         result = m2.add()
         self.assertTrue(result)
+        self.assertTrue(m2.get_id() is not None)
+        self.assertTrue(m2.get_id() >=0)
