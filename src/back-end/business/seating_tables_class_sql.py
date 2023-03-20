@@ -16,3 +16,7 @@ UPDATE tests.rr_seating_tables
 delete_sql = """
 DELETE FROM tests.rr_seating_tables WHERE id = %s ;
 """
+
+load_all_sql = """
+SELECT * FROM tests.rr_seating_tables;;
+"""
