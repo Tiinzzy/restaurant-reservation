@@ -27,9 +27,22 @@ class TestUserClass(unittest.TestCase):
 
     def test_build_menu_item(self):
         m1 = MenuItems.build('Pasta', 'Main Course', 25, 'rottini with meatballs')
-        print(m1.to_string())
+        # print(m1.to_string())
 
         self.assertEqual(m1.get_name(), 'Pasta')
         self.assertEqual(m1.get_price(), 25)
         self.assertEqual(m1.get_category(), 'Main Course')
         self.assertEqual(m1.get_description(), 'rottini with meatballs')
+
+    def test_add_menu_item(self):
+        m1 = MenuItems.build('Pasta', 'Main Course', 25, 'rottini with meatballs')
+        result = m1.add()
+        self.assertTrue(result)
+
+        m2 = MenuItems()
+        m2.set_name('Pizza')
+        m2.set_price(15)
+        m2.set_category('Main Course')
+        m2.set_description('Margharita pizza')
+        result = m2.add()
+        self.assertTrue(result)
