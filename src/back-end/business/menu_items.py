@@ -6,6 +6,15 @@ class MenuItems:
         self.__price = None
         self.__description = None
 
+    @staticmethod
+    def build(name, category, price, description):
+        item = MenuItems()
+        item.__name = name
+        item.__category = category
+        item.__price = price
+        item.__description = description
+        return item
+
     def get_id(self):
         return self.__id
 
