@@ -7,11 +7,11 @@ delete_sql = """
 DELETE FROM tests.rr_menu_items WHERE id = %s ; 
 """
 
-load_sql = """
-select * from tests.rr_menu_items;
+select_all_sql = """
+select * from tests.rr_menu_items order by id limit 500;
 """
 
-select_sql = """
+laod_sql = """
 SELECT * FROM tests.rr_menu_items WHERE id = %s ; 
 """
 
