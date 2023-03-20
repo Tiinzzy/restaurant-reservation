@@ -12,3 +12,7 @@ UPDATE tests.rr_seating_tables
     SET available = %s
     WHERE id = %s ; 
 """
+
+delete_sql = """
+DELETE FROM tests.rr_seating_tables WHERE id = %s ;
+"""
