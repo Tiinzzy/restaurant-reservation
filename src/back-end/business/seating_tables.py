@@ -54,5 +54,15 @@ class SeatingTables:
         for row in rows:
             data.append((row[0]))
         return data
+
+    def update(self, available):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(seatings_tables.update_sql, (available, self.__id))
+        con.commit()
+        db.close_database()
+        result = (cur.rowcount == 1)
+        return result
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__seat_count) + ', ' + str(self.__available)
