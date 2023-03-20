@@ -56,3 +56,7 @@ class TestUserClass(unittest.TestCase):
         # print(s1.to_string())
         result = s1.delete()
         self.assertTrue(result)
+
+    def test_load_all_seating_tables(self):
+        result = SeatingTables.load()
+        self.assertTrue(len(result) >= 0)
