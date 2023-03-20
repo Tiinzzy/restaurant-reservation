@@ -1,6 +1,8 @@
 from database import Database
 
 import business.seating_tables_class_sql as seatings_tables
+
+
 class SeatingTables:
 
     def __init__(self):
@@ -41,5 +43,16 @@ class SeatingTables:
         db.close_database()
         return result
 
+    @staticmethod
+    def select_available_seats(seat_count):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(seatings_tables.select_available_sql, (seat_count,))
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append((row[0]))
+        return data
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__seat_count) + ', ' + str(self.__available)
