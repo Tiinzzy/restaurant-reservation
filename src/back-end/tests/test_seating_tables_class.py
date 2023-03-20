@@ -33,6 +33,7 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(s1.get_available(), 'True')
 
         s1.add()
+        self.assertTrue(s1.add())
         self.assertTrue(s1.get_id() is not None)
         self.assertTrue(s1.get_id() >= 0)
 
@@ -42,3 +43,11 @@ class TestUserClass(unittest.TestCase):
         s1 = SeatingTables.select_available_seats(2)
 
         self.assertTrue(len(s1) >= 0)
+
+    def test_updating_seating_tables(self):
+        s1 = SeatingTables.build(12, 'True')
+        s1.add()
+        result = s1.update('False')
+        print(result, '<<<<<<<<<')
+        self.assertTrue(result)
+   
