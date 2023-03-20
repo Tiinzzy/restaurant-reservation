@@ -60,8 +60,17 @@ class SeatingTables:
         con, cur = db.open_database()
         cur.execute(seatings_tables.update_sql, (available, self.__id))
         con.commit()
-        db.close_database()
         result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
+    def delete(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(seatings_tables.delete_sql, (self.__id,))
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
         return result
 
     def to_string(self):
