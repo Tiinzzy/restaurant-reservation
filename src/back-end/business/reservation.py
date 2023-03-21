@@ -161,6 +161,21 @@ class Reservation:
         else:
             return False
 
+    @staticmethod
+    def select_all():
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.select_all_sql)
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append({'id': row[0], 'timestamp': row[1], 'customer_name': row[2], 'customer_id': row[3],
+                         'seat_count': row[4], 'table_id': row[5], 'for_date': row[6],
+                         'for_how_long': row[7], 'status': row[8], 'comment': row[9], 'waiter_id': row[10],
+                         'reservation_type': row[11], 'total_price': row[12], 'tip_percent': row[13]})
+        return data
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
             str(self.__customer_id) + ', ' + str(self.__seat_count) + ', ' + str(self.__table_id) + ', ' + \
