@@ -1,6 +1,6 @@
 from database import Database
 
-import business.menu_items_class_sql as menu_items_table
+import business.menu_item_class_sql as menu_items_table
 
 CATEGORIES = ['Drink', 'Desert', 'Main Course', 'Entrees']
 
