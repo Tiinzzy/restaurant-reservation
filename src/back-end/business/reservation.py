@@ -220,6 +220,15 @@ class Reservation:
         db.close_database()
         return result
 
+    def update_order_item(self, food_name, count):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.delete_order_item_sql, (food_name, count, self.__id))
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
             str(self.__customer_id) + ', ' + str(self.__seat_count) + ', ' + str(self.__table_id) + ', ' + \
