@@ -4,7 +4,7 @@ from business.reservation import Reservation
 
 
 class TestUserClass(unittest.TestCase):
-    def test_new_reservation(self):
+    def test_getting_reservation(self):
         r1 = Reservation()
         self.assertEqual(r1.get_id(), None)
         self.assertEqual(r1.get_timestamp(), None)
@@ -20,4 +20,35 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(r1.get_reservation_type(), None)
         self.assertEqual(r1.get_total_price(), None)
         self.assertEqual(r1.get_tip_percent(), None)
+        # print(r1.to_string())
+
+    def test_setting_new_reservation(self):
+        r1 = Reservation()
+        self.assertEqual(r1.get_id(), None)
+        r1.set_timestamp('2023/05/21')
+        self.assertEqual(r1.get_timestamp(), '2023/05/21')
+        r1.set_customer_name('Tina')
+        self.assertEqual(r1.get_customer_name(), 'Tina')
+        r1.set_customer_id(12)
+        self.assertEqual(r1.get_customer_id(), 12)
+        r1.set_seat_count(6)
+        self.assertEqual(r1.get_seat_count(), 6)
+        r1.set_table_id(4)
+        self.assertEqual(r1.get_table_id(), 4)
+        r1.set_for_date('2021/05/28')
+        self.assertEqual(r1.get_for_date(), '2021/05/28')
+        r1.set_for_how_long(2)
+        self.assertEqual(r1.get_for_how_long(), 2)
+        r1.set_status('reserved')
+        self.assertEqual(r1.get_status(), 'reserved')
+        r1.set_latest_comment('no comment')
+        self.assertEqual(r1.get_latest_comment(), 'no comment')
+        r1.set_waiter_id(15)
+        self.assertEqual(r1.get_waiter_id(), 15)
+        r1.set_reservation_type('phone')
+        self.assertEqual(r1.get_reservation_type(), 'phone')
+        r1.set_total_price(76)
+        self.assertEqual(r1.get_total_price(), 76)
+        r1.set_tip_percent(10)
+        self.assertEqual(r1.get_tip_percent(), 10)
         print(r1.to_string())
