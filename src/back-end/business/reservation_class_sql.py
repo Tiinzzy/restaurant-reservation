@@ -18,3 +18,10 @@ UPDATE tests.rr_reservation SET timestamp = %s , customer_name = %s , customer_i
     , total_price = %s , tip_percent = %s
     WHERE id = %s ; 
 """
+
+order_items_sql = """
+SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu_item_id, oi.count as count FROM 
+    tests.rr_reservation res 
+    JOIN tests.rr_order_items oi on oi.reservation_id = res.id
+    WHERE res.id = %s ;
+"""
