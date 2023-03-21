@@ -1,6 +1,7 @@
 import unittest
 
 from business.reservation import Reservation
+from business.menu_item import MenuItem
 
 
 class TestUserClass(unittest.TestCase):
@@ -39,14 +40,14 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(r1.get_for_date(), '2021/05/28')
         r1.set_for_how_long(2)
         self.assertEqual(r1.get_for_how_long(), 2)
-        r1.set_status('reserved')
-        self.assertEqual(r1.get_status(), 'reserved')
+        r1.set_status('Reserved')
+        self.assertEqual(r1.get_status(), 'Reserved')
         r1.set_latest_comment('no comment')
         self.assertEqual(r1.get_latest_comment(), 'no comment')
         r1.set_waiter_id(15)
         self.assertEqual(r1.get_waiter_id(), 15)
-        r1.set_reservation_type('phone')
-        self.assertEqual(r1.get_reservation_type(), 'phone')
+        r1.set_reservation_type('Phone')
+        self.assertEqual(r1.get_reservation_type(), 'Phone')
         r1.set_total_price(76)
         self.assertEqual(r1.get_total_price(), 76)
         r1.set_tip_percent(10)
@@ -78,25 +79,40 @@ class TestUserClass(unittest.TestCase):
             sample_id = data[1]['id']
             r1 = Reservation()
             r1.load(sample_id)
-            # print(r1.to_string())
-
-            self.assertTrue(r1.add_order_item('Pizza', 2))
-            self.assertTrue(r1.add_order_item('Diet Coke', 2))
-            self.assertTrue(r1.add_order_item('Salad', 1))
+            result = MenuItem.select_all_menu_items()
+            if len(result) > 0:
+                sample_menu_item_id = result[-1]['id']
+                self.assertTrue(r1.add_order_item(sample_menu_item_id, 2))
 
     def test_select_all_order_items(self):
         data = Reservation.select_all()
         if len(data) > 0:
-            sample_id = data[1]['id']
+            sample_id = data[-1]['id']
             r1 = Reservation()
             r1.load(sample_id)
-            order_items = r1.get_all_order_items()
+            order_items = r1.select_all_order_items()
             self.assertTrue(len(order_items) >= 0)
 
     def test_delete_order_item(self):
         data = Reservation.select_all()
         if len(data) > 0:
-            sample_id = data[1]['id']
+            sample_id = data[0]['id']
             r1 = Reservation()
             r1.load(sample_id)
-            self.assertTrue(r1.delete_order_item('Salad'))
+            order_items = r1.select_all_order_items()
+            if len(order_items) > 0:
+                sample_menu_item_id = order_items[-1]['menu_item_id']
+                self.assertTrue(r1.delete_order_item(sample_menu_item_id))
+
+    def test_update_order_item(self):
+        data = Reservation.select_all()
+        if len(data) > 0:
+            sample_id = data[0]['id']
+            r1 = Reservation()
+            r1.load(sample_id)
+            order_items = r1.select_all_order_items()
+            if len(order_items) > 0:
+                order_item = order_items[0]
+                order_item_id = order_item['order_item_id']
+                count = order_item['count']
+                self.assertTrue(r1.update_order_item(order_item_id, (count + 1) % 5))
