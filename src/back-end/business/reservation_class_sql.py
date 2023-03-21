@@ -25,3 +25,8 @@ SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu
     JOIN tests.rr_order_items oi on oi.reservation_id = res.id
     WHERE res.id = %s ;
 """
+
+add_order_item_sql = """
+INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
+    VALUES(%s,(SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s),%s);
+"""
