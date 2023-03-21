@@ -190,7 +190,7 @@ class Reservation:
         db.close_database()
         return result
 
-    def get_all_order_items(self):
+    def select_all_order_items(self):
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.select_all_order_items_sql, (self.__id,))
