@@ -1,6 +1,10 @@
 from database import Database
 import business.reservation_class_sql as reservation_table
 
+STATUS_TYPE = ['Just walked in', 'Here sitting', 'Left', 'Completed', 'Reserved', 'Cancelled']
+
+RESERVATION_TYPE = ['Phone', 'Internet', 'In person']
+
 
 class Reservation:
 
@@ -120,7 +124,19 @@ class Reservation:
     def get_tip_percent(self):
         return self.__tip_percent
 
+    def __is_ok_to_save(self):
+        if self.__status is None or self.__status not in STATUS_TYPE:
+            return False
+
+        if self.__reservation_type is None or self.__reservation_type not in RESERVATION_TYPE:
+            return False
+
+        return True
+
     def add(self):
+        if not self.__is_ok_to_save:
+            return False
+
         data = (
             self.__timestamp, self.__customer_name, self.__customer_id, self.__seat_count, self.__table_id,
             self.__for_date,
@@ -177,6 +193,9 @@ class Reservation:
         return data
 
     def update(self):
+        if not self.__is_ok_to_save:
+            return False
+
         data = (
             self.__timestamp, self.__customer_name, self.__customer_id, self.__seat_count, self.__table_id,
             self.__for_date,
