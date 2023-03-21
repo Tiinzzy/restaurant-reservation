@@ -60,3 +60,14 @@ class TestUserClass(unittest.TestCase):
     def test_select_all_reservation(self):
         reservations = Reservation.select_all()
         self.assertTrue(len(reservations) >= 0)
+
+    def test_load_and_update_reservation(self):
+        data = Reservation.select_all()
+        if len(data) > 0:
+            sample_id = data[1]['id']
+            r1 = Reservation()
+            r1.load(sample_id)
+            old_total = r1.get_total_price()
+            r1.set_total_price(old_total * 1.02)
+            self.assertTrue(r1.update())
+            self.assertTrue(old_total != r1.get_total_price())
