@@ -11,3 +11,10 @@ SELECT * FROM tests.rr_reservation WHERE id = %s ;
 select_all_sql = """
 SELECT * FROM tests.rr_reservation order by id limit 500; 
 """
+
+update_sql = """
+UPDATE tests.rr_reservation SET timestamp = %s , customer_name = %s , customer_id = %s , seat_count = %s , table_id = %s 
+    , for_date = %s , for_how_long = %s , status = %s , latest_comment = %s , waiter_id = %s , reservation_type = %s 
+    , total_price = %s , tip_percent = %s
+    WHERE id = %s ; 
+"""
