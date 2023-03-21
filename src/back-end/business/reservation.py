@@ -202,6 +202,15 @@ class Reservation:
             data.append({'order_item_id': row[0], 'reservation_id': row[1], 'menu_item_id': row[2], 'count': row[3]})
         return data
 
+    def add_order_item(self, food_name, count):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.add_order_item_sql, (self.__id, food_name, count))
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
             str(self.__customer_id) + ', ' + str(self.__seat_count) + ', ' + str(self.__table_id) + ', ' + \
