@@ -194,7 +194,7 @@ class Reservation:
     def get_all_order_items(reservation_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.order_items_sql, (reservation_id,))
+        cur.execute(reservation_table.select_all_order_items_sql, (reservation_id,))
         rows = cur.fetchall()
         db.close_database()
         data = []
@@ -206,6 +206,15 @@ class Reservation:
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.add_order_item_sql, (self.__id, food_name, count))
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
+    def delete_order_item(self, food_name):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.delete_order_item_sql, (self.__id, food_name))
         con.commit()
         result = (cur.rowcount == 1)
         db.close_database()
