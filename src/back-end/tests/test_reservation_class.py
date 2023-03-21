@@ -78,8 +78,17 @@ class TestUserClass(unittest.TestCase):
             sample_id = data[1]['id']
             r1 = Reservation()
             r1.load(sample_id)
-            print(r1.to_string())
+            # print(r1.to_string())
 
             self.assertTrue(r1.add_order_item('Pizza', 2))
             self.assertTrue(r1.add_order_item('Diet Coke', 2))
             self.assertTrue(r1.add_order_item('Salad', 1))
+
+    def test_select_all_order_items(self):
+        data = Reservation.select_all()
+        if len(data) > 0:
+            sample_id = data[1]['id']
+            r1 = Reservation()
+            r1.load(sample_id)
+            order_items = r1.get_all_order_items()
+            self.assertTrue(len(order_items) >= 0)
