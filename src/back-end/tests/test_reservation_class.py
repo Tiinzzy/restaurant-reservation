@@ -92,3 +92,11 @@ class TestUserClass(unittest.TestCase):
             r1.load(sample_id)
             order_items = r1.get_all_order_items()
             self.assertTrue(len(order_items) >= 0)
+
+    def test_delete_order_item(self):
+        data = Reservation.select_all()
+        if len(data) > 0:
+            sample_id = data[1]['id']
+            r1 = Reservation()
+            r1.load(sample_id)
+            self.assertTrue(r1.delete_order_item('Salad'))
