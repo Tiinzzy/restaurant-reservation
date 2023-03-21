@@ -27,17 +27,13 @@ SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu
 """
 
 add_order_item_sql = """
-INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
-    VALUES(%s,(SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s LIMIT 1),%s);
+INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count) VALUES (%s, %s ,%s);
 """
 
 delete_order_item_sql = """
-DELETE FROM tests.rr_order_items WHERE reservation_id = %s 
-    AND menu_item_id = (SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s LIMIT 1);
+DELETE FROM tests.rr_order_items WHERE reservation_id = %s AND menu_item_id = %s;
 """
 
 update_order_item_sql = """
-UPDATE tests.rr_order_items SET  menu_item_id = (SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s LIMIT 1)
-    , count = %s 
-    WHERE reservation_id = %s ; 
+UPDATE tests.rr_order_items SET count = %s WHERE reservation_id = %s AND id = %s; 
 """
