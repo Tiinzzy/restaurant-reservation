@@ -2,7 +2,6 @@ from database import Database
 import business.reservation_class_sql as reservation_table
 
 STATUS_TYPE = ['Just walked in', 'Here sitting', 'Left', 'Completed', 'Reserved', 'Cancelled']
-
 RESERVATION_TYPE = ['Phone', 'Internet', 'In person']
 
 
@@ -23,25 +22,6 @@ class Reservation:
         self.__reservation_type = None
         self.__total_price = None
         self.__tip_percent = None
-
-    @staticmethod
-    def build(timestamp, customer_name, customer_id, seat_count, table_id, for_date, for_how_long, status,
-              latest_comment, waiter_id, reservation_type, total_price, tip_percent):
-        reservation = Reservation()
-        reservation.__timestamp = timestamp
-        reservation.__customer_name = customer_name
-        reservation.__customer_id = customer_id
-        reservation.__seat_count = seat_count
-        reservation.__table_id = table_id
-        reservation.__for_date = for_date
-        reservation.__for_how_long = for_how_long
-        reservation.__status = status
-        reservation.__latest_comment = latest_comment
-        reservation.__waiter_id = waiter_id
-        reservation.__reservation_type = reservation_type
-        reservation.__total_price = total_price
-        reservation.__tip_percent = tip_percent
-        return reservation
 
     def set_timestamp(self, timestamp):
         self.__timestamp = timestamp
@@ -220,28 +200,28 @@ class Reservation:
             data.append({'order_item_id': row[0], 'reservation_id': row[1], 'menu_item_id': row[2], 'count': row[3]})
         return data
 
-    def add_order_item(self, food_name, count):
+    def add_order_item(self, menu_item_id, count):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.add_order_item_sql, (self.__id, food_name, count))
+        cur.execute(reservation_table.add_order_item_sql, (self.__id, menu_item_id, count))
         con.commit()
         result = (cur.rowcount == 1)
         db.close_database()
         return result
 
-    def delete_order_item(self, food_name):
+    def delete_order_item(self, menu_item_id):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.delete_order_item_sql, (self.__id, food_name))
+        cur.execute(reservation_table.delete_order_item_sql, (self.__id, menu_item_id))
         con.commit()
         result = (cur.rowcount == 1)
         db.close_database()
         return result
 
-    def update_order_item(self, food_name, count):
+    def update_order_item(self, order_item_id, count):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.delete_order_item_sql, (food_name, count, self.__id))
+        cur.execute(reservation_table.update_order_item_sql, (count, self.__id, order_item_id))
         con.commit()
         result = (cur.rowcount == 1)
         db.close_database()
