@@ -190,11 +190,10 @@ class Reservation:
         db.close_database()
         return result
 
-    @staticmethod
-    def get_all_order_items(reservation_id):
+    def get_all_order_items(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(reservation_table.select_all_order_items_sql, (reservation_id,))
+        cur.execute(reservation_table.select_all_order_items_sql, (self.__id,))
         rows = cur.fetchall()
         db.close_database()
         data = []
