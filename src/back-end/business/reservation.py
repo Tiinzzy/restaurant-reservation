@@ -190,6 +190,18 @@ class Reservation:
         db.close_database()
         return result
 
+    @staticmethod
+    def get_all_order_items(reservation_id):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.order_items_sql, (reservation_id,))
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append({'order_item_id': row[0], 'reservation_id': row[1], 'menu_item_id': row[2], 'count': row[3]})
+        return data
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
             str(self.__customer_id) + ', ' + str(self.__seat_count) + ', ' + str(self.__table_id) + ', ' + \
