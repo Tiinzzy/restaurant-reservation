@@ -71,3 +71,15 @@ class TestUserClass(unittest.TestCase):
             r1.set_total_price(old_total * 1.02)
             self.assertTrue(r1.update())
             self.assertTrue(old_total != r1.get_total_price())
+
+    def test_add_order_item(self):
+        data = Reservation.select_all()
+        if len(data) > 0:
+            sample_id = data[1]['id']
+            r1 = Reservation()
+            r1.load(sample_id)
+            print(r1.to_string())
+
+            self.assertTrue(r1.add_order_item('Pizza', 2))
+            self.assertTrue(r1.add_order_item('Diet Coke', 2))
+            self.assertTrue(r1.add_order_item('Salad', 1))
