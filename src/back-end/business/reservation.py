@@ -176,6 +176,20 @@ class Reservation:
                          'reservation_type': row[11], 'total_price': row[12], 'tip_percent': row[13]})
         return data
 
+    def update(self):
+        data = (
+            self.__timestamp, self.__customer_name, self.__customer_id, self.__seat_count, self.__table_id,
+            self.__for_date,
+            self.__for_how_long, self.__status, self.__latest_comment, self.__waiter_id, self.__reservation_type,
+            self.__total_price, self.__tip_percent, self.__id)
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.update_sql, data)
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
             str(self.__customer_id) + ', ' + str(self.__seat_count) + ', ' + str(self.__table_id) + ', ' + \
