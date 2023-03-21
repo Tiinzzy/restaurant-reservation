@@ -19,7 +19,7 @@ UPDATE tests.rr_reservation SET timestamp = %s , customer_name = %s , customer_i
     WHERE id = %s ; 
 """
 
-order_items_sql = """
+select_all_order_items_sql = """
 SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu_item_id, oi.count as count FROM 
     tests.rr_reservation res 
     JOIN tests.rr_order_items oi on oi.reservation_id = res.id
@@ -29,4 +29,9 @@ SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu
 add_order_item_sql = """
 INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
     VALUES(%s,(SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s),%s);
+"""
+
+delete_order_item_sql = """
+DELETE FROM tests.rr_order_items WHERE reservation_id = %s 
+    AND menu_item_id = (SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s) ;
 """
