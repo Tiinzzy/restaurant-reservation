@@ -1,6 +1,6 @@
 class Reservation:
 
-    def __int__(self):
+    def __init__(self):
         self.__id = None
         self.__timestamp = None
         self.__customer_name = None
@@ -34,6 +34,45 @@ class Reservation:
         reservation.__total_price = total_price
         reservation.__tip_percent = tip_percent
         return reservation
+
+    def set_timestamp(self, timestamp):
+        self.__timestamp = timestamp
+
+    def set_customer_name(self, customer_name):
+        self.__customer_name = customer_name
+
+    def set_customer_id(self, customer_id):
+        self.__customer_id = customer_id
+
+    def set_seat_count(self, seat_count):
+        self.__seat_count = seat_count
+
+    def set_table_id(self, table_id):
+        self.__table_id = table_id
+
+    def set_for_date(self, for_date):
+        self.__for_date = for_date
+
+    def set_for_how_long(self, for_how_long):
+        self.__for_how_long = for_how_long
+
+    def set_status(self, status):
+        self.__status = status
+
+    def set_latest_comment(self, latest_comment):
+        self.__latest_comment = latest_comment
+
+    def set_waiter_id(self, waiter_id):
+        self.__waiter_id = waiter_id
+
+    def set_reservation_type(self, reservation_type):
+        self.__reservation_type = reservation_type
+
+    def set_total_price(self, total_price):
+        self.__total_price = total_price
+
+    def set_tip_percent(self, tip_percent):
+        self.__tip_percent = tip_percent
 
     def get_id(self):
         return self.__id
