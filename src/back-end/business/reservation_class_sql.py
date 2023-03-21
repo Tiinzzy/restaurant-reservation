@@ -33,5 +33,10 @@ INSERT INTO tests.rr_order_items (reservation_id, menu_item_id, count)
 
 delete_order_item_sql = """
 DELETE FROM tests.rr_order_items WHERE reservation_id = %s 
-    AND menu_item_id = (SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s) ;
+    AND menu_item_id = (SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s);
+"""
+
+update_order_item_sql = """
+UPDATE tests.rr_order_items SET  menu_item_id = (SELECT id FROM tests.rr_menu_items mi WHERE mi.name = %s), count = %s
+    WHERE reservation_id = %s ; 
 """
