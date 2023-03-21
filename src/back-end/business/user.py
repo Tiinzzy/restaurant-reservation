@@ -1,6 +1,8 @@
 from database import Database
 import business.users_class_sql as users_table
 
+ROLES = ['Admin', 'Customer', 'Waiter', 'Cashier']
+
 
 class User:
 
@@ -150,6 +152,9 @@ class User:
         return data
 
     def add_role(self, role_name):
+        if role_name is None or role_name not in ROLES:
+            return False
+
         data = (self.__id, role_name)
         db = Database()
         con, cur = db.open_database()

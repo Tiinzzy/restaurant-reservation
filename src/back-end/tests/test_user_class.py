@@ -77,7 +77,7 @@ class TestUserClass(unittest.TestCase):
             roles = user.get_roles()
             self.assertTrue(len(roles) >= 0)
 
-            result, error = user.add_role("ADMIN")
+            result, error = user.add_role("Admin")
             self.assertTrue(error is not None)
 
     def test_delete_user_roles(self):
