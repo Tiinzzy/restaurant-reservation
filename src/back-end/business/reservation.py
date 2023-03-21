@@ -122,9 +122,10 @@ class Reservation:
 
     def add(self):
         data = (
-        self.__timestamp, self.__customer_name, self.__customer_id, self.__seat_count, self.__table_id, self.__for_date,
-        self.__for_how_long, self.__status, self.__latest_comment, self.__waiter_id, self.__reservation_type,
-        self.__total_price, self.__tip_percent)
+            self.__timestamp, self.__customer_name, self.__customer_id, self.__seat_count, self.__table_id,
+            self.__for_date,
+            self.__for_how_long, self.__status, self.__latest_comment, self.__waiter_id, self.__reservation_type,
+            self.__total_price, self.__tip_percent)
         db = Database()
         con, cur = db.open_database()
         cur.execute(reservation_table.add_sql, data)
@@ -133,6 +134,32 @@ class Reservation:
         self.__id = cur.lastrowid if cur.rowcount == 1 else -1
         db.close_database()
         return result
+
+    def load(self, reservation_id):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.load_sql, (reservation_id,))
+        rows = cur.fetchall()
+        db.close_database()
+
+        if len(rows) == 1:
+            self.__id = rows[0][0]
+            self.__timestamp = rows[0][1]
+            self.__customer_name = rows[0][2]
+            self.__customer_id = rows[0][3]
+            self.__seat_count = rows[0][4]
+            self.__table_id = rows[0][5]
+            self.__for_date = rows[0][6]
+            self.__for_how_long = rows[0][7]
+            self.__status = rows[0][8]
+            self.__latest_comment = rows[0][9]
+            self.__waiter_id = rows[0][10]
+            self.__reservation_type = rows[0][11]
+            self.__total_price = rows[0][12]
+            self.__tip_percent = rows[0][13]
+            return True
+        else:
+            return False
 
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
