@@ -22,7 +22,7 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(r1.get_tip_percent(), None)
         # print(r1.to_string())
 
-    def test_setting_new_reservation(self):
+    def test_adding_new_reservation(self):
         r1 = Reservation()
         self.assertEqual(r1.get_id(), None)
         r1.set_timestamp('2023/05/21')
@@ -51,4 +51,8 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(r1.get_total_price(), 76)
         r1.set_tip_percent(10)
         self.assertEqual(r1.get_tip_percent(), 10)
-        print(r1.to_string())
+        # print(r1.to_string()
+
+        r1.add()
+        self.assertTrue(r1.get_id() is not None)
+        self.assertTrue(r1.get_id() >= 0)
