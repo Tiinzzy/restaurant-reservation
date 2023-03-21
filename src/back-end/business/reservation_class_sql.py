@@ -7,3 +7,7 @@ INSERT INTO tests.rr_reservation (timestamp, customer_name, customer_id, seat_co
 load_sql = """
 SELECT * FROM tests.rr_reservation WHERE id = %s ; 
 """
+
+select_all_sql = """
+SELECT * FROM tests.rr_reservation order by id limit 500; 
+"""
