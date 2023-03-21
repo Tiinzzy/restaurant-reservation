@@ -56,3 +56,7 @@ class TestUserClass(unittest.TestCase):
         r1.add()
         self.assertTrue(r1.get_id() is not None)
         self.assertTrue(r1.get_id() >= 0)
+
+    def test_select_all_reservation(self):
+        reservations = Reservation.select_all()
+        self.assertTrue(len(reservations) >= 0)
