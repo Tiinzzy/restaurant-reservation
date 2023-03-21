@@ -1,3 +1,7 @@
+from database import Database
+import business.reservation_class_sql as reservation_table
+
+
 class Reservation:
 
     def __init__(self):
@@ -115,6 +119,20 @@ class Reservation:
 
     def get_tip_percent(self):
         return self.__tip_percent
+
+    def add(self):
+        data = (
+        self.__timestamp, self.__customer_name, self.__customer_id, self.__seat_count, self.__table_id, self.__for_date,
+        self.__for_how_long, self.__status, self.__latest_comment, self.__waiter_id, self.__reservation_type,
+        self.__total_price, self.__tip_percent)
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(reservation_table.add_sql, data)
+        con.commit()
+        result = (cur.rowcount == 1)
+        self.__id = cur.lastrowid if cur.rowcount == 1 else -1
+        db.close_database()
+        return result
 
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__timestamp) + ', ' + str(self.__customer_name) + ', ' + \
