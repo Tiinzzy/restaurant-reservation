@@ -187,3 +187,9 @@ def add_reservation():
 
     result = reservation.add()
     return jsonify(result)
+
+
+@app.route('/get-all-reservations', methods=["POST"])
+def get_all_reservations():
+    reservations = Reservation.select_all()
+    return jsonify(reservations)
