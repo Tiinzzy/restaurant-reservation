@@ -115,3 +115,9 @@ def select_available_seats():
 
     result = SeatingTable.select_available_seats(int(seat_count))
     return jsonify(result)
+
+
+@app.route('/get-all-seating-tables', methods=["POST"])
+def get_all_seating_tables():
+    result = SeatingTable.select_all_seating_tables()
+    return jsonify(result)
