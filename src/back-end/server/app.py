@@ -121,3 +121,11 @@ def select_available_seats():
 def get_all_seating_tables():
     result = SeatingTable.select_all_seating_tables()
     return jsonify(result)
+
+
+@app.route('/load-seating-table', methods=["POST"])
+def load_a_seating_table():
+    seat_id = request.json['id']
+    table = SeatingTable()
+    result = table.load(seat_id)
+    return jsonify(result)
