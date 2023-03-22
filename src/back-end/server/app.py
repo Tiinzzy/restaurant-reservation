@@ -237,6 +237,17 @@ def update_reservations():
     reservation.set_reservation_type(reservation_type)
     reservation.set_total_price(total_price)
     reservation.set_tip_percent(tip_percent)
-    
+
     result = reservation.update()
+    return jsonify(result)
+
+
+@app.route('/add-an-order-item', methods=["POST"])
+def add_order_item():
+    reservation_id = request.json['reservation_id']
+    menu_item_id = request.json['menu_item_id']
+    
+    reservation = Reservation()
+    reservation.load(reservation_id)
+    result = reservation.add_order_item(menu_item_id)
     return jsonify(result)
