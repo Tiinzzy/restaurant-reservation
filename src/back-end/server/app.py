@@ -193,3 +193,12 @@ def add_reservation():
 def get_all_reservations():
     reservations = Reservation.select_all()
     return jsonify(reservations)
+
+
+@app.route('/load-reservation', methods=["POST"])
+def load_a_reservations():
+    reservation_id = request.json['id']
+    reservation = Reservation()
+
+    result = reservation.load(reservation_id)
+    return jsonify(result)
