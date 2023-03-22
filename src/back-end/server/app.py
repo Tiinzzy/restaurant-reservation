@@ -19,3 +19,16 @@ def create_new_user():
 
     result = user.add()
     return jsonify(result)
+
+
+@app.route('/update-user-account', methods=["POST"])
+def update_user_account():
+    email = request.json['email']
+    password = request.json['password']
+
+    user = User()
+    is_a_match = user.password_matches(email)
+    if is_a_match['password'] == password:
+        User.load(is_a_match['id'])
+
+    return True
