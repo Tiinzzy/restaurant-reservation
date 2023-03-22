@@ -38,9 +38,6 @@ delete_user_role_sql = """
 DELETE FROM tests.rr_user_roles WHERE user_id = %s AND role_id = (SELECT id FROM tests.rr_roles r WHERE r.name = %s)
 """
 
-# Queries we don't use in new implementation
-
-
-select_all_users_sql = """
-SELECT * FROM tests.rr_roles;
+password_matches_sql = """
+SELECT password, id FROM tests.rr_user WHERE email = %s limit 1;
 """
