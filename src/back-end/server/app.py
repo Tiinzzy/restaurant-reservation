@@ -202,3 +202,41 @@ def load_a_reservations():
 
     result = reservation.load(reservation_id)
     return jsonify(result)
+
+
+@app.route('/update-reservation', methods=["POST"])
+def update_reservations():
+    reservation_id = request.json['id']
+    timestamp = request.json['timestamp']
+    customer_name = request.json['customer_name']
+    customer_id = request.json['customer_id']
+    seat_count = request.json['seat_count']
+    table_id = request.json['table_id']
+    for_date = request.json['for_date']
+    for_how_long = request.json['for_how_long']
+    status = request.json['status']
+    latest_comment = request.json['latest_comment']
+    waiter_id = request.json['waiter_id']
+    reservation_type = request.json['reservation_type']
+    total_price = request.json['total_price']
+    tip_percent = request.json['tip_percent']
+
+    reservation = Reservation()
+    reservation.load(reservation_id)
+
+    reservation.set_timestamp(timestamp)
+    reservation.set_customer_name(customer_name)
+    reservation.set_customer_id(customer_id)
+    reservation.set_seat_count(seat_count)
+    reservation.set_table_id(table_id)
+    reservation.set_for_date(for_date)
+    reservation.set_for_how_long(for_how_long)
+    reservation.set_status(status)
+    reservation.set_latest_comment(latest_comment)
+    reservation.set_waiter_id(waiter_id)
+    reservation.set_reservation_type(reservation_type)
+    reservation.set_total_price(total_price)
+    reservation.set_tip_percent(tip_percent)
+    
+    result = reservation.update()
+    return jsonify(result)
