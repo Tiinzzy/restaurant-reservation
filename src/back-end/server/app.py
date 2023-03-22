@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from business.user import User
+from business.menu_item import MenuItem
 
 app = Flask(__name__)
 
@@ -32,3 +33,10 @@ def update_user_account():
         User.load(is_a_match['id'])
 
     return True
+
+
+@app.route('/get-menu-items-categories', methods=["POST"])
+def get_menu_items_categories():
+    categories = MenuItem.get_categories()
+
+    return jsonify(categories)
