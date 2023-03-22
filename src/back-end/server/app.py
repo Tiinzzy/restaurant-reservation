@@ -76,6 +76,15 @@ def delete_menu_item():
     return jsonify(result)
 
 
+@app.route('/load-menu-item', methods=["POST"])
+def load_menu_item():
+    menu_item_id = request.json['id']
+
+    menu_item = MenuItem()
+    result = menu_item.load(menu_item_id)
+    return jsonify(result)
+
+
 @app.route('/update-menu-item', methods=["POST"])
 def update_menu_item():
     menu_item_id = request.json['id']
@@ -139,6 +148,6 @@ def update_seating_table():
     table = SeatingTable()
     table.load(seat_id)
     table.set_available(available)
-    
+
     result = table.update()
     return jsonify(result)
