@@ -261,3 +261,15 @@ def select_all_order_items():
     reservation.load(reservation_id)
     result = reservation.select_all_order_items(reservation_id)
     return jsonify(result)
+
+
+@app.route('/update-an-order-item', methods=["POST"])
+def update_order_item():
+    reservation_id = request.json['reservation_id']
+    order_item_id = request.json['order_item_id']
+    count = request.json['count']
+
+    reservation = Reservation()
+    reservation.load(reservation_id)
+    result = reservation.update_order_item(order_item_id, count)
+    return jsonify(result)
