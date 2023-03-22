@@ -75,3 +75,24 @@ def delete_menu_item():
     result = menu_item.delete()
 
     return jsonify(result)
+
+
+@app.route('/update-menu-item', methods=["POST"])
+def update_menu_item():
+    menu_item_id = request.json['id']
+    name = request.json['name']
+    category = request.json['category']
+    price = request.json['price']
+    description = request.json['description']
+
+    menu_item = MenuItem()
+    menu_item.load(menu_item_id)
+
+    menu_item.set_name(name)
+    menu_item.set_price(price)
+    menu_item.set_category(category)
+    menu_item.set_description(description)
+
+    result = menu_item.update()
+
+    return jsonify(result)
