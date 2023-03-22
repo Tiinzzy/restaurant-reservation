@@ -58,3 +58,20 @@ def add_menu_item():
     result = menu_item.add()
 
     return jsonify(result)
+
+
+@app.route('/select-all-menu-items', methods=["POST"])
+def select_all_menu_items():
+    menu_items = MenuItem.select_all_menu_items()
+    return jsonify(menu_items)
+
+
+@app.route('/delete-menu-item', methods=["POST"])
+def delete_menu_item():
+    menu_item_id = request.json['id']
+
+    menu_item = MenuItem()
+    menu_item.load(menu_item_id)
+    result = menu_item.delete()
+
+    return jsonify(result)
