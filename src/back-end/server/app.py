@@ -129,3 +129,16 @@ def load_a_seating_table():
     table = SeatingTable()
     result = table.load(seat_id)
     return jsonify(result)
+
+
+@app.route('/update-seating-table', methods=["POST"])
+def update_seating_table():
+    seat_id = request.json['id']
+    available = request.json['available']
+
+    table = SeatingTable()
+    table.load(seat_id)
+    table.set_available(available)
+    
+    result = table.update()
+    return jsonify(result)
