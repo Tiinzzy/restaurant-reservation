@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from business.user import User
 from business.menu_item import MenuItem
+from business.seating_table import SeatingTable
 
 app = Flask(__name__)
 
@@ -38,7 +39,6 @@ def update_user_account():
 @app.route('/get-menu-items-categories', methods=["POST"])
 def get_menu_items_categories():
     categories = MenuItem.get_categories()
-
     return jsonify(categories)
 
 
@@ -56,7 +56,6 @@ def add_menu_item():
     menu_item.set_description(description)
 
     result = menu_item.add()
-
     return jsonify(result)
 
 
@@ -72,8 +71,8 @@ def delete_menu_item():
 
     menu_item = MenuItem()
     menu_item.load(menu_item_id)
-    result = menu_item.delete()
 
+    result = menu_item.delete()
     return jsonify(result)
 
 
@@ -94,5 +93,17 @@ def update_menu_item():
     menu_item.set_description(description)
 
     result = menu_item.update()
+    return jsonify(result)
 
+
+@app.route('/add-seating-table', methods=["POST"])
+def add_seating_table():
+    seat_count = request.json['seat_count']
+    available = request.json['available']
+
+    seating_table = SeatingTable()
+    seating_table.set_seat_count(seat_count)
+    seating_table.set_available(available)
+
+    result = seating_table.add()
     return jsonify(result)
