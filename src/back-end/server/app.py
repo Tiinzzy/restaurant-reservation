@@ -24,17 +24,24 @@ def create_new_user():
     return jsonify(result)
 
 
+@app.route('/get-all-user-roles', methods=["POST"])
+def get_all_user_roles():
+    pass
+
+
 @app.route('/update-user-account', methods=["POST"])
 def update_user_account():
-    email = request.json['email']
-    password = request.json['password']
+    pass
 
-    user = User()
-    is_a_match = user.password_matches(email)
-    if is_a_match['password'] == password:
-        User.load(is_a_match['id'])
 
-    return True
+@app.route('/delete-users-role', methods=["POST"])
+def delete_user_roles():
+    pass
+
+
+@app.route('/add-user-role', methods=["POST"])
+def add_user_role():
+    pass
 
 
 @app.route('/get-menu-items-categories', methods=["POST"])
