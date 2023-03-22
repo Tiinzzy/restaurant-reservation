@@ -127,3 +127,8 @@ class MenuItem:
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__category) + ', ' + \
             str(self.__price) + ', ' + str(self.__description)
+
+    def to_json(self):
+        obj = {'id': self.__id, 'name': self.__name, 'category': self.__category, 'price': self.__price,
+               'description': self.__description}
+        return obj

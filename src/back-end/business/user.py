@@ -180,6 +180,19 @@ class User:
         db.close_database()
         return result
 
+    def password_matches(self, email):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(users_table.password_matches_sql, (email,))
+        rows = cur.fetchall()
+        if len(rows) == 1:
+            self.__id = rows[0][1]
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append({'password': row[0], 'id': row[1]})
+        return data
+
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__email) + ', ' + str(
             self.__password) + ', ' + self.__birthday
