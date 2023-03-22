@@ -40,3 +40,21 @@ def get_menu_items_categories():
     categories = MenuItem.get_categories()
 
     return jsonify(categories)
+
+
+@app.route('/add-menu-item', methods=["POST"])
+def add_menu_item():
+    name = request.json['name']
+    category = request.json['category']
+    price = request.json['price']
+    description = request.json['description']
+
+    menu_item = MenuItem()
+    menu_item.set_name(name)
+    menu_item.set_price(price)
+    menu_item.set_category(category)
+    menu_item.set_description(description)
+
+    result = menu_item.add()
+
+    return jsonify(result)
