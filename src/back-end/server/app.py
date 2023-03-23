@@ -52,55 +52,37 @@ def add_user_role():
     pass
 
 
-@app.route('/get-menu-items-categories', methods=["POST"])
+@app.route('/menu-items/categories', methods=["POST"])
 def get_menu_items_categories():
-    categories = MenuItem.get_categories()
+    categories = app_menu_item.categories()
     return jsonify(categories)
 
 
 @app.route('/menu-item/add', methods=["POST"])
 def add_menu_item():
     parameters = get_parameters(request)
-    name = parameters['name']
-    category = parameters['category']
-    price = parameters['price']
-    description = parameters['description']
-
-    menu_item = MenuItem()
-    menu_item.set_name(name)
-    menu_item.set_price(price)
-    menu_item.set_category(category)
-    menu_item.set_description(description)
-
-    result = menu_item.add()
+    result = app_menu_item.add(parameters)
     return jsonify(result)
 
 
-@app.route('/menu-items/all', methods=["POST"])
+@app.route('/menu-item/all', methods=["POST"])
 def select_all_menu_items():
-    menu_items = MenuItem.select_all_menu_items()
-    return jsonify(menu_items)
+    result = app_menu_item.select_all()
+    return jsonify(result)
 
 
 @app.route('/menu-item/delete', methods=["POST"])
 def delete_menu_item():
     parameters = get_parameters(request)
-    menu_item_id = parameters['id']
-
-    menu_item = MenuItem()
-    menu_item.load(menu_item_id)
-
-    result = menu_item.delete()
+    result = app_menu_item.delete(parameters)
     return jsonify(result)
 
 
 @app.route('/menu-item/load', methods=["POST"])
 def load_menu_item():
     parameters = get_parameters(request)
-    menu_item_id = parameters['id']
-    menu_item = MenuItem()
-    menu_item.load(menu_item_id)
-    return jsonify(menu_item.to_json())
+    result = app_menu_item.load(parameters)
+    return jsonify(result)
 
 
 @app.route('/menu-item/update', methods=["POST"])
