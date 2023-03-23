@@ -14,7 +14,7 @@ def get_parameters(req):
     return json.loads(req.data.decode('utf8').replace("'", '"'))
 
 
-@app.route('/create-new-user-account', methods=["POST"])
+@app.route('/user/add', methods=["POST"])
 def create_new_user():
     parameters = get_parameters(request)
     name = parameters['name']
@@ -58,7 +58,7 @@ def get_menu_items_categories():
     return jsonify(categories)
 
 
-@app.route('/add-menu-item', methods=["POST"])
+@app.route('/menu-item/add', methods=["POST"])
 def add_menu_item():
     parameters = get_parameters(request)
     name = parameters['name']
@@ -76,13 +76,13 @@ def add_menu_item():
     return jsonify(result)
 
 
-@app.route('/select-all-menu-items', methods=["POST"])
+@app.route('/menu-items/all', methods=["POST"])
 def select_all_menu_items():
     menu_items = MenuItem.select_all_menu_items()
     return jsonify(menu_items)
 
 
-@app.route('/delete-menu-item', methods=["POST"])
+@app.route('/menu-item/delete', methods=["POST"])
 def delete_menu_item():
     parameters = get_parameters(request)
     menu_item_id = parameters['id']
@@ -94,7 +94,7 @@ def delete_menu_item():
     return jsonify(result)
 
 
-@app.route('/load-menu-item', methods=["POST"])
+@app.route('/menu-item/load', methods=["POST"])
 def load_menu_item():
     parameters = get_parameters(request)
     menu_item_id = parameters['id']
