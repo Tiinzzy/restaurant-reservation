@@ -27,7 +27,11 @@ class SeatingTable:
         return self.__seat_count
 
     def set_available(self, result):
-        self.__available = result
+        if result == 'True':
+            value = 1
+        else:
+            value = 0
+        self.__available = value
 
     def get_available(self):
         if self.__available is None:
