@@ -128,10 +128,10 @@ def add_seating_table():
     return jsonify(result)
 
 
-@app.route('/select-all-available-seats', methods=["POST"])
+@app.route('/seating-table/all-available-seats', methods=["POST"])
 def select_available_seats():
-    seat_count = request.json['seat_count']
-
+    parameters = get_parameters(request)
+    seat_count = parameters['seat_count']
     result = SeatingTable.select_available_seats(int(seat_count))
     return jsonify(result)
 
