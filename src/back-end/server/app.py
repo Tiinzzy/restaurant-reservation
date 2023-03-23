@@ -215,22 +215,23 @@ def load_a_reservations():
     return jsonify(reservation.to_json())
 
 
-@app.route('/update-reservation', methods=["POST"])
+@app.route('/reservation/update', methods=["POST"])
 def update_reservations():
-    reservation_id = request.json['id']
-    timestamp = request.json['timestamp']
-    customer_name = request.json['customer_name']
-    customer_id = request.json['customer_id']
-    seat_count = request.json['seat_count']
-    table_id = request.json['table_id']
-    for_date = request.json['for_date']
-    for_how_long = request.json['for_how_long']
-    status = request.json['status']
-    latest_comment = request.json['latest_comment']
-    waiter_id = request.json['waiter_id']
-    reservation_type = request.json['reservation_type']
-    total_price = request.json['total_price']
-    tip_percent = request.json['tip_percent']
+    parameters = get_parameters(request)
+    reservation_id = parameters['id']
+    timestamp = parameters['timestamp']
+    customer_name = parameters['customer_name']
+    customer_id = parameters['customer_id']
+    seat_count = parameters['seat_count']
+    table_id = parameters['table_id']
+    for_date = parameters['for_date']
+    for_how_long = parameters['for_how_long']
+    status = parameters['status']
+    latest_comment = parameters['latest_comment']
+    waiter_id = parameters['waiter_id']
+    reservation_type = parameters['reservation_type']
+    total_price = parameters['total_price']
+    tip_percent = parameters['tip_percent']
 
     reservation = Reservation()
     reservation.load(reservation_id)
