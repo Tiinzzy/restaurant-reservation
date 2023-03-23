@@ -165,7 +165,7 @@ def update_seating_table():
     return jsonify(result)
 
 
-@app.route('/add-reservation', methods=["POST"])
+@app.route('/reservation/add', methods=["POST"])
 def add_reservation():
     timestamp = request.json['timestamp']
     customer_name = request.json['customer_name']
@@ -200,19 +200,19 @@ def add_reservation():
     return jsonify(result)
 
 
-@app.route('/get-all-reservations', methods=["POST"])
+@app.route('/reservation/all', methods=["POST"])
 def get_all_reservations():
     reservations = Reservation.select_all()
     return jsonify(reservations)
 
 
-@app.route('/load-reservation', methods=["POST"])
+@app.route('/reservation/load', methods=["POST"])
 def load_a_reservations():
-    reservation_id = request.json['id']
+    parameters = get_parameters(request)
+    reservation_id = parameters['id']
     reservation = Reservation()
-
-    result = reservation.load(reservation_id)
-    return jsonify(result)
+    reservation.load(reservation_id)
+    return jsonify(reservation.to_json())
 
 
 @app.route('/update-reservation', methods=["POST"])
