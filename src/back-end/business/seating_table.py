@@ -26,14 +26,14 @@ class SeatingTable:
     def get_seat_count(self):
         return self.__seat_count
 
-    def set_available(self, result):
-        self.__available = result
+    def set_available(self, available):
+        self.__available = available
 
     def get_available(self):
         if self.__available is None:
             return None
         else:
-            return self.__available == 1
+            return bool(self.__available)
 
     def add(self):
         data = (self.__seat_count, self.__available)
@@ -55,7 +55,7 @@ class SeatingTable:
         db.close_database()
         data = []
         for row in rows:
-            data.append((row[0]))
+            data.append({'seat_id': row[0]})
         return data
 
     def load(self, table_id):
@@ -67,7 +67,7 @@ class SeatingTable:
         if len(rows) == 1:
             self.__id = rows[0][0]
             self.__seat_count = rows[0][1]
-            self.__available = rows[0][2]
+            self.__available = bool(rows[0][2])
             return True
         else:
             return False
@@ -99,8 +99,14 @@ class SeatingTable:
         db.close_database()
         data = []
         for row in rows:
-            data.append({'id': row[0], 'seat_count': row[1], 'available': row[2]})
+            data.append({'id': row[0], 'seat_count': row[1], 'available': bool(row[2])})
+
+        print(data)
         return data
 
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__seat_count) + ', ' + str(self.__available)
+
+    def to_json(self):
+        obj = {'id': self.__id, 'seat_count': self.__seat_count, 'available': self.__available}
+        return obj

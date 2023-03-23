@@ -90,10 +90,10 @@ class TestUserClass(unittest.TestCase):
 
             user.add_role("Waiter")
             roles = user.get_roles()
-            roles = [x[1] for x in roles]
+            roles = [x['role'] for x in roles]
             self.assertTrue("Waiter" in roles)
 
             user.delete_role("Waiter")
             roles = user.get_roles()
-            roles = [x[1] for x in roles]
+            roles = [x['role'] for x in roles]
             self.assertFalse("Waiter" in roles)

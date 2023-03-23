@@ -5,7 +5,7 @@ INSERT INTO tests.rr_seating_tables (seat_count, available)
 
 select_available_sql = """
 SELECT id FROM tests.rr_seating_tables
-    WHERE available = 'True' AND seat_count = %s ;
+    WHERE available = 1 AND seat_count = %s ;
 """
 
 update_sql = """
