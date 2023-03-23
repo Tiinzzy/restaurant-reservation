@@ -292,12 +292,13 @@ def update_order_item():
     return jsonify(result)
 
 
-@app.route('/delete-order-item', methods=["POST"])
+@app.route('/order-item/delete', methods=["POST"])
 def delete_order_item():
-    reservation_id = request.json['reservation_id']
-    order_item_id = request.json['order_item_id']
+    parameters = get_parameters(request)
+    reservation_id = parameters['reservation_id']
+    menu_item_id = parameters['menu_item_id']
 
     reservation = Reservation()
     reservation.load(reservation_id)
-    result = reservation.delete_order_item(order_item_id)
+    result = reservation.delete_order_item(menu_item_id)
     return jsonify(result)
