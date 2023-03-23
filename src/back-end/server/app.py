@@ -268,13 +268,14 @@ def add_order_item():
     return jsonify(result)
 
 
-@app.route('/select-all-order-items', methods=["POST"])
+@app.route('/order-item/all', methods=["POST"])
 def select_all_order_items():
-    reservation_id = request.json['reservation_id']
+    parameters = get_parameters(request)
+    reservation_id = parameters['reservation_id']
 
     reservation = Reservation()
     reservation.load(reservation_id)
-    result = reservation.select_all_order_items(reservation_id)
+    result = reservation.select_all_order_items()
     return jsonify(result)
 
 
