@@ -110,10 +110,15 @@ def update_menu_item():
     return jsonify(result)
 
 
-@app.route('/add-seating-table', methods=["POST"])
+@app.route('/seating-table/add', methods=["POST"])
 def add_seating_table():
-    seat_count = request.json['seat_count']
-    available = request.json['available']
+    parameters = get_parameters(request)
+    seat_count = parameters['seat_count']
+    available = parameters['available']
+    if available == 'True':
+        available = True
+    else:
+        available = False
 
     seating_table = SeatingTable()
     seating_table.set_seat_count(seat_count)
