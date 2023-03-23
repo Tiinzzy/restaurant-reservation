@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from business.user import User
-from business.reservation import Reservation
 
 import json
 import app_menu_item
 import app_seating_table
+import app_reservation
 
 app = Flask(__name__)
 
@@ -128,137 +128,53 @@ def update_seating_table():
 @app.route('/reservation/add', methods=["POST"])
 def add_reservation():
     parameters = get_parameters(request)
-    timestamp = parameters['timestamp']
-    customer_name = parameters['customer_name']
-    customer_id = parameters['customer_id']
-    seat_count = parameters['seat_count']
-    table_id = parameters['table_id']
-    for_date = parameters['for_date']
-    for_how_long = parameters['for_how_long']
-    status = parameters['status']
-    latest_comment = parameters['latest_comment']
-    waiter_id = parameters['waiter_id']
-    reservation_type = parameters['reservation_type']
-    total_price = parameters['total_price']
-    tip_percent = parameters['tip_percent']
-
-    reservation = Reservation()
-    reservation.set_timestamp(timestamp)
-    reservation.set_customer_name(customer_name)
-    reservation.set_customer_id(customer_id)
-    reservation.set_seat_count(seat_count)
-    reservation.set_table_id(table_id)
-    reservation.set_for_date(for_date)
-    reservation.set_for_how_long(for_how_long)
-    reservation.set_status(status)
-    reservation.set_latest_comment(latest_comment)
-    reservation.set_waiter_id(waiter_id)
-    reservation.set_reservation_type(reservation_type)
-    reservation.set_total_price(total_price)
-    reservation.set_tip_percent(tip_percent)
-
-    result = reservation.add()
+    result = app_reservation.add(parameters)
     return jsonify(result)
 
 
 @app.route('/reservation/all', methods=["POST"])
 def get_all_reservations():
-    reservations = Reservation.select_all()
-    return jsonify(reservations)
+    result = app_reservation.select_all()
+    return jsonify(result)
 
 
 @app.route('/reservation/load', methods=["POST"])
 def load_a_reservations():
     parameters = get_parameters(request)
-    reservation_id = parameters['id']
-    reservation = Reservation()
-    reservation.load(reservation_id)
-    return jsonify(reservation.to_json())
+    result = app_reservation.load(parameters)
+    return result
 
 
 @app.route('/reservation/update', methods=["POST"])
 def update_reservations():
     parameters = get_parameters(request)
-    reservation_id = parameters['id']
-    timestamp = parameters['timestamp']
-    customer_name = parameters['customer_name']
-    customer_id = parameters['customer_id']
-    seat_count = parameters['seat_count']
-    table_id = parameters['table_id']
-    for_date = parameters['for_date']
-    for_how_long = parameters['for_how_long']
-    status = parameters['status']
-    latest_comment = parameters['latest_comment']
-    waiter_id = parameters['waiter_id']
-    reservation_type = parameters['reservation_type']
-    total_price = parameters['total_price']
-    tip_percent = parameters['tip_percent']
-
-    reservation = Reservation()
-    reservation.load(reservation_id)
-
-    reservation.set_timestamp(timestamp)
-    reservation.set_customer_name(customer_name)
-    reservation.set_customer_id(customer_id)
-    reservation.set_seat_count(seat_count)
-    reservation.set_table_id(table_id)
-    reservation.set_for_date(for_date)
-    reservation.set_for_how_long(for_how_long)
-    reservation.set_status(status)
-    reservation.set_latest_comment(latest_comment)
-    reservation.set_waiter_id(waiter_id)
-    reservation.set_reservation_type(reservation_type)
-    reservation.set_total_price(total_price)
-    reservation.set_tip_percent(tip_percent)
-
-    result = reservation.update()
+    result = app_reservation.update(parameters)
     return jsonify(result)
 
 
 @app.route('/order-item/add', methods=["POST"])
 def add_order_item():
     parameters = get_parameters(request)
-    reservation_id = parameters['reservation_id']
-    menu_item_id = parameters['menu_item_id']
-    count = parameters['count']
-
-    reservation = Reservation()
-    reservation.load(reservation_id)
-    result = reservation.add_order_item(menu_item_id, count)
+    result = app_reservation.add_order_item(parameters)
     return jsonify(result)
 
 
 @app.route('/order-item/all', methods=["POST"])
 def select_all_order_items():
     parameters = get_parameters(request)
-    reservation_id = parameters['reservation_id']
-
-    reservation = Reservation()
-    reservation.load(reservation_id)
-    result = reservation.select_all_order_items()
+    result = app_reservation.select_all_order_items(parameters)
     return jsonify(result)
 
 
 @app.route('/order-item/update', methods=["POST"])
 def update_order_item():
     parameters = get_parameters(request)
-    reservation_id = parameters['reservation_id']
-    order_item_id = parameters['order_item_id']
-    count = parameters['count']
-
-    reservation = Reservation()
-    reservation.load(reservation_id)
-    result = reservation.update_order_item(order_item_id, count)
+    result = app_reservation.update_order_item(parameters)
     return jsonify(result)
 
 
 @app.route('/order-item/delete', methods=["POST"])
 def delete_order_item():
     parameters = get_parameters(request)
-    reservation_id = parameters['reservation_id']
-    menu_item_id = parameters['menu_item_id']
-
-    reservation = Reservation()
-    reservation.load(reservation_id)
-    result = reservation.delete_order_item(menu_item_id)
+    result = app_reservation.delete_order_item(parameters)
     return jsonify(result)
