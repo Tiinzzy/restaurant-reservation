@@ -233,3 +233,12 @@ class Reservation:
             str(self.__for_date) + ', ' + str(self.__for_how_long) + ', ' + str(self.__status) + ', ' + \
             str(self.__latest_comment) + ', ' + str(self.__waiter_id) + ', ' + \
             str(self.__reservation_type) + ', ' + str(self.__total_price) + ', ' + str(self.__tip_percent)
+
+    def to_json(self):
+        obj = {"id": self.__id, "timestamp": self.__timestamp, "cutomer_name": self.__customer_name,
+               "customer_id": self.__customer_id, "seat_count": self.__seat_count, "table_id": self.__table_id,
+               "for_date": self.__for_date, "for_how_long": self.__for_how_long, "status": self.__status,
+               "latest_comment": self.__latest_comment, "waiter_id": self.__waiter_id,
+               "reservation_type": self.__reservation_type, "total_price": self.__total_price,
+               "tip_percent": self.__tip_percent}
+        return obj
