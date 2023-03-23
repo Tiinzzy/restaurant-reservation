@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
-from business.user import User
 
 import json
 import app_menu_item
 import app_seating_table
 import app_reservation
+import app_user
 
 app = Flask(__name__)
 
@@ -16,39 +16,64 @@ def get_parameters(req):
 @app.route('/user/add', methods=["POST"])
 def create_new_user():
     parameters = get_parameters(request)
-    name = parameters['name']
-    email = parameters['email']
-    password = parameters['password']
-    birthday = parameters['birthday']
-
-    user = User()
-    user.set_name(name)
-    user.set_email(email)
-    user.set_password(password)
-    user.set_birthday(birthday)
-
-    result = user.add()
+    result = app_user.add(parameters)
     return jsonify(result)
 
 
-@app.route('/get-all-user-roles', methods=["POST"])
-def get_all_user_roles():
-    pass
+@app.route('/user/all', methods=["POST"])
+def get_all_users():
+    parameters = get_parameters(request)
+    result = app_user.select_all(parameters)
+    return result
 
 
-@app.route('/update-user-account', methods=["POST"])
+@app.route('/user/load', methods=["POST"])
+def load_user_account():
+    parameters = get_parameters(request)
+    result = app_user.load(parameters)
+    return result
+
+
+@app.route('/user/load-by-email', methods=["POST"])
+def load_user_account_by_email():
+    parameters = get_parameters(request)
+    result = app_user.load_by_email(parameters)
+    return result
+
+
+@app.route('/user/update', methods=["POST"])
 def update_user_account():
-    pass
+    parameters = get_parameters(request)
+    result = app_user.update(parameters)
+    return result
 
 
-@app.route('/delete-users-role', methods=["POST"])
-def delete_user_roles():
-    pass
+@app.route('/user/delete', methods=["POST"])
+def delete_user_account():
+    parameters = get_parameters(request)
+    result = app_user.delete(parameters)
+    return result
 
 
-@app.route('/add-user-role', methods=["POST"])
-def add_user_role():
-    pass
+@app.route('/user/get-roles', methods=["POST"])
+def get_users_roles():
+    parameters = get_parameters(request)
+    result = app_user.get_roles(parameters)
+    return result
+
+
+@app.route('/user/add-role', methods=["POST"])
+def add_users_roles():
+    parameters = get_parameters(request)
+    result = app_user.add_role(parameters)
+    return result
+
+
+@app.route('/user/delete-role', methods=["POST"])
+def delete_users_roles():
+    parameters = get_parameters(request)
+    result = app_user.delete_role(parameters)
+    return result
 
 
 @app.route('/menu-items/categories', methods=["POST"])
