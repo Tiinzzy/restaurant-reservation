@@ -108,3 +108,11 @@ class SeatingTable:
 
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__seat_count) + ', ' + str(self.__available)
+
+    def to_json(self):
+        if self.__available == 1:
+            value = 'True'
+        else:
+            value = 'False'
+        obj = {'id': self.__id, 'seat_count': self.__seat_count, 'available': value}
+        return obj
