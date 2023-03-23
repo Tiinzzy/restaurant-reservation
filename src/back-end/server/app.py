@@ -1,11 +1,10 @@
 from flask import Flask, request, jsonify
 from business.user import User
-from business.menu_item import MenuItem
-from business.seating_table import SeatingTable
 from business.reservation import Reservation
 
 import json
 import app_menu_item
+import app_seating_table
 
 app = Flask(__name__)
 
@@ -95,55 +94,34 @@ def update_menu_item():
 @app.route('/seating-table/add', methods=["POST"])
 def add_seating_table():
     parameters = get_parameters(request)
-    seat_count = parameters['seat_count']
-    available = parameters['available']
-    if available == 'True':
-        available = True
-    else:
-        available = False
-
-    seating_table = SeatingTable()
-    seating_table.set_seat_count(seat_count)
-    seating_table.set_available(available)
-
-    result = seating_table.add()
+    result = app_seating_table.add(parameters)
     return jsonify(result)
 
 
-@app.route('/seating-table/all-available-seats', methods=["POST"])
+@app.route('/seating-table/available-seats', methods=["POST"])
 def select_available_seats():
     parameters = get_parameters(request)
-    seat_count = parameters['seat_count']
-    result = SeatingTable.select_available_seats(int(seat_count))
+    result = app_seating_table.available_seats(parameters)
     return jsonify(result)
 
 
 @app.route('/seating-table/all', methods=["POST"])
 def get_all_seating_tables():
-    result = SeatingTable.select_all_seating_tables()
+    result = app_seating_table.select_all()
     return jsonify(result)
 
 
 @app.route('/seating-table/load', methods=["POST"])
 def load_a_seating_table():
     parameters = get_parameters(request)
-    seat_id = parameters['id']
-    table = SeatingTable()
-    table.load(seat_id)
-    return jsonify(table.to_json())
+    result = app_seating_table.load(parameters)
+    return jsonify(result)
 
 
 @app.route('/seating-table/update', methods=["POST"])
 def update_seating_table():
     parameters = get_parameters(request)
-    seat_id = parameters['id']
-    available = parameters['available']
-
-    table = SeatingTable()
-    table.load(seat_id)
-    table.set_available(available)
-
-    result = table.update()
+    result = app_seating_table.update(parameters)
     return jsonify(result)
 
 
