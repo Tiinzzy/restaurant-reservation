@@ -114,7 +114,7 @@ class Reservation:
         return True
 
     def add(self):
-        if not self.__is_ok_to_save:
+        if not self.__is_ok_to_save():
             return False
 
         data = (
