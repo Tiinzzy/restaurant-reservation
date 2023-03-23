@@ -99,7 +99,11 @@ class SeatingTable:
         db.close_database()
         data = []
         for row in rows:
-            data.append({'id': row[0], 'seat_count': row[1], 'available': row[2]})
+            if row[2] == 1:
+                value = 'True'
+            else:
+                value = 'False'
+            data.append({'id': row[0], 'seat_count': row[1], 'available': value})
         return data
 
     def to_string(self):
