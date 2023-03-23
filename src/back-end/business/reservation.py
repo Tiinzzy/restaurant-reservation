@@ -197,7 +197,7 @@ class Reservation:
         db.close_database()
         data = []
         for row in rows:
-            data.append({'order_item_id': row[0], 'reservation_id': row[1], 'menu_item_id': row[2], 'count': row[3]})
+            data.append({"order_item_id": row[0], "reservation_id": row[1], "menu_item_id": row[2], "count": row[3]})
         return data
 
     def add_order_item(self, menu_item_id, count):
