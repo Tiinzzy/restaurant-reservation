@@ -55,7 +55,7 @@ class SeatingTable:
         db.close_database()
         data = []
         for row in rows:
-            data.append((row[0]))
+            data.append({'seat_id': row[0]})
         return data
 
     def load(self, table_id):
