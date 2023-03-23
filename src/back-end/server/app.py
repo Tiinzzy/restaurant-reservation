@@ -255,14 +255,16 @@ def update_reservations():
     return jsonify(result)
 
 
-@app.route('/add-an-order-item', methods=["POST"])
+@app.route('/order-item/add', methods=["POST"])
 def add_order_item():
-    reservation_id = request.json['reservation_id']
-    menu_item_id = request.json['menu_item_id']
+    parameters = get_parameters(request)
+    reservation_id = parameters['reservation_id']
+    menu_item_id = parameters['menu_item_id']
+    count = parameters['count']
 
     reservation = Reservation()
     reservation.load(reservation_id)
-    result = reservation.add_order_item(menu_item_id)
+    result = reservation.add_order_item(menu_item_id, count)
     return jsonify(result)
 
 
