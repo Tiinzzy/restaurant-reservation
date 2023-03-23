@@ -151,10 +151,11 @@ def load_a_seating_table():
     return jsonify(table.to_json())
 
 
-@app.route('/update-seating-table', methods=["POST"])
+@app.route('/seating-table/update', methods=["POST"])
 def update_seating_table():
-    seat_id = request.json['id']
-    available = request.json['available']
+    parameters = get_parameters(request)
+    seat_id = parameters['id']
+    available = parameters['available']
 
     table = SeatingTable()
     table.load(seat_id)
