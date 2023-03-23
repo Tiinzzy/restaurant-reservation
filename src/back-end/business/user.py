@@ -148,7 +148,7 @@ class User:
         db.close_database()
         data = []
         for row in rows:
-            data.append((row[0], row[1]))
+            data.append({'role_id': row[0], 'role': row[1]})
         return data
 
     def add_role(self, role_name):
@@ -180,19 +180,10 @@ class User:
         db.close_database()
         return result
 
-    def password_matches(self, email):
-        db = Database()
-        con, cur = db.open_database()
-        cur.execute(users_table.password_matches_sql, (email,))
-        rows = cur.fetchall()
-        if len(rows) == 1:
-            self.__id = rows[0][1]
-        db.close_database()
-        data = []
-        for row in rows:
-            data.append({'password': row[0], 'id': row[1]})
-        return data
-
     def to_string(self):
         return str(self.__id) + ', ' + str(self.__name) + ', ' + str(self.__email) + ', ' + str(
             self.__password) + ', ' + self.__birthday
+
+    def to_json(self):
+        obj = {'id': self.__id, 'name': self.__name, 'email': self.__email, 'birthday': self.__birthday}
+        return obj
