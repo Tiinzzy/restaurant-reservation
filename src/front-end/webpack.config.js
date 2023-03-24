@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+    mode: 'development',
     output: {
         path: path.join(__dirname, "/dist"), // the bundle output path
         filename: "bundle.js", // the name of the bundle
@@ -25,8 +26,8 @@ module.exports = {
                 },
             },
             {
-                test: /\.(sa|sc|c)ss$/, // styles files
-                use: ["style-loader", "css-loader", "sass-loader"],
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
             },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
