@@ -1,5 +1,6 @@
 body {
     background-color: rgb(246, 246, 246);
+    font-family: 'Times New Roman', Times, serif
 }
 
 h1 {
@@ -8,13 +9,14 @@ h1 {
 }
 
 .divy {
-    color: rgb(91, 120, 84);
-    font-size: 10px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
 }
 
 .newDiv {
-    background-color: olive;
-    color: wheat;
+    background-color: rgb(99, 129, 162);
+    color: rgb(255, 255, 255);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 60px;
+    font-size: 30px;
+    padding: 10px;
 }
