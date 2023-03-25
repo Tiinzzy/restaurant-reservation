@@ -2,7 +2,18 @@ import { Box, Divider } from "@mui/material";
 import React from "react";
 
 
-var f = () => alert(1232345235);
+const axios = require('axios');
+
+var magicClick = () => {
+    axios
+        .post("/reservation/all", {}, {})
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+}
 
 const App = () => {
     return (<>
@@ -10,8 +21,8 @@ const App = () => {
             <Divider />
             Hello React, Now I am not using react-script any more
             <Divider />
-            <div className="divy" onClick={() => f()}>
-                YOU A CLICKER
+            <div className="divy" onClick={() => magicClick()}>
+                You a "girl who tries to programm"
             </div>
             <Divider />
             <div className='newDiv'>
