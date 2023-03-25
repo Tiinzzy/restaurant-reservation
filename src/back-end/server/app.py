@@ -1,12 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 
 import json
 import app_menu_item
 import app_seating_table
 import app_reservation
 import app_user
+import app_authentication
 
 app = Flask(__name__)
+app.secret_key = 'hello world, this encrypts my sessions'
 
 
 def get_parameters(req):
@@ -202,4 +204,25 @@ def order_item_update():
 def order_item_delete():
     parameters = get_parameters(request)
     result = app_reservation.delete_order_item(parameters)
+    return jsonify(result)
+
+
+@app.route('/authentication/login', methods=["POST"])
+def login():
+    parameters = get_parameters(request)
+    result = app_authentication.login(session, parameters)
+    return jsonify(result)
+
+
+@app.route('/authentication/logout', methods=["POST"])
+def logout():
+    parameters = get_parameters(request)
+    result = app_authentication.logout(session, parameters)
+    return jsonify(result)
+
+
+@app.route('/authentication/is_login', methods=["POST"])
+def is_login():
+    parameters = get_parameters(request)
+    result = app_authentication.is_login(session, parameters)
     return jsonify(result)
