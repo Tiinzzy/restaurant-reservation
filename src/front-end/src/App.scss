@@ -1,22 +1,54 @@
-body {
-    background-color: rgb(246, 246, 246);
-    font-family: 'Times New Roman', Times, serif
+* {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(239, 239, 239);
 }
 
-h1 {
-    color: red;
-    font-size: 40px;
+$text-color: rgb(21, 21, 21);
+$text-color-header-hover: rgb(20, 82, 196);
+
+.footer-box {
+    font-size: 12px;
+    color: $text-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 2px #FFD700;
+    margin: 50px 30px 0px 30px;
+    padding: 15px 0px 0px 0px;
 }
 
-.divy {
-    color: rgb(0, 0, 0);
-    font-size: 20px;
+.header-box {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0px 20px 0px;
 }
 
-.newDiv {
-    background-color: rgb(99, 129, 162);
-    color: rgb(255, 255, 255);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 30px;
-    padding: 10px;
+.header-box-logo {
+    margin: 0px 350px 0px 350px;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-box-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-box-right {
+    display: flex;
+    align-items: center;
+}
+
+#links-typograpphy {
+    text-decoration: none;
+    cursor: pointer;
+
+    &:link {
+        color: $text-color-header-hover;
+    }
+
+    &:hover {
+        color: $text-color-header-hover;
+    }
 }

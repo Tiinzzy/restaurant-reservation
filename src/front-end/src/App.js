@@ -1,38 +1,19 @@
-import { Box, Divider } from "@mui/material";
 import React from "react";
 
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-const axios = require('axios');
 
-var magicClick = () => {
-    axios
-        .post("/reservation/all", {}, {})
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((err) => {
-            console.log(err)
-        });
-}
-
-const App = () => {
-    return (<>
-        <Box p={5}>
-            <Divider />
-            Hello React, Now I am not using react-script any more
-            <Divider />
-            <div className="divy" onClick={() => magicClick()}>
-                You a "girl who tries to programm"
+export default function App() {
+    return (
+        <>
+            <Header />
+            <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex', margin: '300px 0px 340px 0px' }}>
+                This is only a test and will be fixed later by adding other pages and data
             </div>
-            <Divider />
-            <div className='newDiv'>
-                This is our key to get out of the home!!!! please!
-            </div>
-        </Box>
-    </>);
+            <Footer />
+        </>
+    );
 };
 
-export default App;
 
-
-// https://www.educative.io/answers/how-to-create-a-react-application-with-webpack
