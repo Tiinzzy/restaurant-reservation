@@ -5,6 +5,7 @@
 }
 
 $text-color: rgb(21, 21, 21);
+$text-color-header-hover: rgb(20, 82, 196);
 
 .footer-box {
     font-size: 12px;
@@ -15,4 +16,38 @@ $text-color: rgb(21, 21, 21);
     border-top: solid 2px #FFD700;
     margin: 50px 30px 0px 30px;
     padding: 15px 0px 0px 0px;
+}
+
+.header-box {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0px 20px 0px;
+}
+
+.header-box-logo {
+    margin: 0px 350px 0px 350px;
+    align-items: center;
+}
+
+.header-box-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-box-right {
+    display: flex;
+    align-items: center;
+}
+
+#links-typograpphy {
+    text-decoration: none;
+    cursor: pointer;
+
+    &:link {
+        color: $text-color-header-hover;
+    }
+
+    &:hover {
+        color: $text-color-header-hover;
+    }
 }
