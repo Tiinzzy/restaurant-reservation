@@ -12,8 +12,8 @@ export default class Footer extends React.Component {
 
     render() {
         return (
-            <Box>
-                This will be footer
+            <Box className="footer-box">
+                Designed by Tina Vatanabadi, Copyright © 2023. All Rights Reserved
             </Box>
         );
     }
