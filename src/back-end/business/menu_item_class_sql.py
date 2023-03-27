@@ -19,3 +19,7 @@ update_sql = """
 UPDATE tests.rr_menu_items SET name = %s , category = %s , price = %s , description = %s 
 WHERE id = %s;
 """
+
+truncate_sql = """
+TRUNCATE TABLE tests.rr_menu_items;
+"""

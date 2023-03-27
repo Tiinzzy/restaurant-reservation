@@ -61,3 +61,7 @@ def select_all():
 def categories():
     category = MenuItem.get_categories()
     return category
+
+def truncate():
+    result = MenuItem.truncate()
+    return {'result': result}

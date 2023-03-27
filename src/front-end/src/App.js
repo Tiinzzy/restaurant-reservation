@@ -2,15 +2,29 @@ import React from "react";
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Signup from './components/front-page/Signup';
+import Login from './components/front-page/Login';
+import Menu from './components/front-page/Menu';
+import Reservation from './components/front-page/Reservation';
+import Home from './components/front-page/Home';
 
+import BackEndConnection from './components/backend-connection/BackEndConnection';
+
+const backend = BackEndConnection.INSTANCE();
+const CURRENT_PATH = window.location.pathname;
 
 export default function App() {
+
+    console.log(CURRENT_PATH, '<<<')
+
     return (
         <>
             <Header />
-            <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex', margin: '300px 0px 340px 0px' }}>
-                This is only a test and will be fixed later by adding other pages and data
-            </div>
+            {(CURRENT_PATH === '/login') && <Login />}
+            {(CURRENT_PATH === '/' || CURRENT_PATH === '/home') && <Home />}
+            {(CURRENT_PATH === '/signup') && <Signup />}
+            {(CURRENT_PATH === '/menu') && <Menu />}
+            {(CURRENT_PATH === '/reservation') && <Reservation />}
             <Footer />
         </>
     );

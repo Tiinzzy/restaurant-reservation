@@ -86,6 +86,16 @@ class MenuItem:
         return result
 
     @staticmethod
+    def truncate():
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(menu_items_table.truncate_sql)
+        con.commit()
+        result = (cur.rowcount == 1)
+        db.close_database()
+        return result
+
+    @staticmethod
     def select_all_menu_items():
         db = Database()
         con, cur = db.open_database()
