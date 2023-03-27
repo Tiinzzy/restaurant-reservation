@@ -20,13 +20,11 @@ export default function App() {
     return (
         <>
             <Header />
-            {CURRENT_PATH === '/login' && <Login />}
-            {CURRENT_PATH === '/' && <Home />}
-
-            {/* <Home /> */}
-            {/* <Login /> */}
-            {/* <Signup /> */}
-            {/* <Menu /> */}
+            {(CURRENT_PATH === '/login') && <Login />}
+            {(CURRENT_PATH === '/' || CURRENT_PATH === '/home') && <Home />}
+            {(CURRENT_PATH === '/signup') && <Signup />}
+            {(CURRENT_PATH === '/menu') && <Menu />}
+            {(CURRENT_PATH === '/reservation') && <Reservation />}
             <Footer />
         </>
     );
