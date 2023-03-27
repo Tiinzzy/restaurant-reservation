@@ -46,3 +46,41 @@ a {
 .home-main-box-buttons {
     margin: 50px 0px 0px 0px;
 }
+
+.menu-main-box {
+    flex-direction: column;
+    display: flex;
+    font-family: serif;
+    border: groove 1px red;
+    margin: 50px 50px 0px 50px;
+    padding: 15px 15px 15px 15px;
+}
+
+.menu-box-menu-logo{
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-box-left-side{
+    border: solid 1px blue;
+    flex-direction: column;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    float: left;
+    margin: 20px 400px 0px 0px;
+    padding: 5px 5px 5px 5px;
+}
+
+.menu-box-right-side{
+    border: solid 1px purple;
+    flex-direction: column;
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    float: right;
+    margin: 20px 0px 0px 400px;
+    padding: 5px 5px 5px 5px;
+}
