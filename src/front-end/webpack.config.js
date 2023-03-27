@@ -20,9 +20,9 @@ module.exports = {
         port: 3000, // you can change the port
         open: true,
         proxy: {
-            '/': {
-                target: 'http://localhost:3000',
-                router: () => 'http://localhost:5000',
+            '/api': {
+                target: 'http://localhost:3000/api',
+                router: () => 'http://localhost:5000/api',
                 logLevel: 'debug'
             }
         }
