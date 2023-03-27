@@ -126,3 +126,39 @@ a {
         filter: drop-shadow(1px 1px 10px rgb(242, 220, 178));
     }
 }
+
+.signup-main-box {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 50px 50px 0px 50px;
+    padding: 20px;
+}
+
+.signup-box-form-box {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    flex-direction: column;
+    border: solid 1.5px rgb(241, 208, 146);
+    padding: 40px;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.signup-box-span {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(244, 205, 132);
+
+    &:hover {
+        text-decoration: underline;
+        filter: drop-shadow(1px 1px 10px rgb(242, 220, 178));
+    }
+}
+
+.signup-box-btn{
+    background-color: rgb(20, 82, 196) !important;
+    color: white !important;
+    margin: 0px 0px 20px 0px !important;
+}
