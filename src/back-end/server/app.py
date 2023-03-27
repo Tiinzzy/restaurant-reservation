@@ -117,6 +117,11 @@ def menu_item_update():
     result = app_menu_item.update(parameters)
     return jsonify(result)
 
+@app.route('/menu-item/truncate', methods=["POST"])
+def menu_item_truncate():
+    result = app_menu_item.truncate()
+    return jsonify(result)    
+
 
 @app.route('/seating-table/add', methods=["POST"])
 def seating_table_add():
