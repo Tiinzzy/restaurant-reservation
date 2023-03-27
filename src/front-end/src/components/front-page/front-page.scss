@@ -1,0 +1,20 @@
+.home-main-box {
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    margin: 50px 0px 0px 47px;
+    font-family: serif;
+}
+
+img{
+    border-radius: 2px;
+    border: solid 1px #dadada;
+}
+
+.home-main-box-about-us{
+    border: solid 1px red;
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px 0px 20px;
+    line-break: auto;
+}
