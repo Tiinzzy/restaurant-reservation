@@ -46,7 +46,7 @@ export default class Login extends React.Component {
                     </Box>
                     <TextField label="Email" variant="outlined" style={{ marginTop: 50, width: 300 }}
                         onChange={(e) => this.getEmail(e)} />
-                    <TextField label="Password" variant="outlined" style={{ marginTop: 30, width: 300 }}
+                    <TextField label="Password" variant="outlined" style={{ marginTop: 25, width: 300 }}
                         onChange={(e) => this.getPassword(e)}
                         type={this.state.showPassword === false ? "password" : "text"} />
                     <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
