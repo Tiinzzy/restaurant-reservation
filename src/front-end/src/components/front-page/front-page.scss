@@ -56,14 +56,14 @@ a {
     padding: 15px 15px 15px 15px;
 }
 
-.menu-box-menu-logo{
+.menu-box-menu-logo {
     flex-direction: row;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.menu-box-left-side{
+.menu-box-left-side {
     border: solid 1px blue;
     flex-direction: column;
     display: flex;
@@ -74,7 +74,7 @@ a {
     padding: 5px 5px 5px 5px;
 }
 
-.menu-box-right-side{
+.menu-box-right-side {
     border: solid 1px purple;
     flex-direction: column;
     display: flex;
@@ -83,4 +83,46 @@ a {
     float: right;
     margin: 20px 0px 0px 400px;
     padding: 5px 5px 5px 5px;
+}
+
+.login-main-box {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 50px 50px 0px 50px;
+    padding: 20px;
+}
+
+.login-box-form-box {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    flex-direction: column;
+    border: solid 1.5px rgb(241, 208, 146);
+    padding: 40px;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.login-form-texts {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    font-size: 1.5em !important;
+    font-weight: 800;
+}
+
+.login-box-btn {
+    background-color: rgb(20, 82, 196) !important;
+    color: white !important;
+    margin: 0px 0px 20px 0px !important;
+}
+
+.login-box-span {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(244, 205, 132);
+
+    &:hover {
+        text-decoration: underline;
+        filter: drop-shadow(1px 1px 10px rgb(242, 220, 178));
+    }
 }
