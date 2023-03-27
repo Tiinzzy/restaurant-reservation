@@ -21,10 +21,18 @@ module.exports = {
         open: true,
         proxy: {
             '/api': {
-                target: 'http://localhost:3000/api',
-                router: () => 'http://localhost:5000/api',
+                target: 'http://localhost:5000',
+                pathRewrite: { "^/api": "" },
                 logLevel: 'debug'
-            }
+            },
+            '/**': {
+                target: 'http://localhost:3000',
+                logLevel: 'debug',
+                pathRewrite: function (req, path) {
+                    return '/';
+                }
+            },
+
         }
     },
     module: {
