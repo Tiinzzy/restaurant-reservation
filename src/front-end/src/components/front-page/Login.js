@@ -19,6 +19,7 @@ export default class Login extends React.Component {
             email: '',
             password: '',
             showPassword: false,
+            callBack: props.callBack
         }
     }
 
@@ -35,8 +36,13 @@ export default class Login extends React.Component {
     }
 
     loginTheUser() {
+
         backend.authentication_login(this.state.email, this.state.password, (data) => {
-            console.log(data);
+            if (data.success === true) {
+                this.state.callBack(this.state.email);
+            } else {
+                console.log('something went wrong');
+            }
         });
     }
 
