@@ -17,6 +17,23 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async authentication_login(user, password, callback) {
+        let query = { user, 'password': md5(password) }
+        return axios.post('/api/authentication/login', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+
 }
 
 export default class BackEndConnection {
