@@ -1,8 +1,12 @@
 import axios from 'axios';
 
+var md5 = require('md5');
+
 class BackEndConnectionImpl {
-    async truncate_menu_items(callback) {
-        return axios.post('/menu-item/truncate', {})
+    async add_user(fullName, email, password, callback) {
+        let query = { 'fullname': fullName, 'email': email, 'password': password }
+
+        return axios.post('/user/add', {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
