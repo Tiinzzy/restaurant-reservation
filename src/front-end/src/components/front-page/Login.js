@@ -7,6 +7,10 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+import BackEndConnection from '../backend-connection/BackEndConnection';
+
+const backend = BackEndConnection.INSTANCE();
+
 export default class Login extends React.Component {
 
     constructor(props) {
@@ -15,6 +19,7 @@ export default class Login extends React.Component {
             email: '',
             password: '',
             showPassword: false,
+            callBack: props.callBack
         }
     }
 
@@ -31,8 +36,14 @@ export default class Login extends React.Component {
     }
 
     loginTheUser() {
-        console.log(this.state.email);
-        console.log(this.state.password);
+
+        backend.authentication_login(this.state.email, this.state.password, (data) => {
+            if (data.success === true) {
+                this.state.callBack(this.state.email);
+            } else {
+                console.log('something went wrong');
+            }
+        });
     }
 
     render() {

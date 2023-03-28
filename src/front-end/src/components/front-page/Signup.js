@@ -6,6 +6,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import BackEndConnection from '../backend-connection/BackEndConnection';
+
+const backend = BackEndConnection.INSTANCE();
 
 export default class Signup extends React.Component {
 
@@ -16,6 +23,8 @@ export default class Signup extends React.Component {
             email: '',
             password: '',
             confirmPassword: '',
+            birthDate: null,
+            birthday: '',
             showPassword: false,
         }
     }
@@ -36,15 +45,19 @@ export default class Signup extends React.Component {
         this.setState({ confirmPassword: e.target.value });
     }
 
+    getBirthDate(e) {
+        let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
+        this.setState({ birthDate: e, birthday: date });
+    }
+
     checkBoxClicked() {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
     createAccount() {
-        console.log(this.state.fullName);
-        console.log(this.state.email);
-        console.log(this.state.password);
-        console.log(this.state.confirmPassword);
+        backend.add_user(this.state.fullName, this.state.email, this.state.confirmPassword, this.state.birthday, (data) => {
+            console.log(data);
+        });
     }
 
     render() {
@@ -63,9 +76,14 @@ export default class Signup extends React.Component {
                     <TextField label="Password" variant="outlined" style={{ marginTop: 25, width: 300 }}
                         onChange={(e) => this.getPassword(e)}
                         type={this.state.showPassword === false ? "password" : "text"} />
-                    <TextField label="Confirm Password" variant="outlined" style={{ marginTop: 25, width: 300 }}
+                    <TextField label="Confirm Password" variant="outlined" style={{ marginTop: 25, width: 300, marginBottom: 25 }}
                         onChange={(e) => this.getConfirmPassword(e)}
                         type={this.state.showPassword === false ? "password" : "text"} />
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
+                    </LocalizationProvider>
+
                     <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
                         style={{ marginTop: 15, marginBottom: 50 }}
                         label="Show Password" />
