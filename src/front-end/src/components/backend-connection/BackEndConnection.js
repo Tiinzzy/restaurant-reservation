@@ -3,10 +3,9 @@ import axios from 'axios';
 var md5 = require('md5');
 
 class BackEndConnectionImpl {
-    async add_user(fullName, email, password, callback) {
-        let query = { 'fullname': fullName, 'email': email, 'password': password }
-
-        return axios.post('/user/add', {})
+    async add_user(name, email, password, birthday, callback) {
+        let query = { name, email, 'password': md5(password), birthday }
+        return axios.post('api/user/add', query, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
