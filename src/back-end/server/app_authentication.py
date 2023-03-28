@@ -1,4 +1,6 @@
 from datetime import datetime
+from database import Database
+
 
 session_storage = {}
 
@@ -14,7 +16,7 @@ def __get_user_session(username):
 
 
 def login(session, params):
-    username = params.get('username')
+    username = params.get('user')
     password = params.get('password')
     success = valid_user(username, password)
     if success:
@@ -38,4 +40,15 @@ def is_login(session, params):
 
 
 def valid_user(username, password):
-    return username == 'kamran' and password == 'tina'
+    sql = 'SELECT password FROM tests.rr_user WHERE email = %s ;'
+
+    db = Database()
+    con, cur = db.open_database()
+    cur.execute(sql, (username,))
+    rows = cur.fetchall()
+    db_password = rows[0][0]
+    if db_password == password:
+        result = True
+    else:
+        result = False
+    return result
