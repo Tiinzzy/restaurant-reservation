@@ -14,7 +14,7 @@ def add(parameters):
     user.set_birthday(birthday)
 
     result = user.add()
-    return result
+    return {'result': result}
 
 
 def select_all(parameters):
