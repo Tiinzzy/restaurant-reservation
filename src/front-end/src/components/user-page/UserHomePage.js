@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+import './user-styling.scss';
+
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
@@ -31,7 +33,7 @@ export default class UserHomePage extends React.Component {
 
     render() {
         return (
-            <Box>
+            <Box className="user-home-page-main-box">
                 <Typography>This will be users home page. test</Typography>
                 <Button variant="contained" onClick={() => this.logOutUser()}>LogOut</Button>
             </Box>
