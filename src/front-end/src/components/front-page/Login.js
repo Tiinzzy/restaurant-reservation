@@ -39,7 +39,7 @@ export default class Login extends React.Component {
 
         backend.authentication_login(this.state.email, this.state.password, (data) => {
             if (data.success === true) {
-                this.state.callBack(this.state.email);
+                this.state.callBack({ 'user': this.state.email, 'login': data.success });
             } else {
                 console.log('something went wrong');
             }
