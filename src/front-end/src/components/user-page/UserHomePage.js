@@ -24,7 +24,7 @@ export default class UserHomePage extends React.Component {
 
     logOutUser() {
         backend.authentication_logout(this.state.user, (data) => {
-            if(data.success){
+            if (data.success) {
                 window.location = '/';
             };
         })
@@ -34,8 +34,10 @@ export default class UserHomePage extends React.Component {
     render() {
         return (
             <Box className="user-home-page-main-box">
-                <Typography>This will be users home page. test</Typography>
-                <Button variant="contained" onClick={() => this.logOutUser()}>LogOut</Button>
+                <Box className="user-home-page-data-box">
+                    <Typography>This will be users home page. test</Typography>
+                    <Button variant="contained" onClick={() => this.logOutUser()}>LogOut</Button>
+                </Box>
             </Box>
         );
     }
