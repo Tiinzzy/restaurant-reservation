@@ -38,7 +38,7 @@ class BackEndConnectionImpl {
     }
 
     async authentication_is_login(callback) {
-        return axios.post('/api/authentication/is_login', { 'username': this.#user }, {})
+        return axios.post('/api/authentication/is_login', { 'user': this.#user }, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);

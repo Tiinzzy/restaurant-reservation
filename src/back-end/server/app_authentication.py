@@ -32,11 +32,11 @@ def logout(session, params):
 
 
 def is_login(session, params):
-    username = params.get('username')
+    username = params.get('user')
     result = username in session
     if result:
         print(session[username])
-    return {'is_login': result}
+    return {'is_login': result, 'user': username}
 
 
 def valid_user(username, password):
