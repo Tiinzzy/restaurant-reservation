@@ -4,12 +4,15 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import dayjs from 'dayjs';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
+const NUMBER_OF_PEOPLE = ['Number of People', 1, 2, 3, 4, 5, 6, '6+'];
 
 export default class Reservation extends React.Component {
 
@@ -22,7 +25,9 @@ export default class Reservation extends React.Component {
             reservationTime: '',
             fullName: '',
             email: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            numberOfPeople: 'Number of People',
+            open: false
         }
     }
 
@@ -34,6 +39,10 @@ export default class Reservation extends React.Component {
     setReserveTime(e) {
         let resTime = e.$H + '/' + e.$m;
         this.setState({ reservationTime: resTime });
+    }
+
+    handleOpenMenu(e) {
+        this.setState({ open: true, numberOfPeople: e.target.value });
     }
 
     getFullName(e) {
@@ -48,8 +57,8 @@ export default class Reservation extends React.Component {
         this.setState({ phoneNumber: e.target.value })
     }
 
-    submitReservation(){
-        
+    submitReservation() {
+
     }
 
     render() {
@@ -76,6 +85,15 @@ export default class Reservation extends React.Component {
                             }}
                         />
                     </LocalizationProvider>
+
+                    <FormControl>
+                        <Select
+                            value={this.state.numberOfPeople}
+                            onChange={(e) => this.handleOpenMenu(e)}>
+                            {NUMBER_OF_PEOPLE.map((e, i) => (
+                                <MenuItem key={i} value={e}>{e}</MenuItem>))}
+                        </Select>
+                    </FormControl>
 
                     <TextField label="Full Name" variant="outlined" style={{ marginTop: 25, width: 300 }}
                         onChange={(e) => this.getFullName(e)} />
