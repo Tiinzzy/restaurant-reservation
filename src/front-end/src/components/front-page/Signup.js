@@ -26,28 +26,30 @@ export default class Signup extends React.Component {
             birthDate: null,
             birthday: '',
             showPassword: false,
+            passwordNotMatch: false,
+            generalError: false
         }
     }
 
     getFullName(e) {
-        this.setState({ fullName: e.target.value });
+        this.setState({ fullName: e.target.value, generalError: false });
     }
 
     getEmail(e) {
-        this.setState({ email: e.target.value });
+        this.setState({ email: e.target.value, generalError: false });
     }
 
     getPassword(e) {
-        this.setState({ password: e.target.value });
+        this.setState({ password: e.target.value, passwordNotMatch: false, generalError: false });
     }
 
     getConfirmPassword(e) {
-        this.setState({ confirmPassword: e.target.value });
+        this.setState({ confirmPassword: e.target.value, passwordNotMatch: false, generalError: false });
     }
 
     getBirthDate(e) {
         let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
-        this.setState({ birthDate: e, birthday: date });
+        this.setState({ birthDate: e, birthday: date, generalError: false });
     }
 
     checkBoxClicked() {
@@ -55,9 +57,21 @@ export default class Signup extends React.Component {
     }
 
     createAccount() {
-        backend.add_user(this.state.fullName, this.state.email, this.state.confirmPassword, this.state.birthday, (data) => {
-            console.log(data);
-        });
+        if (this.state.password !== this.state.confirmPassword) {
+            this.setState({ passwordNotMatch: true });
+        } else if (this.state.fullName.length === 0 || this.state.password.length === 0 || this.state.confirmPassword.length === 0 || this.state.email.length === 0 || this.state.birthday === 0) {
+            this.setState({ generalError: true })
+        } else {
+            backend.add_user(this.state.fullName, this.state.email, this.state.confirmPassword, this.state.birthday, (data) => {
+                if (data === true) {
+                    backend.authentication_login(this.state.email, this.state.password, (data) => {
+                        if (data.success === true) {
+                            that.state.callBack({ 'user': this.state.email, 'login': data.success });
+                        };
+                    });
+                };
+            });
+        }
     }
 
     render() {
@@ -70,18 +84,25 @@ export default class Signup extends React.Component {
                         </Typography>
                     </Box>
                     <TextField label="Full Name" variant="outlined" style={{ marginTop: 50, width: 300 }}
+                        error={this.state.generalError === true}
                         onChange={(e) => this.getFullName(e)} />
                     <TextField label="Email" variant="outlined" style={{ marginTop: 25, width: 300 }}
+                        error={this.state.generalError === true}
                         onChange={(e) => this.getEmail(e)} />
                     <TextField label="Password" variant="outlined" style={{ marginTop: 25, width: 300 }}
                         onChange={(e) => this.getPassword(e)}
+                        error={this.state.passwordNotMatch === true || this.state.generalError == true}
+                        helperText={this.state.passwordNotMatch && "Passwords Not Matching"}
                         type={this.state.showPassword === false ? "password" : "text"} />
                     <TextField label="Confirm Password" variant="outlined" style={{ marginTop: 25, width: 300, marginBottom: 25 }}
                         onChange={(e) => this.getConfirmPassword(e)}
+                        error={this.state.passwordNotMatch === true || this.state.generalError == true}
+                        helperText={this.state.passwordNotMatch && "Passwords Not Matching"}
                         type={this.state.showPassword === false ? "password" : "text"} />
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
+                        <DatePicker error={this.state.generalError === true}
+                            value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                     </LocalizationProvider>
 
                     <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
