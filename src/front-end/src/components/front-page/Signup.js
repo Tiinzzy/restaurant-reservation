@@ -63,11 +63,10 @@ export default class Signup extends React.Component {
             this.setState({ generalError: true })
         } else {
             backend.add_user(this.state.fullName, this.state.email, this.state.confirmPassword, this.state.birthday, (data) => {
-                if (data === true) {
+                if (data.result === true) {
+                    console.log('yes')
                     backend.authentication_login(this.state.email, this.state.password, (data) => {
-                        if (data.success === true) {
-                            that.state.callBack({ 'user': this.state.email, 'login': data.success });
-                        };
+                        console.log(data, '<<<< this is data');
                     });
                 };
             });
