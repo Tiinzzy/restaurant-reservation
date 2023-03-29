@@ -19,7 +19,8 @@ export default class Login extends React.Component {
             email: '',
             password: '',
             showPassword: false,
-            callBack: props.callBack
+            callBack: props.callBack,
+            wrongPass: false,
         }
     }
 
@@ -28,7 +29,7 @@ export default class Login extends React.Component {
     }
 
     getPassword(e) {
-        this.setState({ password: e.target.value });
+        this.setState({ password: e.target.value, wrongPass: false });
     }
 
     checkBoxClicked() {
@@ -36,12 +37,12 @@ export default class Login extends React.Component {
     }
 
     loginTheUser() {
-
+        let that = this;
         backend.authentication_login(this.state.email, this.state.password, (data) => {
             if (data.success === true) {
-                this.state.callBack({ 'user': this.state.email, 'login': data.success });
+                that.state.callBack({ 'user': this.state.email, 'login': data.success });
             } else {
-                console.log('something went wrong');
+                that.setState({ wrongPass: true });
             }
         });
     }
@@ -58,7 +59,8 @@ export default class Login extends React.Component {
                     <TextField label="Email" variant="outlined" style={{ marginTop: 50, width: 300 }}
                         onChange={(e) => this.getEmail(e)} />
                     <TextField label="Password" variant="outlined" style={{ marginTop: 25, width: 300 }}
-                        onChange={(e) => this.getPassword(e)}
+                        onChange={(e) => this.getPassword(e)} error={this.state.wrongPass === true}
+                        helperText={this.state.wrongPass && "Wrong Password"}
                         type={this.state.showPassword === false ? "password" : "text"} />
                     <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
                         style={{ marginTop: 15, marginBottom: 50 }}
