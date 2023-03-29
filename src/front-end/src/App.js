@@ -14,6 +14,7 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
 
+
 function checkUserLogin(setIsLogin, setUser, user) {
     backend.authentication_is_login((data) => {
         if (data.is_login !== false) {
