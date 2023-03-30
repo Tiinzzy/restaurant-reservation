@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
 
 import './user-styling.scss';
 
@@ -14,7 +13,7 @@ import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
 
-const OPTIONS = ['Make Reservation', 'Change Password', 'Edit Profile', 'Reservation History'];
+const OPTIONS = ['Make Reservation', 'Reservation History', 'View Menu', 'Edit Profile', 'Delete Account'];
 
 export default class UserHomePage extends React.Component {
 
@@ -23,7 +22,8 @@ export default class UserHomePage extends React.Component {
         this.state = {
             user: props.user,
             openMenu: false,
-            anchorEl: null
+            anchorEl: null,
+            selectedMenuItem: ''
         }
     }
 
@@ -39,8 +39,8 @@ export default class UserHomePage extends React.Component {
         this.setState({ openMenu: true, anchorEl: e.currentTarget });
     }
 
-    closeMenuDetails() {
-        this.setState({ openMenu: false, anchorEl: null });
+    closeMenuDetails(val) {
+        this.setState({ openMenu: false, anchorEl: null, selectedMenuItem: val });
     }
 
     render() {
@@ -63,13 +63,12 @@ export default class UserHomePage extends React.Component {
                             PaperProps={{
                                 style: {
                                     maxHeight: 100 * 4.5,
-                                    width: '20ch',
+                                    width: '22ch',
                                 },
                             }}>
-                            {OPTIONS.map((e, i) => (
-                                <MenuItem key={i} onClick={() => this.closeMenuDetails()}>
-                                    {e}
-                                    <Divider />
+                            {OPTIONS.map((val) => (
+                                <MenuItem key={val} onClick={() => this.closeMenuDetails(val)}>
+                                    {val}
                                 </MenuItem>
                             ))}
                         </Menu>
