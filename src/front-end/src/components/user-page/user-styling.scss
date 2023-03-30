@@ -11,14 +11,14 @@
     justify-content: left;
     display: flex;
     flex-direction: column;
-    border: solid 1px red;
-    height: 560px;
+    // border: solid 1px red;
+    height: 530px;
     width: 1400px;
     padding: 10px 10px 10px 10px;
 }
 
 .user-home-page-users-name {
-    border: solid 1px blue;
+    border-bottom: solid 1px rgb(30, 74, 195);
     width: 1300px;
     align-items: center;
     justify-content: center;
@@ -26,8 +26,40 @@
     flex-direction: row;
 }
 
-.delete-account-main-box{
+.delete-account-main-box {
     // border: solid 1px green;
+    display: flex;
+    flex-direction: column;
     width: 1300px;
     margin: 25px 0px 0px 0px;
+    height: 500px;
+}
+
+.top-header-reservation {
+    // border: solid 1px purple;
+    align-items: center;
+    justify-content: center;
+    width: 1300px;
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 25px 0px;
+}
+
+.user-page-reservation-form {
+    // border: solid 1px yellow;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-right: 50px;
+    padding-left: 50px;
+}
+
+.localization-provider{
+    margin: 0px 0px 15px 0px !important;
+}
+
+.user-page-submit-btn{
+    width: 100px;
 }
