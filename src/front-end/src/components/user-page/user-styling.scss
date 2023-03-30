@@ -1,18 +1,27 @@
-.user-home-page-main-box{
+.user-home-page-main-box {
     align-items: center;
     justify-content: center;
     display: flex;
-    margin: 50px 50px 0px 50px;
+    margin: 50px 55px 0px 50px;
     font-family: serif;
 }
 
-.user-home-page-data-box{
-    align-items: center;
-    justify-content: center;
+.user-home-page-data-box {
+    align-items: left;
+    justify-content: left;
     display: flex;
     flex-direction: column;
     border: solid 1px red;
     height: 560px;
-    width: 1200px;
+    width: 1400px;
     padding: 10px 10px 10px 10px;
+}
+
+.user-home-page-users-name {
+    border: solid 1px blue;
+    width: 1300px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
 }
