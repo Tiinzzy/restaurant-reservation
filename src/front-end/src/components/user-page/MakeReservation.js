@@ -79,7 +79,7 @@ export default class MakeReservation extends React.Component {
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
 
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
-                    <Box className="user-page-reservation-form">
+                    <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker className="localization-provider" value={this.state.reserveDate} onChange={(newValue) => this.getReserveDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
