@@ -63,8 +63,12 @@ export default class EditProfile extends React.Component {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
-    saveNewChanges(){
-        
+    saveNewChanges() {
+
+    }
+
+    deleteUsersAccount() {
+
     }
 
     render() {
@@ -108,7 +112,8 @@ export default class EditProfile extends React.Component {
                     </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginRight: 20 }}>
-                    < Button onClick={() => this.saveNewChanges()} variant="contained" className="user-page-submit-btn">Save Changes</Button>
+                    <Button onClick={() => this.deleteUsersAccount()} variant="contained" className="user-page-submit-btn-1">Delete Account</Button>
+                    <Button onClick={() => this.saveNewChanges()} variant="contained" className="user-page-submit-btn">Save Changes</Button>
                 </Box>
             </Box>
         );
