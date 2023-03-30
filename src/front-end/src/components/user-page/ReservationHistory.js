@@ -23,9 +23,12 @@ export default class ReservationHistory extends React.Component {
     render() {
         return (
             <Box className="delete-account-main-box">
-                <Typography fontSize={20} fontWeight="bold" mb={2}>Reservation History</Typography>
-                <Divider style={{marging:10}}/>
-                <Typography fontSize={16} variant="body1" mt={2}>Lisr of old, new and current reservation histories.</Typography>
+               <Box className="top-header-reservation">
+                    <Typography fontSize={20} fontWeight="bold">Make Reservation</Typography>
+                    <Box display="flex" flexGrow={1} />
+                    <Typography fontSize={16} variant="body1">List of old and current reservations.</Typography>
+                </Box>
+                <Divider style={{ margingTop: 10, marginBottom: 25 }} />
             </Box>
         );
     }
