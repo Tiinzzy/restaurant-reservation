@@ -1,18 +1,79 @@
-.user-home-page-main-box{
+.user-home-page-main-box {
     align-items: center;
     justify-content: center;
     display: flex;
-    margin: 50px 50px 0px 50px;
+    margin: 50px 55px 0px 50px;
     font-family: serif;
 }
 
-.user-home-page-data-box{
+.user-home-page-data-box {
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    // border: solid 1px red;
+    height: 530px;
+    width: 1400px;
+    padding: 10px 10px 10px 10px;
+}
+
+.user-home-page-users-name {
+    border-bottom: solid 1px rgb(30, 74, 195);
+    width: 1300px;
     align-items: center;
     justify-content: center;
     display: flex;
+    flex-direction: row;
+}
+
+.delete-account-main-box {
+    // border: solid 1px green;
+    display: flex;
     flex-direction: column;
-    border: solid 1px red;
-    height: 560px;
-    width: 1200px;
-    padding: 10px 10px 10px 10px;
+    width: 1300px;
+    margin: 25px 0px 0px 0px;
+    height: 500px;
+}
+
+.top-header-reservation {
+    // border: solid 1px purple;
+    align-items: center;
+    justify-content: center;
+    width: 1300px;
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 25px 0px;
+}
+
+.user-page-reservation-form {
+    // border: solid 1px yellow;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-right: 50px;
+    padding-left: 50px;
+}
+
+.user-page-reservation-form-1{
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-right: 50px;
+}
+
+.localization-provider{
+    margin: 0px 0px 15px 0px !important;
+}
+
+.user-page-submit-btn{
+    width: 150px;
+    margin-left: 10px !important;
+}
+
+.user-page-submit-btn-1{
+    width: 170px;
 }
