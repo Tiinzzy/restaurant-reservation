@@ -7,7 +7,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import DeleteAccount from "./DeleteAccount";
 import EditProfile from "./EditProfile";
 import MakeReservation from "./MakeReservation";
 import ReservationHistory from "./ReservationHistory";
@@ -20,7 +19,7 @@ import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
 
-const OPTIONS = ['Make Reservation', 'Reservation History', 'View Menu', 'Edit Profile', 'Delete Account'];
+const OPTIONS = ['Make Reservation', 'Reservation History', 'View Menu', 'Edit Profile'];
 
 export default class UserHomePage extends React.Component {
 
@@ -79,7 +78,6 @@ export default class UserHomePage extends React.Component {
                             ))}
                         </Menu>
                     </Box>
-                    {this.state.selectedMenuItem === 'Delete Account' && <DeleteAccount />}
                     {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile />}
                     {this.state.selectedMenuItem === 'Make Reservation' && <MakeReservation />}
                     {this.state.selectedMenuItem === 'Reservation History' && <ReservationHistory />}
