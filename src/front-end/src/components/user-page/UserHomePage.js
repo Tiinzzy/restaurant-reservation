@@ -7,9 +7,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import DeleteAccount from "./DeleteAccount";
+import EditProfile from "./EditProfile";
+import MakeReservation from "./MakeReservation";
+import ReservationHistory from "./ReservationHistory";
+import ViewMenu from "./ViewMenu";
+
 import './user-styling.scss';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
+
 
 const backend = BackEndConnection.INSTANCE();
 
@@ -53,7 +60,6 @@ export default class UserHomePage extends React.Component {
                         <IconButton color="primary" aria-label="menu">
                             <MenuIcon fontSize="large" onClick={(e) => this.openMenuDetails(e)} />
                         </IconButton>
-
                         <Menu
                             anchorEl={this.state.anchorEl}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -72,9 +78,12 @@ export default class UserHomePage extends React.Component {
                                 </MenuItem>
                             ))}
                         </Menu>
-
                     </Box>
-
+                    {this.state.selectedMenuItem === 'Delete Account' && <DeleteAccount />}
+                    {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile />}
+                    {this.state.selectedMenuItem === 'Make Reservation' && <MakeReservation />}
+                    {this.state.selectedMenuItem === 'Reservation History' && <ReservationHistory />}
+                    {this.state.selectedMenuItem === 'View Menu' && <ViewMenu />}
                 </Box>
             </Box>
         );
