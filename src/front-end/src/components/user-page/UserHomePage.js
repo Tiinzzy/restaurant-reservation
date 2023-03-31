@@ -16,7 +16,6 @@ import './user-styling.scss';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
-
 const backend = BackEndConnection.INSTANCE();
 
 const OPTIONS = ['Make Reservation', 'Reservation History', 'View Menu', 'Edit Profile'];
@@ -31,14 +30,6 @@ export default class UserHomePage extends React.Component {
             anchorEl: null,
             selectedMenuItem: ''
         }
-    }
-
-    logOutUser() {
-        backend.authentication_logout(this.state.user, (data) => {
-            if (data.success) {
-                window.location = '/';
-            };
-        })
     }
 
     openMenuDetails(e) {
