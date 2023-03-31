@@ -30,6 +30,12 @@ export default class Login extends React.Component {
 
     getPassword(e) {
         this.setState({ password: e.target.value, wrongPass: false });
+
+        let key = e.code || "";
+        let isEnter = key.toLowerCase().indexOf('enter') >= 0;
+        if (isEnter) {
+            this.loginTheUser();
+        }
     }
 
     checkBoxClicked() {
@@ -60,6 +66,7 @@ export default class Login extends React.Component {
                         onChange={(e) => this.getEmail(e)} />
                     <TextField label="Password" variant="outlined" style={{ marginTop: 25, width: 300 }}
                         onChange={(e) => this.getPassword(e)} error={this.state.wrongPass === true}
+                        onKeyDown={(e) => this.getPassword(e)}
                         helperText={this.state.wrongPass && "Wrong Password"}
                         type={this.state.showPassword === false ? "password" : "text"} />
                     <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
