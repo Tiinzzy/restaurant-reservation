@@ -3,11 +3,16 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 
+import BackEndConnection from '../components/backend-connection/BackEndConnection';
+
+const backend = BackEndConnection.INSTANCE();
+
 export default class HeaderLogin extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            user: props.user
         }
     }
 
@@ -15,7 +20,11 @@ export default class HeaderLogin extends React.Component {
     }
 
     logUserOut() {
-
+        backend.authentication_logout(this.state.user, (data) => {
+            if (data.success) {
+                window.location = '/';
+            };
+        })
     }
 
 
