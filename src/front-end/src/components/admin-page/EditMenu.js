@@ -22,14 +22,14 @@ export default class EditMenu extends React.Component {
             price: '',
             description: '',
             addItem: false,
-            openSnack: false
+            openSnack: false,
+            menuError: false
         }
     }
 
     componentDidMount() {
         backend.all_menu_items((data) => {
             let that = this;
-            console.log(data)
             that.setState({ menuItems: data })
         })
     }
@@ -54,7 +54,11 @@ export default class EditMenu extends React.Component {
         backend.add_menu_item(this.state.foodName, this.state.category, this.state.price, this.state.description, (data) => {
             let that = this;
             if (data.result === true) {
-                that.setState({ addItem: true, openSnack: true });
+                that.setState({ addItem: true, openSnack: true }, () => {
+                    that.componentDidMount();
+                });
+            } else {
+                that.setState({ menuError: true });
             }
         })
     }
@@ -90,7 +94,7 @@ export default class EditMenu extends React.Component {
 
                         </Box>
                         <Box display="flex" flexGrow={1} />
-                        <Box className="user-page-reservation-form">
+                        <Box className="user-page-reservation-form-3">
                             <Box className="table-data-display-box">
                                 <table width="100%">
                                     <tbody >
@@ -127,8 +131,8 @@ export default class EditMenu extends React.Component {
                 </Box>
                 {this.state.addItem === true &&
                     <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-                        <Alert severity="success">
-                            Menu Item Added Successfully!
+                        <Alert severity={this.state.menuError === true ? "error" : "success"}>
+                            {this.state.menuError === true ? "Sorry, Something went wrong!" : "Menu Item Added Successfully!"}
                         </Alert>
                     </Snackbar>}
             </>
