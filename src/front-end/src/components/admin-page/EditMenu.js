@@ -15,8 +15,31 @@ export default class EditMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            foodName: '',
+            category: '',
+            price: '',
+            description: ''
         }
+    }
+
+    getFoodName(e) {
+        this.setState({ foodName: e.target.value });
+    }
+
+    getCategory(e) {
+        this.setState({ category: e.target.value });
+    }
+
+    getPrice(e) {
+        this.setState({ price: e.target.value });
+    }
+
+    getDescription(e) {
+        this.setState({ description: e.target.value });
+    }
+
+    submitAddingMenuItem() {
+
     }
 
     render() {
@@ -41,7 +64,7 @@ export default class EditMenu extends React.Component {
                         <Typography fontSize={14} variant="body1" mb={.5}>Description: </Typography>
                         <TextField variant="outlined" className="localization-provider"
                             onChange={(e) => this.getDescription(e)} />
-                        <Button onClick={() => this.createNewUserAccount()} variant="contained">Submit</Button>
+                        <Button onClick={() => this.submitAddingMenuItem()} variant="contained">Submit</Button>
 
                     </Box>
                     <Box display="flex" flexGrow={1} />
