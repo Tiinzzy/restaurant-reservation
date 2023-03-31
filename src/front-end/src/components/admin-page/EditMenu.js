@@ -39,7 +39,9 @@ export default class EditMenu extends React.Component {
     }
 
     submitAddingMenuItem() {
-
+        backend.add_menu_item(this.state.foodName, this.state.category, this.state.price, this.state.description, (data) => {
+            console.log(data);
+        })
     }
 
     render() {
