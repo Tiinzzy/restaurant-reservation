@@ -23,9 +23,12 @@ export default class ViewMenu extends React.Component {
     render() {
         return (
             <Box className="delete-account-main-box">
-                <Typography fontSize={20} fontWeight="bold" mb={2}>Our Menu</Typography>
-                <Divider style={{marging:10}}/>
-                <Typography fontSize={16} variant="body1" mt={2}>This is our menu for today's date.</Typography>
+                <Box className="top-header-reservation">
+                    <Typography fontSize={20} fontWeight="bold">Our Menu</Typography>
+                    <Box display="flex" flexGrow={1} />
+                    <Typography fontSize={16} variant="body1">You can brows our latest menu options.</Typography>
+                </Box>
+                <Divider style={{ margingTop: 10, marginBottom: 25 }} />
             </Box>
         );
     }

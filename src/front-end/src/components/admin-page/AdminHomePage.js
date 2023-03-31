@@ -7,20 +7,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import EditProfile from "./EditProfile";
-import MakeReservation from "./MakeReservation";
-import ReservationHistory from "./ReservationHistory";
-import ViewMenu from "./ViewMenu";
-
-import './user-styling.scss';
+import AddStaff from "./AddStaff";
+import EditMenu from "./EditMenu";
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
 
-const OPTIONS = ['Make Reservation', 'Reservation History', 'View Menu', 'Edit Profile'];
+const OPTIONS = ['Add Staff', 'Edit Menu'];
 
-export default class UserHomePage extends React.Component {
+export default class AdminHomePage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -69,10 +65,9 @@ export default class UserHomePage extends React.Component {
                             ))}
                         </Menu>
                     </Box>
-                    {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile />}
-                    {this.state.selectedMenuItem === 'Make Reservation' && <MakeReservation />}
-                    {this.state.selectedMenuItem === 'Reservation History' && <ReservationHistory />}
-                    {this.state.selectedMenuItem === 'View Menu' && <ViewMenu />}
+                    {this.state.selectedMenuItem === 'Add Staff' && <AddStaff />}
+                    {this.state.selectedMenuItem === 'Edit Menu' && <EditMenu />}
+
                 </Box>
             </Box>
         );

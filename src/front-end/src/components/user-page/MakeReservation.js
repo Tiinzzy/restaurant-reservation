@@ -77,7 +77,6 @@ export default class MakeReservation extends React.Component {
                     <Typography fontSize={16} variant="body1">To make a reservation please fill out the form bellow.</Typography>
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Date: </Typography>
@@ -109,6 +108,7 @@ export default class MakeReservation extends React.Component {
                             </Select>
                         </FormControl>
                     </Box>
+                    <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
                         <TextField variant="outlined" className="localization-provider"
@@ -119,10 +119,10 @@ export default class MakeReservation extends React.Component {
                         <Typography fontSize={14} variant="body1" mb={.5}>Phone Number: </Typography>
                         <TextField variant="outlined" className="localization-provider"
                             onChange={(e) => this.getPhoneNumber(e)} />
+                        <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginTop: 40 }}>
+                            < Button onClick={() => this.submitReservation()} variant="contained" className="user-page-submit-bt-4">Submit</Button>
+                        </Box>
                     </Box>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginRight:20 }}>
-                    < Button onClick={() => this.submitReservation()} variant="contained" className="user-page-submit-btn">Submit</Button>
                 </Box>
             </Box>
         );

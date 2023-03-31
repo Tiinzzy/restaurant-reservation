@@ -7,17 +7,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-import './user-styling.scss';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
 
-export default class EditProfile extends React.Component {
+const STAFF_ROLE = ['Admin', 'Customer', 'Waiter', 'Cashier'];
+
+export default class AddStaff extends React.Component {
 
     constructor(props) {
         super(props);
@@ -26,11 +29,10 @@ export default class EditProfile extends React.Component {
             email: '',
             birthDate: null,
             birthday: '',
-            currentPassword: '',
-            newPassword: '',
-            confirmNewPassword: '',
+            password: '',
             showPassword: false,
-
+            open: false,
+            userRole: ''
         }
     }
 
@@ -47,37 +49,32 @@ export default class EditProfile extends React.Component {
         this.setState({ birthDate: e, birthday: date, generalError: false });
     }
 
-    getCurrentPassword(e) {
-        this.setState({ currentPassword: e.target.value });
-    }
-
-    getNewPassword(e) {
-        this.setState({ newPassword: e.target.value });
-    }
-
-    getConfirmPassword(e) {
-        this.setState({ confirmNewPassword: e.target.value });
+    handleOpenMenu(e) {
+        this.setState({ open: true, userRole: e.target.value });
     }
 
     checkBoxClicked(e) {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
-    saveNewChanges() {
-
+    generateTempPassword() {
+        let random = (Math.random() + 1).toString(36).substring(6);
+        let temporaryPassword = this.state.fullName.replace(' ', '') + '-' + random;
+        this.setState({ password: temporaryPassword });
     }
 
-    deleteUsersAccount() {
-
+    createNewUserAccount() {
+        backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
+            console.log(data);
+        });
     }
 
     render() {
         return (
             <Box className="delete-account-main-box">
                 <Box className="top-header-reservation">
-                    <Typography fontSize={20} fontWeight="bold">Edit Profile</Typography>
+                    <Typography fontSize={20} fontWeight="bold">Add Staff</Typography>
                     <Box display="flex" flexGrow={1} />
-                    <Typography fontSize={16} variant="body1">To edit profile, simply change your information and click save.</Typography>
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
@@ -93,26 +90,32 @@ export default class EditProfile extends React.Component {
                             <DatePicker
                                 value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
+                        <Typography fontSize={14} variant="body1" mb={.5} mt={2}>User Role: </Typography>
+                        <FormControl>
+                            <Select
+                                className="localization-provider"
+                                value={this.state.userRole}
+                                onChange={(e) => this.handleOpenMenu(e)}>
+                                {STAFF_ROLE.map((e, i) => (
+                                    <MenuItem key={i} value={e}>{e}</MenuItem>))}
+                            </Select>
+                        </FormControl>
                     </Box>
                     <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Current Password: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getCurrentPassword(e)}
+                        <TextField
+                            value={this.state.password}
+                            variant="outlined" className="localization-provider"
                             type={this.state.showPassword === false ? "password" : "text"} />
-                        <Typography fontSize={14} variant="body1" mb={.5}>New Password: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getNewPassword(e)}
-                            type={this.state.showPassword === false ? "password" : "text"} />
-                        <Typography fontSize={14} variant="body1" mb={.5}>Confirm Password: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getConfirmPassword(e)}
-                            type={this.state.showPassword === false ? "password" : "text"} />
-                        <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
-                            label="Show Password" />
-                        <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginTop: 20 }}>
-                            <Button onClick={() => this.deleteUsersAccount()} variant="contained" className="user-page-submit-btn-1">Delete Account</Button>
-                            <Button onClick={() => this.saveNewChanges()} variant="contained" className="user-page-submit-btn">Save Changes</Button>
+                        <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                            <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
+                                label="Show Password" />
+                            <Box display="flex" flexGrow={1} />
+                            <Button variant="contained" onClick={() => this.generateTempPassword()}>Generate Password</Button>
+                        </Box>
+                        <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right' }}>
+                            <Button onClick={() => this.createNewUserAccount()} variant="contained" className="user-page-submit-bt-2">Create User Account</Button>
                         </Box>
                     </Box>
                 </Box>

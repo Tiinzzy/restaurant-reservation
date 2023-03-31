@@ -65,6 +65,36 @@ class BackEndConnectionImpl {
             })
     }
 
+    async add_menu_item(name, category, price, description, callback) {
+        let query = { 'name': name, 'category': category, 'price': price, 'description': description };
+        return axios.post('/api/menu-item/add', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async all_menu_items(callback) {
+        return axios.post('/api/menu-item/all', {}, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+
 }
 
 export default class BackEndConnection {

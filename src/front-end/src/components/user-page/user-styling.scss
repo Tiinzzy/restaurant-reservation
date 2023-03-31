@@ -52,28 +52,73 @@
     display: flex;
     flex-direction: column;
     width: 500px;
-    margin-right: 50px;
-    padding-left: 50px;
+    height: 420px;
 }
 
-.user-page-reservation-form-1{
+.user-page-reservation-form-1 {
+    // border: solid 1px red;
     align-items: left;
     justify-content: left;
     display: flex;
     flex-direction: column;
     width: 500px;
     margin-right: 50px;
+    height: 420px;
 }
 
-.localization-provider{
+.localization-provider {
     margin: 0px 0px 15px 0px !important;
 }
 
-.user-page-submit-btn{
+.user-page-submit-btn {
     width: 150px;
     margin-left: 10px !important;
 }
 
-.user-page-submit-btn-1{
+.user-page-submit-btn-1 {
     width: 170px;
+}
+
+.user-page-submit-bt-2 {
+    margin-top: 190px !important;
+}
+
+.table-data-display-box {
+    border: solid 1px #dfdfdf;
+    border-radius: 4px;
+    overflow-y: scroll;
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(146, 146, 146);
+}
+
+td {
+    padding: 25px;
+    cursor: pointer;
+
+    &:hover {
+        color: rgb(22, 100, 190);
+    }
+}
+
+th {
+    padding: 10px;
+}
+
+.user-page-reservation-form-3{
+    overflow-y: scroll;
+    // border: solid 1px red;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 420px;
+}
+
+.user-page-submit-bt-4{
+    width: 100px;
 }
