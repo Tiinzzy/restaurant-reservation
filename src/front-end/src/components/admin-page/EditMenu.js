@@ -28,7 +28,9 @@ export default class EditMenu extends React.Component {
 
     componentDidMount() {
         backend.all_menu_items((data) => {
-            console.log(data, '<<<< all menu items');
+            let that = this;
+            console.log(data)
+            that.setState({ menuItems: data })
         })
     }
 
@@ -52,7 +54,7 @@ export default class EditMenu extends React.Component {
         backend.add_menu_item(this.state.foodName, this.state.category, this.state.price, this.state.description, (data) => {
             let that = this;
             if (data.result === true) {
-                that.setState({ addItem: true, openSnack:true });
+                that.setState({ addItem: true, openSnack: true });
             }
         })
     }
@@ -89,7 +91,37 @@ export default class EditMenu extends React.Component {
                         </Box>
                         <Box display="flex" flexGrow={1} />
                         <Box className="user-page-reservation-form">
-                            this is for editing pre-existing menu items
+                            <Box className="table-data-display-box">
+                                <table width="100%">
+                                    <tbody >
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        {this.state.menuItems && this.state.menuItems.map((e, i) => (
+                                            <tr key={i} >
+                                                <td>
+                                                    {e.id}
+                                                </td>
+                                                <td>
+                                                    {e.name}
+                                                </td>
+                                                <td>
+                                                    {e.category}
+                                                </td>
+                                                <td>
+                                                    {e.price}
+                                                </td>
+                                                <td>
+                                                    {e.description}
+                                                </td>
+                                            </tr>))}
+                                    </tbody>
+                                </table>
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
