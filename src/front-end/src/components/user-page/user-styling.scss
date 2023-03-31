@@ -85,17 +85,13 @@
 .table-data-display-box {
     border: solid 1px #dfdfdf;
     border-radius: 4px;
-    // margin-top: 25px;
     overflow-y: scroll;
-    // height: 500px;
-    // width: 985px;
-    // padding: 5px;
 }
 
 table,
 th,
 td {
-    border: 1px solid black;
+    border: 1px solid rgb(146, 146, 146);
 }
 
 td {
