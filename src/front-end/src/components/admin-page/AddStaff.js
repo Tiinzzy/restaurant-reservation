@@ -7,6 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -14,6 +17,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
+
+const STAFF_ROLE = ['Admin', 'Customer', 'Waiter', 'Cashier'];
 
 export default class AddStaff extends React.Component {
 
@@ -25,7 +30,9 @@ export default class AddStaff extends React.Component {
             birthDate: null,
             birthday: '',
             password: '',
-            showPassword: false
+            showPassword: false,
+            open: false,
+            userRole: ''
         }
     }
 
@@ -40,6 +47,10 @@ export default class AddStaff extends React.Component {
     getBirthDate(e) {
         let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
         this.setState({ birthDate: e, birthday: date, generalError: false });
+    }
+
+    handleOpenMenu(e) {
+        this.setState({ open: true, userRole: e.target.value });
     }
 
     checkBoxClicked(e) {
@@ -79,6 +90,16 @@ export default class AddStaff extends React.Component {
                             <DatePicker
                                 value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
+                        <Typography fontSize={14} variant="body1" mb={.5} mt={2}>User Role: </Typography>
+                        <FormControl>
+                            <Select
+                                className="localization-provider"
+                                value={this.state.userRole}
+                                onChange={(e) => this.handleOpenMenu(e)}>
+                                {STAFF_ROLE.map((e, i) => (
+                                    <MenuItem key={i} value={e}>{e}</MenuItem>))}
+                            </Select>
+                        </FormControl>
                     </Box>
                     <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
