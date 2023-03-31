@@ -113,7 +113,7 @@ export default class EditMenu extends React.Component {
                                                     {e.category}
                                                 </td>
                                                 <td>
-                                                    {e.price}
+                                                    ${e.price}
                                                 </td>
                                                 <td>
                                                     {e.description}
