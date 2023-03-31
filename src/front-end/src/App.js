@@ -38,14 +38,12 @@ export default function App() {
 
     return (
         <div>
-            {/* {isLogin ?
-                <> */}
-                    <HeaderLogin />
-                    {/* {user !== null && */}
-                     <UserHomePage user={user} />
-                    {/* } */}
+            {isLogin ?
+                <>
+                    <HeaderLogin user={user}/>
+                    {user !== null && <UserHomePage user={user} />}
                     <Footer />
-                {/* </>
+                </>
                 :
                 <>
                     <Header />
@@ -57,7 +55,7 @@ export default function App() {
                     <Footer />
 
                 </>
-            } */}
+            }
 
         </div>
     );
