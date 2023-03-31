@@ -52,7 +52,7 @@
     display: flex;
     flex-direction: column;
     width: 500px;
-    // margin-right: 50px;
+    height: 420px;
 }
 
 .user-page-reservation-form-1 {
@@ -63,6 +63,7 @@
     flex-direction: column;
     width: 500px;
     margin-right: 50px;
+    height: 420px;
 }
 
 .localization-provider {
@@ -105,4 +106,15 @@ td {
 
 th {
     padding: 10px;
+}
+
+.user-page-reservation-form-3{
+    overflow-y: scroll;
+    // border: solid 1px red;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 420px;
 }
