@@ -46,7 +46,7 @@
 }
 
 .user-page-reservation-form {
-    border: solid 1px yellow;
+    // border: solid 1px yellow;
     align-items: left;
     justify-content: left;
     display: flex;
@@ -55,7 +55,7 @@
     // margin-right: 50px;
 }
 
-.user-page-reservation-form-1{
+.user-page-reservation-form-1 {
     // border: solid 1px red;
     align-items: left;
     justify-content: left;
@@ -65,19 +65,48 @@
     margin-right: 50px;
 }
 
-.localization-provider{
+.localization-provider {
     margin: 0px 0px 15px 0px !important;
 }
 
-.user-page-submit-btn{
+.user-page-submit-btn {
     width: 150px;
     margin-left: 10px !important;
 }
 
-.user-page-submit-btn-1{
+.user-page-submit-btn-1 {
     width: 170px;
 }
 
-.user-page-submit-bt-2{
+.user-page-submit-bt-2 {
     margin-top: 190px !important;
+}
+
+.table-data-display-box {
+    border: solid 1px #dfdfdf;
+    border-radius: 4px;
+    // margin-top: 25px;
+    overflow-y: scroll;
+    // height: 500px;
+    // width: 985px;
+    // padding: 5px;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+td {
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+        color: rgb(22, 100, 190);
+    }
+}
+
+th {
+    padding: 10px;
 }
