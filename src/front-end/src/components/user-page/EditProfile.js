@@ -110,11 +110,11 @@ export default class EditProfile extends React.Component {
                             type={this.state.showPassword === false ? "password" : "text"} />
                         <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
                             label="Show Password" />
+                        <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginTop: 20 }}>
+                            <Button onClick={() => this.deleteUsersAccount()} variant="contained" className="user-page-submit-btn-1">Delete Account</Button>
+                            <Button onClick={() => this.saveNewChanges()} variant="contained" className="user-page-submit-btn">Save Changes</Button>
+                        </Box>
                     </Box>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginRight: 20 }}>
-                    <Button onClick={() => this.deleteUsersAccount()} variant="contained" className="user-page-submit-btn-1">Delete Account</Button>
-                    <Button onClick={() => this.saveNewChanges()} variant="contained" className="user-page-submit-btn">Save Changes</Button>
                 </Box>
             </Box>
         );
