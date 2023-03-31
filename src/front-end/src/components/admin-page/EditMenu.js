@@ -22,6 +22,12 @@ export default class EditMenu extends React.Component {
         }
     }
 
+    componentDidMount() {
+        backend.all_menu_items((data) => {
+            console.log(data, '<<<< all menu items');
+        })
+    }
+
     getFoodName(e) {
         this.setState({ foodName: e.target.value });
     }
