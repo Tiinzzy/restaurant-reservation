@@ -52,6 +52,12 @@ export default class AddStaff extends React.Component {
         this.setState({ password: temporaryPassword });
     }
 
+    createNewUserAccount() {
+        backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
+            console.log(data);
+        });
+    }
+
     render() {
         return (
             <Box className="delete-account-main-box">
@@ -88,7 +94,7 @@ export default class AddStaff extends React.Component {
                             <Button variant="contained" onClick={() => this.generateTempPassword()}>Generate Password</Button>
                         </Box>
                         <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right' }}>
-                            <Button onClick={() => this.saveNewChanges()} variant="contained" className="user-page-submit-bt-2">Create User Account</Button>
+                            <Button onClick={() => this.createNewUserAccount()} variant="contained" className="user-page-submit-bt-2">Create User Account</Button>
                         </Box>
                     </Box>
                 </Box>
