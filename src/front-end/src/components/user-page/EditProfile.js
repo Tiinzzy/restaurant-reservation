@@ -94,6 +94,7 @@ export default class EditProfile extends React.Component {
                                 value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
                     </Box>
+                    <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Current Password: </Typography>
                         <TextField variant="outlined" className="localization-provider"
