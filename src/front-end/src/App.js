@@ -8,6 +8,7 @@ import Menu from './components/front-page/Menu';
 import Reservation from './components/front-page/Reservation';
 import Home from './components/front-page/Home';
 import UserHomePage from "./components/user-page/UserHomePage";
+import HeaderLogin from "./components/HeaderLogin";
 
 import BackEndConnection from './components/backend-connection/BackEndConnection';
 
@@ -39,7 +40,7 @@ export default function App() {
         <div>
             {/* {isLogin ?
                 <> */}
-                    <Header />
+                    <HeaderLogin />
                     {/* {user !== null && */}
                      <UserHomePage user={user} />
                     {/* } */}
