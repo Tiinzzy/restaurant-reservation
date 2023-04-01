@@ -23,10 +23,10 @@ export default class Home extends React.Component {
                     <Typography fontFamily="serif" fontWeight="bold" fontSize="5em" mb={2}>Discover the World of Fine Dining</Typography>
                     {HOME_PAGE_DATA.map((e, i) => (<Typography key={i} fontFamily="serif" fontSize="1.1em">{e}</Typography>))}
                     <Box className="home-main-box-buttons">
-                        <a href="#">
+                        <a href="/menu">
                             Checkout Our Menu
                         </a>
-                        <a href="#">
+                        <a href="/reservation">
                             Make reservation
                         </a>
                     </Box>
