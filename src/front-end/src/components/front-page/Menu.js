@@ -37,6 +37,10 @@ export default class Menu extends React.Component {
         })
     }
 
+    takeToReservationPage() {
+        window.location = '/reservation';
+    }
+
     render() {
         return (
             <Box className="menu-main-box">
@@ -92,6 +96,9 @@ export default class Menu extends React.Component {
                             </Box>
                         ))}
                     </Box>
+                </Box>
+                <Box className="menu-box-menu-logo-1">
+                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1.5em" onClick={() => this.takeToReservationPage()}>Make a Reservation</Typography>
                 </Box>
             </Box>
         );
