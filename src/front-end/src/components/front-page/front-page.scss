@@ -86,6 +86,7 @@ a {
     margin: 20px 0px 0px 150px;
     padding: 5px 5px 5px 5px;
     height: 600px;
+    width: 700px;
     overflow-y: scroll;
 }
 
@@ -187,4 +188,16 @@ a {
     margin-top: 10px;
     height: 90px;
     border-bottom: solid .5px rgb(116, 116, 116);
+}
+
+.menu-box-menu-logo-1{
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(35, 35, 146);
+    cursor: pointer;
+    &:hover{
+        color: rgb(92, 92, 234);
+    }
 }
