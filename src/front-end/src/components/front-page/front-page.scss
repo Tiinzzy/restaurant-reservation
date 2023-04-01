@@ -64,25 +64,29 @@ a {
 }
 
 .menu-box-left-side {
-    border: solid 1px blue;
+    // border: solid 1px blue;
     flex-direction: column;
     display: flex;
     align-items: left;
     justify-content: left;
     float: left;
-    margin: 20px 400px 0px 0px;
+    margin: 20px 150px 0px 0px;
     padding: 5px 5px 5px 5px;
+    height: 600px;
+    overflow-y: scroll;
 }
 
 .menu-box-right-side {
-    border: solid 1px purple;
+    // border: solid 1px purple;
     flex-direction: column;
     display: flex;
     align-items: right;
     justify-content: right;
     float: right;
-    margin: 20px 0px 0px 400px;
+    margin: 20px 0px 0px 150px;
     padding: 5px 5px 5px 5px;
+    height: 600px;
+    overflow-y: scroll;
 }
 
 .login-main-box {
@@ -157,13 +161,13 @@ a {
     }
 }
 
-.signup-box-btn{
+.signup-box-btn {
     background-color: rgb(20, 82, 196) !important;
     color: white !important;
     margin: 0px 0px 20px 0px !important;
 }
 
-.reservation-main-box{
+.reservation-main-box {
     align-items: center;
     justify-content: center;
     display: flex;
@@ -171,7 +175,16 @@ a {
     padding: 20px;
 }
 
-.time-picker-box{
+.time-picker-box {
     margin-top: 25px !important;
     margin-bottom: 25px !important;
+}
+
+.each-menu-item-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 90px;
+    border-bottom: solid .5px rgb(116, 116, 116);
 }
