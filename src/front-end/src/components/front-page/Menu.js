@@ -45,30 +45,50 @@ export default class Menu extends React.Component {
                 </Box>
                 <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                     <Box className="menu-box-left-side">
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em">Entrée</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em" mb={1.6}>Entrée</Typography>
                         {this.state.entrees && this.state.entrees.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
-                                {e.name}
+                                <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
+                                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1em" color="rgb(37, 37, 37)">{e.name}</Typography>
+                                    <Box display="flex" flexGrow={1} />
+                                    <Typography fontFamily="serif" fontWeight="600" fontSize=".9em" color="rgb(37, 37, 37)">${e.price}</Typography>
+                                </span>
+                                <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
                             </Box>
                         ))}
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em">Main Course</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em" mb={1.6}>Main Course</Typography>
                         {this.state.mainCourse && this.state.mainCourse.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
-                                {e.name}
+                                <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
+                                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1em" color="rgb(37, 37, 37)">{e.name}</Typography>
+                                    <Box display="flex" flexGrow={1} />
+                                    <Typography fontFamily="serif" fontWeight="600" fontSize=".9em" color="rgb(37, 37, 37)">${e.price}</Typography>
+                                </span>
+                                <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
                             </Box>
                         ))}
                     </Box>
                     <Box className="menu-box-right-side">
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em">Drinks</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em" mb={1.6}>Drinks</Typography>
                         {this.state.drinks && this.state.drinks.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
-                                {e.name}
+                                <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
+                                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1em" color="rgb(37, 37, 37)">{e.name}</Typography>
+                                    <Box display="flex" flexGrow={1} />
+                                    <Typography fontFamily="serif" fontWeight="600" fontSize=".9em" color="rgb(37, 37, 37)">${e.price}</Typography>
+                                </span>
+                                <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
                             </Box>
                         ))}
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em">Dessert</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.2em" mb={1.6}>Dessert</Typography>
                         {this.state.dessert && this.state.dessert.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
-                                {e.name}
+                                <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
+                                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1em" color="rgb(37, 37, 37)">{e.name}</Typography>
+                                    <Box display="flex" flexGrow={1} />
+                                    <Typography fontFamily="serif" fontWeight="600" fontSize=".9em" color="rgb(37, 37, 37)">${e.price}</Typography>
+                                </span>
+                                <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
                             </Box>
                         ))}
                     </Box>
