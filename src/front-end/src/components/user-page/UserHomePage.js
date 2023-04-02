@@ -28,8 +28,10 @@ export default class UserHomePage extends React.Component {
             user: props.user,
             openMenu: false,
             anchorEl: null,
-            selectedMenuItem: ''
+            selectedMenuItem: '',
+            changePage: ''
         }
+        this.callBack = this.callBack.bind(this);
     }
 
     openMenuDetails(e) {
@@ -38,6 +40,12 @@ export default class UserHomePage extends React.Component {
 
     closeMenuDetails(val) {
         this.setState({ openMenu: false, anchorEl: null, selectedMenuItem: val });
+    }
+
+    callBack(data) {
+        if (data.action === 'button-clicked-for-reservation') {
+            this.setState({ changePage: 'Make Reservation' });
+        };
     }
 
     render() {
@@ -69,10 +77,10 @@ export default class UserHomePage extends React.Component {
                             ))}
                         </Menu>
                     </Box>
-                    {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile />}
-                    {this.state.selectedMenuItem === 'Make Reservation' && <MakeReservation />}
-                    {this.state.selectedMenuItem === 'Reservation History' && <ReservationHistory />}
-                    {this.state.selectedMenuItem === 'View Menu' && <ViewMenu />}
+                    {(this.state.changePage === '' && this.state.selectedMenuItem === 'Edit Profile') && <EditProfile />}
+                    {(this.state.changePage || this.state.selectedMenuItem) === 'Make Reservation' && <MakeReservation />}
+                    {(this.state.changePage === '' && this.state.selectedMenuItem === 'Reservation History') && <ReservationHistory />}
+                    {(this.state.changePage === '' && this.state.selectedMenuItem === 'View Menu') && <ViewMenu callBack={this.callBack} />}
                 </Box>
             </Box>
         );
