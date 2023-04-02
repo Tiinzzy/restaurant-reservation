@@ -9,6 +9,8 @@ import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import Dialog from '@mui/material/Dialog';
 
+import EditMenuDialog from "./EditMenuDialog";
+
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
@@ -147,7 +149,7 @@ export default class EditMenu extends React.Component {
                     </Snackbar>}
 
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    this is a test
+                    <EditMenuDialog />
                 </Dialog>
             </>
         );
