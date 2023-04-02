@@ -42,7 +42,7 @@ export default function App() {
             {isLogin ?
                 <>
                     <HeaderLogin user={user} />
-                    {user !== null && <AdminHomePage user={user} />}
+                    {user !== null && <UserHomePage user={user} />}
                     <Footer />
                 </>
                 :
