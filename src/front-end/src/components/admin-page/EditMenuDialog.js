@@ -27,7 +27,7 @@ export default class EditMenuDialog extends React.Component {
     componentDidMount() {
         backend.load_menu_item(this.state.menuItemId, (data) => {
             let that = this;
-            this.setState({ name: data.name, category: data.category, price: data.price, description: data.description });
+            that.setState({ id: data.id, name: data.name, category: data.category, price: data.price, description: data.description });
         })
     }
 
@@ -52,7 +52,11 @@ export default class EditMenuDialog extends React.Component {
     }
 
     saveChanges() {
-        this.state.handleCloseDialog();
+        backend.update_menu_item(this.state.id, this.state.name, this.state.category, this.state.price, this.state.description, (data) => {
+            if (data.result === true) {
+                this.state.handleCloseDialog();
+            }
+        })
     }
 
 
