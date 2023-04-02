@@ -29,6 +29,7 @@ export default class EditMenu extends React.Component {
             menuError: false,
             openDialog: false
         }
+        this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
 
     componentDidMount() {
@@ -149,7 +150,7 @@ export default class EditMenu extends React.Component {
                     </Snackbar>}
 
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    <EditMenuDialog menuItemId={this.state.menuItemId} />
+                    <EditMenuDialog menuItemId={this.state.menuItemId} handleCloseDialog={this.handleCloseDialog} />
                 </Dialog>
             </>
         );
