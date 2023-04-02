@@ -43,7 +43,7 @@ export default class EditMenuDialog extends React.Component {
         this.setState({ price: e.target.value });
     }
 
-    getDescription() {
+    getDescription(e) {
         this.setState({ description: e.target.value });
     }
 
