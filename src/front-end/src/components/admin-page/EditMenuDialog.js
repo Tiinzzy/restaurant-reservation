@@ -11,7 +11,14 @@ export default class EditMenuDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            menuItemId: props.menuItemId
         }
+    }
+
+    componentDidMount() {
+        backend.load_menu_item(this.state.menuItemId, (data) => {
+            console.log(data);
+        })
     }
 
     render() {
