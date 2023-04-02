@@ -94,7 +94,19 @@ class BackEndConnectionImpl {
             })
     }
 
-
+    async load_menu_item(id, callback) {
+        return axios.post('/api/menu-item/load', { 'id': id }, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {
