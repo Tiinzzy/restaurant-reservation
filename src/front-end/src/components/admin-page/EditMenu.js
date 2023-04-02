@@ -77,7 +77,9 @@ export default class EditMenu extends React.Component {
     }
 
     handleCloseDialog() {
-        this.setState({ openDialog: false });
+        this.setState({ openDialog: false }, () => {
+            this.componentDidMount();
+        });
     }
 
     render() {
