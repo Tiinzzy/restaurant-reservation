@@ -3,7 +3,7 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-
+import Button from '@mui/material/Button';
 
 import './user-styling.scss';
 
@@ -17,6 +17,7 @@ export default class ViewMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            callBack: props.callBack
         }
     }
 
@@ -40,6 +41,10 @@ export default class ViewMenu extends React.Component {
             }
             that.setState({ drinks, dessert, mainCourse, entrees });
         })
+    }
+
+    takeToReservationPage() {
+        this.state.callBack({ action: 'button-clicked-for-reservation' });
     }
 
     render() {
@@ -101,6 +106,9 @@ export default class ViewMenu extends React.Component {
                             </Box>
                         ))}
                     </Box>
+                </Box>
+                <Box className="menu-box-logo-user">
+                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1.5em" onClick={() => this.takeToReservationPage()}>Make a Reservation</Typography>
                 </Box>
             </Box>
         );
