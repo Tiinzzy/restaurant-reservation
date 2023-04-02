@@ -97,11 +97,6 @@ td {
 
 td {
     padding: 25px;
-    cursor: pointer;
-
-    &:hover {
-        color: rgb(22, 100, 190);
-    }
 }
 
 th {
@@ -121,4 +116,12 @@ th {
 
 .user-page-submit-bt-4{
     width: 100px;
+}
+
+#td-menu-item-id{
+    cursor: pointer;
+
+    &:hover {
+        color: rgb(22, 100, 190);
+    }
 }
