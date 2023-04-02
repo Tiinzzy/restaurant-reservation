@@ -129,3 +129,32 @@ th {
 .menu-item-detail-text{
     width: 400px !important;
 }
+
+.menu-box-right-side-user {
+    border: solid 2px #e1e1e1;
+    border-radius: 4px;
+    flex-direction: column;
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    float: right;
+    margin: 0px 0px 0px 150px;
+    padding: 6px 6px 6px 6px;
+    height: 400px;
+    width: 700px;
+    overflow-y: scroll;
+}
+
+.menu-box-left-side-user {
+    border: solid 2px #e1e1e1;
+    border-radius: 4px;
+    flex-direction: column;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    float: left;
+    margin: 0px 150px 0px 0px;
+    padding: 6px 6px 6px 6px;
+    height: 400px;
+    overflow-y: scroll;
+}
