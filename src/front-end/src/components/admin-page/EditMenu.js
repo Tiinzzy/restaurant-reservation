@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Dialog from '@mui/material/Dialog';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -23,7 +24,8 @@ export default class EditMenu extends React.Component {
             description: '',
             addItem: false,
             openSnack: false,
-            menuError: false
+            menuError: false,
+            openDialog: false
         }
     }
 
@@ -67,6 +69,14 @@ export default class EditMenu extends React.Component {
         this.setState({ openSnack: false });
     }
 
+    handleOpenDialog() {
+        this.setState({ openDialog: true });
+    }
+
+    handleCloseDialog() {
+        this.setState({ openDialog: false });
+    }
+
     render() {
         return (
             <>
@@ -97,7 +107,7 @@ export default class EditMenu extends React.Component {
                         <Box className="user-page-reservation-form-3">
                             <Box className="table-data-display-box">
                                 <table width="100%">
-                                    <tbody >
+                                    <tbody>
                                         <tr>
                                             <th>id</th>
                                             <th>Name</th>
@@ -106,7 +116,7 @@ export default class EditMenu extends React.Component {
                                             <th>Description</th>
                                         </tr>
                                         {this.state.menuItems && this.state.menuItems.map((e, i) => (
-                                            <tr key={i} >
+                                            <tr key={i} onClick={() => this.handleOpenDialog()}>
                                                 <td>
                                                     {e.id}
                                                 </td>
@@ -135,6 +145,10 @@ export default class EditMenu extends React.Component {
                             {this.state.menuError === true ? "Sorry, Something went wrong!" : "Menu Item Added Successfully!"}
                         </Alert>
                     </Snackbar>}
+
+                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
+                    this is a test
+                </Dialog>
             </>
         );
     }
