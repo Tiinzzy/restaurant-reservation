@@ -19,7 +19,9 @@ export default class EditMenuDialog extends React.Component {
         super(props);
         this.state = {
             menuItemId: props.menuItemId,
+            handleCloseDialog: props.handleCloseDialog
         }
+        this.cancelAndClose = this.cancelAndClose.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +30,15 @@ export default class EditMenuDialog extends React.Component {
             this.setState({ data });
         })
     }
+
+    cancelAndClose(e) {
+        this.state.handleCloseDialog();
+    }
+
+    saveChanges(e) {
+        this.state.handleCloseDialog();
+    }
+
 
     render() {
         return (
@@ -53,12 +64,11 @@ export default class EditMenuDialog extends React.Component {
                         onChange={(e) => this.getDescription(e)} className="menu-item-detail-text" />
                 </DialogContent>
                 <DialogActions>
-                    <Button >Cancel</Button>
-                    <Button autoFocus>
+                    <Button onClick={(e) => this.cancelAndClose(e)}>Cancel</Button>
+                    <Button onClick={(e) => this.saveChanges(e)} autoFocus>
                         Save Changes
                     </Button>
                 </DialogActions>
-
             </Box>
         );
     }
