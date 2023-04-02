@@ -20,6 +20,28 @@ export default class ViewMenu extends React.Component {
         }
     }
 
+    componentDidMount() {
+        backend.all_menu_items((data) => {
+            let that = this;
+            let drinks = [];
+            let dessert = [];
+            let mainCourse = [];
+            let entrees = [];
+            for (let i in data) {
+                if (data[i].category === 'Desert') {
+                    dessert.push(data[i]);
+                } else if (data[i].category === 'Drink') {
+                    drinks.push(data[i]);
+                } else if (data[i].category === 'Main Course') {
+                    mainCourse.push(data[i]);
+                } else if (data[i].category === 'Entrees') {
+                    entrees.push(data[i]);
+                }
+            }
+            that.setState({ drinks, dessert, mainCourse, entrees });
+        })
+    }
+
     render() {
         return (
             <Box className="delete-account-main-box">
