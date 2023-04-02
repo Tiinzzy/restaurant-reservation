@@ -107,6 +107,21 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async update_menu_item(id, name, category, price, description, callback) {
+        let query = { 'id': id, 'name': name, 'category': category, 'price': price, 'description': description };
+        return axios.post('/api/menu-item/update', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {
