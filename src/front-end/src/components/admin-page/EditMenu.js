@@ -71,8 +71,8 @@ export default class EditMenu extends React.Component {
         this.setState({ openSnack: false });
     }
 
-    handleOpenDialog() {
-        this.setState({ openDialog: true });
+    handleOpenDialog(e) {
+        this.setState({ openDialog: true, menuItemId: e.target.innerHTML });
     }
 
     handleCloseDialog() {
@@ -118,8 +118,8 @@ export default class EditMenu extends React.Component {
                                             <th>Description</th>
                                         </tr>
                                         {this.state.menuItems && this.state.menuItems.map((e, i) => (
-                                            <tr key={i} onClick={() => this.handleOpenDialog()}>
-                                                <td>
+                                            <tr key={i}>
+                                                <td id="td-menu-item-id" onClick={(e) => this.handleOpenDialog(e)}>
                                                     {e.id}
                                                 </td>
                                                 <td>
@@ -149,7 +149,7 @@ export default class EditMenu extends React.Component {
                     </Snackbar>}
 
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    <EditMenuDialog />
+                    <EditMenuDialog menuItemId={this.state.menuItemId} />
                 </Dialog>
             </>
         );
