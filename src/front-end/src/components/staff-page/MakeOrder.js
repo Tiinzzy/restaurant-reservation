@@ -1,6 +1,8 @@
 import React from "react";
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -16,8 +18,13 @@ export default class MakeOrder extends React.Component {
 
     render() {
         return (
-            <Box className="user-home-page-main-box">
-              this will be a page for making orders
+            <Box className="delete-account-main-box">
+                <Box className="top-header-reservation">
+                    <Typography fontSize={20} fontWeight="bold">Make an Order</Typography>
+                    <Box display="flex" flexGrow={1} />
+                    <Typography fontSize={16} variant="body1">To make an order, just click on the + to add.</Typography>
+                </Box>
+                <Divider style={{ margingTop: 10, marginBottom: 25 }} />
             </Box>
         );
     }
