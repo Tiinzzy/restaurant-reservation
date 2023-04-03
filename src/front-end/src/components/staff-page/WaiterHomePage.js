@@ -9,18 +9,16 @@ import MenuItem from '@mui/material/MenuItem';
 
 import EditProfile from "./EditProfile";
 import MakeReservation from "./MakeReservation";
-import ReservationHistory from "./ReservationHistory";
-import ViewMenu from "./ViewMenu";
-
-import './user-styling.scss';
+import AllReservations from "./AllReservations";
+import MakeOrder from "./MakeOrder";
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
 
-const OPTIONS = ['Make Reservation', 'Reservation History', 'View Menu', 'Edit Profile'];
+const OPTIONS = ['All Reservations', 'Make Reservation', 'Make an Order', 'Edit Profile'];
 
-export default class UserHomePage extends React.Component {
+export default class WaiterHomePage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -28,9 +26,8 @@ export default class UserHomePage extends React.Component {
             user: props.user,
             openMenu: false,
             anchorEl: null,
-            changePage: ''
+            selectedMenuItem: ''
         }
-        this.callBack = this.callBack.bind(this);
     }
 
     openMenuDetails(e) {
@@ -38,13 +35,7 @@ export default class UserHomePage extends React.Component {
     }
 
     closeMenuDetails(val) {
-        this.setState({ openMenu: false, anchorEl: null, val, changePage: '' });
-    }
-
-    callBack(data) {
-        if (data.action === 'button-clicked-for-reservation') {
-            this.setState({ changePage: 'Make Reservation' });
-        };
+        this.setState({ openMenu: false, anchorEl: null, selectedMenuItem: val });
     }
 
     render() {
@@ -76,10 +67,10 @@ export default class UserHomePage extends React.Component {
                             ))}
                         </Menu>
                     </Box>
-                    {(this.state.changePage === '' && this.state.val === 'Edit Profile') && <EditProfile />}
-                    {(this.state.changePage === 'Make Reservation' || this.state.val === 'Make Reservation') && <MakeReservation />}
-                    {(this.state.changePage === '' && this.state.val === 'Reservation History') && <ReservationHistory />}
-                    {(this.state.changePage === '' && this.state.val === 'View Menu') && <ViewMenu callBack={this.callBack} />}
+                    {this.state.selectedMenuItem === 'All Reservations' && <AllReservations />}
+                    {this.state.selectedMenuItem === 'Make Reservation' && <MakeReservation />}
+                    {this.state.selectedMenuItem === 'Make an Order' && <MakeOrder />}
+                    {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile />}
                 </Box>
             </Box>
         );

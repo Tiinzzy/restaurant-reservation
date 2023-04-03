@@ -10,6 +10,7 @@ import Home from './components/front-page/Home';
 import UserHomePage from "./components/user-page/UserHomePage";
 import AdminHomePage from "./components/admin-page/AdminHomePage";
 import HeaderLogin from "./components/HeaderLogin";
+import WaiterHomePage from "./components/staff-page/WaiterHomePage";
 
 import BackEndConnection from './components/backend-connection/BackEndConnection';
 
@@ -42,7 +43,7 @@ export default function App() {
             {isLogin ?
                 <>
                     <HeaderLogin user={user} />
-                    {user !== null && <UserHomePage user={user} />}
+                    {user !== null && <WaiterHomePage user={user} />}
                     <Footer />
                 </>
                 :
@@ -57,7 +58,6 @@ export default function App() {
 
                 </>
             }
-
         </div>
     );
 };
