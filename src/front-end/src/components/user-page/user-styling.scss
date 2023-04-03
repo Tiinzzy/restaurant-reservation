@@ -172,3 +172,15 @@ th {
         color: rgb(92, 92, 234);
     }
 }
+
+.user-page-reservation-form-4{
+    border: solid 1px #eaeaea;
+    border-radius: 4px;
+    overflow-y: scroll;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 420px;
+}
