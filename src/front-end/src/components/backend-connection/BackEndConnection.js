@@ -122,6 +122,34 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async add_reservation(query, callback) {
+        return axios.post('/api/reservation/add', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async all_reservations(callback) {
+        return axios.post('/api/reservation/all', {}, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {
