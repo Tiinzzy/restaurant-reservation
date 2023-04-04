@@ -30,14 +30,19 @@ export default class MakeReservation extends React.Component {
             reservation: '',
             time: null,
             reservationTime: '',
-            fullName: '',
+            customerFullName: '',
             customerId: '',
             status: '',
             tableId: '',
             numberOfPeople: 1,
             latestComment: '',
             duration: '',
-            open: false
+            open: false,
+            tipPercent: '',
+            totalPrice: '',
+            waiterId: '',
+            statusType: 'Just walked in',
+            reservationType: 'Phone'
         }
     }
 
@@ -59,8 +64,8 @@ export default class MakeReservation extends React.Component {
         this.setState({ tableId: e.target.value });
     }
 
-    getFullName(e) {
-        this.setState({ fullName: e.target.value });
+    getCustomerFullName(e) {
+        this.setState({ customerFullName: e.target.value });
     }
 
     getCustomerId(e) {
@@ -77,6 +82,26 @@ export default class MakeReservation extends React.Component {
 
     getDurationOfStay(e) {
         this.setState({ duration: e.target.value });
+    }
+
+    handleOpenReservationType(e) {
+        this.setState({ reservationType: e.target.value, open: true });
+    }
+
+    handleOpenStatusType(e) {
+        this.setState({ statusType: e.target.value, open: true });
+    }
+
+    getTipPercent(e) {
+        this.setState({ tipPercent: e.target.value })
+    }
+
+    getTotalPrice(e) {
+        this.setState({ totalPrice: e.target.value });
+    }
+
+    getWaiterId(e) {
+        this.setState({ waiterId: e.target.value });
     }
 
     submitReservation() {
@@ -129,7 +154,7 @@ export default class MakeReservation extends React.Component {
                             onChange={(e) => this.getTableId(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Waiter ID: </Typography>
                         <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getTipPercent(e)} />
+                            onChange={(e) => this.getWaiterId(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Total Price: </Typography>
                         <TextField variant="outlined" className="localization-provider"
                             onChange={(e) => this.getTotalPrice(e)} />
@@ -141,13 +166,20 @@ export default class MakeReservation extends React.Component {
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Customer Full Name: </Typography>
                         <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getFullName(e)} />
+                            onChange={(e) => this.getCustomerFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Customer ID: </Typography>
                         <TextField variant="outlined" className="localization-provider"
                             onChange={(e) => this.getCustomerId(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Status: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getStatus(e)} />
+                        <FormControl>
+                            <Select
+                                className="localization-provider"
+                                value={this.state.statusType}
+                                onChange={(e) => this.handleOpenStatusType(e)}>
+                                {STATUS_TYPE.map((e, i) => (
+                                    <MenuItem key={i} value={e}>{e}</MenuItem>))}
+                            </Select>
+                        </FormControl>
                         <Typography fontSize={14} variant="body1" mb={.5}>Latest Comment: </Typography>
                         <TextField variant="outlined" className="localization-provider"
                             onChange={(e) => this.getLatestComment(e)} />
@@ -155,8 +187,8 @@ export default class MakeReservation extends React.Component {
                         <FormControl>
                             <Select
                                 className="localization-provider"
-                                value={this.state.numberOfPeople}
-                                onChange={(e) => this.handleOpenMenu(e)}>
+                                value={this.state.reservationType}
+                                onChange={(e) => this.handleOpenReservationType(e)}>
                                 {RESERVATION_TYPE.map((e, i) => (
                                     <MenuItem key={i} value={e}>{e}</MenuItem>))}
                             </Select>
