@@ -1,6 +1,8 @@
 import React from "react";
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -16,8 +18,13 @@ export default class AllReservations extends React.Component {
 
     render() {
         return (
-            <Box className="user-home-page-main-box">
-               this will be all reservations on display page
+            <Box className="delete-account-main-box">
+                <Box className="top-header-reservation">
+                    <Typography fontSize={20} fontWeight="bold">All Reservation</Typography>
+                    <Box display="flex" flexGrow={1} />
+                    <Typography fontSize={16} variant="body1">Click on any reservation to view and edit.</Typography>
+                </Box>
+                <Divider style={{ margingTop: 10, marginBottom: 25 }} />
             </Box>
         );
     }
