@@ -40,12 +40,14 @@ export default function App() {
 
     return (
         <div>
-            {isLogin ?
-                <>
+            {/* {isLogin ?
+                <> */}
                     <HeaderLogin user={user} />
-                    {user !== null && <WaiterHomePage user={user} />}
+                    {/* {user !== null &&  */}
+                    <WaiterHomePage user={user} />
+                    {/* } */}
                     <Footer />
-                </>
+                {/* </>
                 :
                 <>
                     <Header />
@@ -57,7 +59,7 @@ export default function App() {
                     <Footer />
 
                 </>
-            }
+            } */}
         </div>
     );
 };
