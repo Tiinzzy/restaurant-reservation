@@ -57,11 +57,11 @@ export default class MakeReservation extends React.Component {
     }
 
     handleOpenMenu(e) {
-        this.setState({ open: true, numberOfPeople: e.target.value });
+        this.setState({ open: true, numberOfPeople: e.target.value * 1 });
     }
 
     getTableId(e) {
-        this.setState({ tableId: e.target.value });
+        this.setState({ tableId: e.target.value * 1 });
     }
 
     getCustomerFullName(e) {
@@ -69,7 +69,7 @@ export default class MakeReservation extends React.Component {
     }
 
     getCustomerId(e) {
-        this.setState({ customerId: e.target.value });
+        this.setState({ customerId: e.target.value * 1 });
     }
 
     getStatus(e) {
@@ -93,19 +93,27 @@ export default class MakeReservation extends React.Component {
     }
 
     getTipPercent(e) {
-        this.setState({ tipPercent: e.target.value })
+        this.setState({ tipPercent: e.target.value * 1 })
     }
 
     getTotalPrice(e) {
-        this.setState({ totalPrice: e.target.value });
+        this.setState({ totalPrice: e.target.value * 1 });
     }
 
     getWaiterId(e) {
-        this.setState({ waiterId: e.target.value });
+        this.setState({ waiterId: e.target.value * 1 });
     }
 
     submitReservation() {
+        let query = {
+            'timestamp': this.state.reservationTime, 'customer_name': this.state.customerFullName, 'customer_id': this.state.customerId, 'seat_count': this.state.numberOfPeople, 'table_id': this.state.tableId, 'for_date': this.state.reservation,
+            'for_how_long': this.state.duration, 'status': this.state.status, 'latest_comment': this.state.latestComment, 'waiter_id': this.state.waiterId, 'reservation_type': this.state.reservationType, 'total_price': this.state.totalPrice,
+            'tip_percent': this.state.tipPercent
+        };
 
+        backend.add_reservation(query, (data) => {
+            console.log(data);
+        })
     }
 
 
