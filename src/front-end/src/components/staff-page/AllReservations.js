@@ -16,6 +16,12 @@ export default class AllReservations extends React.Component {
         }
     }
 
+    componentDidMount() {
+        backend.all_reservations((data) => {
+            console.log(data);
+        })
+    }
+
     render() {
         return (
             <Box className="delete-account-main-box">
