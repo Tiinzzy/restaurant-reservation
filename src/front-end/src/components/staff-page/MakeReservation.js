@@ -119,7 +119,10 @@ export default class MakeReservation extends React.Component {
         backend.add_reservation(query, (data) => {
             let that = this;
             if (data.result) {
-                that.setState({ reservationSuccess: true, openSnack: true });
+                that.setState({
+                    reservationSuccess: true, openSnack: true, reserveDate: null, reservation: '', reservationTime: '', numberOfPeople: '', tableId: '',
+                    customerFullName: '', customerId: '', status: '', latestComment: '', duration: '', reservationType: '', statusType: '', tipPercent: '', totalPrice: '', waiterId: ''
+                });
             } else {
                 that.setState({ reserveErr: true });
             }
