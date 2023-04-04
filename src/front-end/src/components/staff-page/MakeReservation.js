@@ -150,16 +150,16 @@ export default class MakeReservation extends React.Component {
                             </Select>
                         </FormControl>
                         <Typography fontSize={14} variant="body1" mb={.5}>Table ID: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getTableId(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Waiter ID: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getWaiterId(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Total Price: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getTotalPrice(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Tip Percent: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getTipPercent(e)} />
                     </Box>
                     <Box display="flex" flexGrow={1} />
@@ -168,7 +168,7 @@ export default class MakeReservation extends React.Component {
                         <TextField variant="outlined" className="localization-provider"
                             onChange={(e) => this.getCustomerFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Customer ID: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getCustomerId(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Status: </Typography>
                         <FormControl>
