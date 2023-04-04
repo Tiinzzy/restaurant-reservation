@@ -2,7 +2,7 @@ from database import Database
 import business.reservation_class_sql as reservation_table
 
 STATUS_TYPE = ['Just walked in', 'Here sitting', 'Left', 'Completed', 'Reserved', 'Cancelled']
-RESERVATION_TYPE = ['Phone', 'Online', 'In person'];
+RESERVATION_TYPE = ['Phone', 'Online', 'In person']
 
 
 class Reservation:
