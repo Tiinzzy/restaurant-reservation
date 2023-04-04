@@ -17,9 +17,9 @@ import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
 
-const NUMBER_OF_PEOPLE = [1, 2, 3, 4, 5, 6, '6+'];
+const NUMBER_OF_PEOPLE = [1, 2, 3, 4, 5, 6];
 const RESERVATION_TYPE = ['Phone', 'Online', 'In person'];
-const STATUS_TYPE = ['Just walked in', 'Here sitting', 'Left', 'Completed', 'Reserved', 'Cancelled']
+const STATUS_TYPE = ['Just walked in', 'Here sitting', 'Left', 'Completed', 'Reserved', 'Cancelled'];
 
 export default class MakeReservation extends React.Component {
 
