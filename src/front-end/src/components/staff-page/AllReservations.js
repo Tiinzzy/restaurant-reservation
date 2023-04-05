@@ -69,7 +69,7 @@ export default class AllReservations extends React.Component {
                         </Box>
                     ))}
                 </Box>
-                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
+                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()} fullWidth={true}>
                     <EditReservationDialog closeDialog={this.handleCloseDialog} reservationId={this.state.reservationId}/>
                 </Dialog>
             </Box>
