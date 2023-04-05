@@ -12,7 +12,9 @@ export default class EditMenuDialog extends React.Component {
         super(props);
         this.state = {
             closeDialog: props.closeDialog,
+            reservationId: props.reservationId
         }
+        console.log(this.state.reservationId);
     }
 
     render() {
