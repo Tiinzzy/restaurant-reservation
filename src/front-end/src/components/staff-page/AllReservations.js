@@ -18,12 +18,13 @@ export default class AllReservations extends React.Component {
         this.state = {
             openDialog: false
         }
+        this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
 
     componentDidMount() {
         backend.all_reservations((data) => {
             let that = this;
-            that.setState({ data });
+            that.setState({ data, reservationId: data.id });
         })
     }
 
@@ -80,7 +81,7 @@ export default class AllReservations extends React.Component {
                     ))}
                 </Box>
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    this is a test
+                    <EditReservationDialog closeDialog={this.handleCloseDialog} />
                 </Dialog>
             </Box>
         );
