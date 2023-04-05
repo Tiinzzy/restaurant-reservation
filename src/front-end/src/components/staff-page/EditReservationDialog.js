@@ -14,7 +14,12 @@ export default class EditMenuDialog extends React.Component {
             closeDialog: props.closeDialog,
             reservationId: props.reservationId
         }
-        console.log(this.state.reservationId);
+    }
+
+    componentDidMount() {
+        backend.load_reservation(this.state.reservationId, (data) => {
+            console.log(data);
+        })
     }
 
     render() {
