@@ -3,6 +3,9 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Dialog from "@mui/material/Dialog";
+
+import EditReservationDialog from "./EditReservationDialog";
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -13,6 +16,7 @@ export default class AllReservations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            openDialog: false
         }
     }
 
@@ -21,6 +25,16 @@ export default class AllReservations extends React.Component {
             let that = this;
             that.setState({ data });
         })
+    }
+
+    openReservationsDialog() {
+        this.setState({ openDialog: true })
+    }
+
+    handleCloseDialog() {
+        this.setState({ openDialog: false }, () => {
+            this.componentDidMount();
+        });
     }
 
     render() {
@@ -34,37 +48,40 @@ export default class AllReservations extends React.Component {
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, overflowY: 'scroll' }}>
                     {this.state.data && this.state.data.map((e, i) => (
-                        <Box key={i}>
+                        <Box key={i} style={{ cursor: 'pointer' }} onClick={() => this.openReservationsDialog()}>
                             id: {e.id}
-                            <br/>
+                            <br />
                             customer name: {e.customer_name}
-                            <br/>
+                            <br />
                             timestamp: {e.timestamp}
-                            <br/>
+                            <br />
                             customer id: {e.customer_id}
-                            <br/>
+                            <br />
                             seat count: {e.seat_count}
-                            <br/>
+                            <br />
                             table id: {e.table_id}
-                            <br/>
+                            <br />
                             for date: {e.for_date}
-                            <br/>
+                            <br />
                             for how long: {e.for_how_long}
-                            <br/>
+                            <br />
                             status: {e.status}
-                            <br/>
+                            <br />
                             comment: {e.comment}
-                            <br/>
+                            <br />
                             waiter id:{e.waiter_id}
-                            <br/>
+                            <br />
                             reservation type: {e.reservation_type}
-                            <br/>
+                            <br />
                             total price: {e.total_price}
-                            <br/>
+                            <br />
                             tip percent: {e.tip_percent}
                         </Box>
                     ))}
                 </Box>
+                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
+                    this is a test
+                </Dialog>
             </Box>
         );
     }
