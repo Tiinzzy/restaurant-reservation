@@ -150,6 +150,20 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async load_reservation(id, callback) {
+        return axios.post('api/reservation/load', { 'id': id }, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {
