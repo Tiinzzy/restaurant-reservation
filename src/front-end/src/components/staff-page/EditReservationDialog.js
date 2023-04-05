@@ -11,13 +11,14 @@ export default class EditMenuDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            closeDialog: props.closeDialog,
         }
     }
 
     render() {
         return (
             <Box>
-               this is to display data for one reservation
+                this is to display data for one reservation
             </Box>
         );
     }
