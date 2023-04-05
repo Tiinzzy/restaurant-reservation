@@ -24,12 +24,12 @@ export default class AllReservations extends React.Component {
     componentDidMount() {
         backend.all_reservations((data) => {
             let that = this;
-            that.setState({ data, reservationId: data.id });
+            that.setState({ data });
         })
     }
 
-    openReservationsDialog() {
-        this.setState({ openDialog: true })
+    openReservationsDialog(e) {
+        this.setState({ openDialog: true, reservationId: e });
     }
 
     handleCloseDialog() {
@@ -49,39 +49,28 @@ export default class AllReservations extends React.Component {
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, overflowY: 'scroll' }}>
                     {this.state.data && this.state.data.map((e, i) => (
-                        <Box key={i} style={{ cursor: 'pointer' }} onClick={() => this.openReservationsDialog()}>
-                            id: {e.id}
-                            <br />
-                            customer name: {e.customer_name}
-                            <br />
-                            timestamp: {e.timestamp}
-                            <br />
-                            customer id: {e.customer_id}
-                            <br />
-                            seat count: {e.seat_count}
-                            <br />
-                            table id: {e.table_id}
-                            <br />
-                            for date: {e.for_date}
-                            <br />
-                            for how long: {e.for_how_long}
-                            <br />
-                            status: {e.status}
-                            <br />
-                            comment: {e.comment}
-                            <br />
-                            waiter id:{e.waiter_id}
-                            <br />
-                            reservation type: {e.reservation_type}
-                            <br />
-                            total price: {e.total_price}
-                            <br />
-                            tip percent: {e.tip_percent}
+                        <Box key={i} onClick={() => this.openReservationsDialog(e.id)} className="all-reservations-single-box">
+                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                <Typography fontSize={18} fontWeight="700">Reservation ID:</Typography>
+                                <Typography fontSize={18} fontWeight="500">{e.id}</Typography>
+                            </Box>
+                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                <Typography fontSize={18} fontWeight="700">Customer Name:</Typography>
+                                <Typography fontSize={18} fontWeight="500">{e.customer_name}</Typography>
+                            </Box>
+                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                <Typography fontSize={18} fontWeight="700">Timestamp:</Typography>
+                                <Typography fontSize={18} fontWeight="500">{e.timestamp}</Typography>
+                            </Box>
+                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                <Typography fontSize={18} fontWeight="700">Date:</Typography>
+                                <Typography fontSize={18} fontWeight="500">{e.for_date}</Typography>
+                            </Box>
                         </Box>
                     ))}
                 </Box>
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    <EditReservationDialog closeDialog={this.handleCloseDialog} />
+                    <EditReservationDialog closeDialog={this.handleCloseDialog} reservationId={this.state.reservationId}/>
                 </Dialog>
             </Box>
         );
