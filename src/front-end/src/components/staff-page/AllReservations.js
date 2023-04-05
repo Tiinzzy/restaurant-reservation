@@ -52,19 +52,19 @@ export default class AllReservations extends React.Component {
                         <Box key={i} onClick={() => this.openReservationsDialog(e.id)} className="all-reservations-single-box">
                             <Box style={{ display: 'flex', flexDirection: 'row' }}>
                                 <Typography fontSize={18} fontWeight="700">Reservation ID:</Typography>
-                                <Typography fontSize={18} fontWeight="500">{e.id}</Typography>
+                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.id}</Typography>
                             </Box>
                             <Box style={{ display: 'flex', flexDirection: 'row' }}>
                                 <Typography fontSize={18} fontWeight="700">Customer Name:</Typography>
-                                <Typography fontSize={18} fontWeight="500">{e.customer_name}</Typography>
+                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.customer_name}</Typography>
                             </Box>
                             <Box style={{ display: 'flex', flexDirection: 'row' }}>
                                 <Typography fontSize={18} fontWeight="700">Timestamp:</Typography>
-                                <Typography fontSize={18} fontWeight="500">{e.timestamp}</Typography>
+                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.timestamp}</Typography>
                             </Box>
                             <Box style={{ display: 'flex', flexDirection: 'row' }}>
                                 <Typography fontSize={18} fontWeight="700">Date:</Typography>
-                                <Typography fontSize={18} fontWeight="500">{e.for_date}</Typography>
+                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.for_date}</Typography>
                             </Box>
                         </Box>
                     ))}
