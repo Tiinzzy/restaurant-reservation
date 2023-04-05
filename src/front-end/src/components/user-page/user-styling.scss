@@ -185,3 +185,11 @@ th {
     width: 700px;
     height: 420px;
 }
+
+.all-reservations-single-box{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: left;
+    justify-content: left;
+}
