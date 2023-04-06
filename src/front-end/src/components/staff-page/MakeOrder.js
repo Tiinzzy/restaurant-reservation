@@ -6,6 +6,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -17,7 +19,10 @@ export default class MakeOrder extends React.Component {
         super(props);
         this.state = {
             reservationId: '',
-            count: ''
+            count: '',
+            changesMade: false,
+            openSnack: false,
+            changeError: false
         }
     }
 
@@ -39,8 +44,17 @@ export default class MakeOrder extends React.Component {
     addToReservationOrder(menuItemId) {
         let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': menuItemId, 'count': this.state.count };
         backend.add_order_item(query, (data) => {
-            console.log(data);
+            let that = this;
+            if (data.result) {
+                that.setState({ changesMade: true, openSnack: true });
+            } else {
+                that.setState({ changesMade: true, openSnack: true, changeError: true });
+            }
         })
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -77,6 +91,12 @@ export default class MakeOrder extends React.Component {
                             </Box>))}
                     </Box>
                 </Box>
+                {this.state.changesMade === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity={this.state.changeError === true ? "error" : "success"}>
+                            {this.state.changeError === true ? 'Sorry, Something went wrong!' : 'Order Item Added Successfully!'}
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }
