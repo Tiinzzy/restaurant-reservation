@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -21,11 +22,6 @@ export default class EditProfile extends React.Component {
         super(props);
         this.state = {
             user: props.user,
-            fullName: '',
-            email: '',
-            birthDate: null,
-            birthday: '',
-            currentPassword: '',
             newPassword: '',
             confirmNewPassword: '',
             showPassword: false,
@@ -35,7 +31,8 @@ export default class EditProfile extends React.Component {
 
     componentDidMount() {
         backend.load_user_by_email(this.state.user, (data) => {
-            console.log(data);
+            let that = this;
+            that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password });
         })
     }
 
@@ -84,15 +81,16 @@ export default class EditProfile extends React.Component {
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                                value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
+                                defaultValue={dayjs(this.state.birthDate)}
+                                onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
                     </Box>
                     <Box display="flex" flexGrow={1} />
