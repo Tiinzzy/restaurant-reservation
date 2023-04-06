@@ -31,7 +31,6 @@ export default class EditMenuDialog extends React.Component {
                 reservationType: data.reservation_type, numberOfPeople: data.seat_count, status: data.status, tableId: data.table_id, waiterId: data.waiter_id,
                 tip: data.tip_percent, total: data.total_price, time: data.timestamp
             });
-            console.log(data)
         })
     }
 
@@ -92,7 +91,12 @@ export default class EditMenuDialog extends React.Component {
     }
 
     saveChanges() {
-        backend.update_reservation((data) => {
+        let query = {
+            'id': this.state.reservationId, 'for_how_long': this.state.time, 'customer_name': this.state.customerName, 'customer_id': this.state.customerId, 'seat_count': this.state.numberOfPeople,
+            'table_id': this.state.tableId, 'for_date': this.state.date, 'timestamp': this.state.time, 'status': this.state.status, 'latest_comment': this.state.comment, 'waiter_id': this.state.waiterId,
+            'reservation_type': this.state.reservationType, 'total_price': this.state.total, 'tip_percent': this.state.tip
+        }
+        backend.update_reservation(query, (data) => {
             console.log(data);
         })
     }
