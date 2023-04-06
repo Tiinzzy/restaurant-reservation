@@ -24,15 +24,14 @@ export default class EditProfile extends React.Component {
             user: props.user,
             newPassword: '',
             confirmNewPassword: '',
-            showPassword: false,
-
+            showPassword: false
         }
     }
 
     componentDidMount() {
         backend.load_user_by_email(this.state.user, (data) => {
             let that = this;
-            that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password });
+            that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password, userId: data.id });
         })
     }
 
@@ -61,12 +60,15 @@ export default class EditProfile extends React.Component {
         this.setState({ confirmNewPassword: e.target.value });
     }
 
-    checkBoxClicked(e) {
+    checkBoxClicked() {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
     saveNewChanges() {
-
+        let query = { 'user_id': this.state.userId, 'name': this.state.fullName, 'email': this.state.email, 'password': this.state.currentPassword, 'birthday': this.state.birthday };
+        backend.update_user(query, (data) => {
+            console.log(data);
+        })
     }
 
     render() {
