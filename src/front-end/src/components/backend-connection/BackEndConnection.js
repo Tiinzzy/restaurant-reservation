@@ -164,6 +164,76 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async update_reservation(query, callback) {
+        return axios.post('api/reservation/update', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async load_user_by_email(email, callback) {
+        return axios.post('api/user/load-by-email', { 'email': email }, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async update_user(query, callback) {
+        return axios.post('api/user/update', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async add_order_item(query, callback) {
+        return axios.post('api/order-item/add', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async all_order_items(reservationId, callback) {
+        return axios.post('api/order-item/all', { 'reservation_id': reservationId }, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {

@@ -42,12 +42,12 @@ export default function App() {
         <div>
             {/* {isLogin ?
                 <> */}
-                    <HeaderLogin user={user} />
-                    {/* {user !== null &&  */}
-                    <WaiterHomePage user={user} />
-                    {/* } */}
-                    <Footer />
-                {/* </>
+            <HeaderLogin user={user} />
+            {/* {user !== null &&  */}
+            <WaiterHomePage user={user} />
+            {/* } */}
+            <Footer />
+            {/* </>
                 :
                 <>
                     <Header />

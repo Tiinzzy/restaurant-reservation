@@ -70,7 +70,7 @@ export default class WaiterHomePage extends React.Component {
                     {this.state.selectedMenuItem === 'All Reservations' && <AllReservations />}
                     {this.state.selectedMenuItem === 'Make Reservation' && <MakeReservation />}
                     {this.state.selectedMenuItem === 'Make an Order' && <MakeOrder />}
-                    {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile />}
+                    {this.state.selectedMenuItem === 'Edit Profile' && <EditProfile user={this.state.user} />}
                 </Box>
             </Box>
         );

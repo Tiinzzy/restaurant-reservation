@@ -185,5 +185,7 @@ class User:
             self.__password) + ', ' + self.__birthday
 
     def to_json(self):
-        obj = {'id': self.__id, 'name': self.__name, 'email': self.__email, 'birthday': self.__birthday}
+        obj = {'id': self.__id, 'name': self.__name, 'email': self.__email, 'birthday': self.__birthday,
+               'password': self.__password
+               }
         return obj
