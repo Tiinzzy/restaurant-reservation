@@ -20,6 +20,7 @@ export default class EditProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: props.user,
             fullName: '',
             email: '',
             birthDate: null,
@@ -30,6 +31,12 @@ export default class EditProfile extends React.Component {
             showPassword: false,
 
         }
+    }
+
+    componentDidMount() {
+        backend.load_user_by_email(this.state.user, (data) => {
+            console.log(data);
+        })
     }
 
     getFullName(e) {
