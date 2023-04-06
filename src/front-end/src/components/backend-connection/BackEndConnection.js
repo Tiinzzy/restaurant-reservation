@@ -165,8 +165,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async update_reservation(callback) {
-        return axios.post('api/reservation/update', {}, {})
+    async update_reservation(query, callback) {
+        return axios.post('api/reservation/update', query, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
