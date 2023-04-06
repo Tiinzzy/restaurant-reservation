@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Dialog from "@mui/material/Dialog";
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 import EditReservationDialog from "./EditReservationDialog";
 
@@ -16,7 +18,9 @@ export default class AllReservations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openDialog: false
+            openDialog: false,
+            changesMade: false,
+            openSnack: false
         }
         this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
@@ -32,10 +36,20 @@ export default class AllReservations extends React.Component {
         this.setState({ openDialog: true, reservationId: e });
     }
 
-    handleCloseDialog() {
-        this.setState({ openDialog: false }, () => {
-            this.componentDidMount();
-        });
+    handleCloseDialog(data) {
+        if (data && data.action === 'changes-made-successfully') {
+            this.setState({ openDialog: false, changesMade: true, openSnack: true }, () => {
+                this.componentDidMount();
+            });
+        } else {
+            this.setState({ openDialog: false }, () => {
+                this.componentDidMount();
+            });
+        }
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -70,8 +84,14 @@ export default class AllReservations extends React.Component {
                     ))}
                 </Box>
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()} fullWidth={true}>
-                    <EditReservationDialog closeDialog={this.handleCloseDialog} reservationId={this.state.reservationId}/>
+                    <EditReservationDialog closeDialog={this.handleCloseDialog} reservationId={this.state.reservationId} />
                 </Dialog>
+                {this.state.changesMade === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity="success">
+                            Changes Made Successfully!
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }
