@@ -27,9 +27,9 @@ export default class EditMenuDialog extends React.Component {
         backend.load_reservation(this.state.reservationId, (data) => {
             let that = this;
             that.setState({
-                customerName: data.cutomer_name, customerId: data.customer_id, date: data.for_date, time: data.for_how_long, comment: data.latest_comment,
+                customerName: data.cutomer_name, customerId: data.customer_id, date: data.for_date, duration: data.for_how_long, comment: data.latest_comment,
                 reservationType: data.reservation_type, numberOfPeople: data.seat_count, status: data.status, tableId: data.table_id, waiterId: data.waiter_id,
-                tip: data.tip_percent, total: data.total_price
+                tip: data.tip_percent, total: data.total_price, time: data.timestamp
             });
             console.log(data)
         })
@@ -49,6 +49,10 @@ export default class EditMenuDialog extends React.Component {
 
     getTime(e) {
         this.setState({ time: e.target.value });
+    }
+
+    getDuration(e) {
+        this.setState({ duration: e.target.value });
     }
 
     getComments(e) {
@@ -88,7 +92,9 @@ export default class EditMenuDialog extends React.Component {
     }
 
     saveChanges() {
-        this.state.closeDialog();
+        backend.update_reservation((data) => {
+            console.log(data);
+        })
     }
 
     render() {
@@ -113,6 +119,9 @@ export default class EditMenuDialog extends React.Component {
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Time: </Typography>
                     <TextField size="small" variant="outlined" value={this.state.time && this.state.time}
                         onChange={(e) => this.getTime(e)} className="menu-item-detail-text" />
+                    <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Duration: </Typography>
+                    <TextField size="small" variant="outlined" value={this.state.duration && this.state.duration}
+                        onChange={(e) => this.getDuration(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Comments: </Typography>
                     <TextField size="small" variant="outlined" value={this.state.comment && this.state.comment}
                         onChange={(e) => this.getComments(e)} className="menu-item-detail-text" />
