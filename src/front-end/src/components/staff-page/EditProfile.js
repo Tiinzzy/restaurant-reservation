@@ -79,7 +79,7 @@ export default class EditProfile extends React.Component {
             if (data.result) {
                 that.setState({ changesMade: true, openSnack: true });
             } else {
-                that.setState({ changeError: true });
+                that.setState({ changesMade: true, openSnack: true, changeError: true });
             }
         })
     }
