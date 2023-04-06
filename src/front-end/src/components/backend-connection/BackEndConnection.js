@@ -193,8 +193,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async update_user(callback) {
-        return axios.post('api/user/update', {}, {})
+    async update_user(query, callback) {
+        return axios.post('api/user/update', query, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
