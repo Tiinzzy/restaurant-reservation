@@ -29,7 +29,8 @@ export default class EditProfile extends React.Component {
             showPassword: false,
             anchorEl: null,
             changesMade: false,
-            openSnack: false
+            openSnack: false,
+            changeError: false
         }
     }
 
@@ -77,7 +78,9 @@ export default class EditProfile extends React.Component {
             let that = this;
             if (data.result) {
                 that.setState({ changesMade: true, openSnack: true });
-            };
+            } else {
+                that.setState({ changeError: true });
+            }
         })
     }
 
@@ -136,8 +139,8 @@ export default class EditProfile extends React.Component {
                 </Box>
                 {this.state.changesMade === true &&
                     <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-                        <Alert severity="success">
-                            Changes Made Successfully!
+                        <Alert severity={this.state.changeError === true ? "error" : "success"}>
+                            {this.state.changeError === true ? 'Sorry, Something went wrong!' : 'Changes Made Successfully!'}
                         </Alert>
                     </Snackbar>}
             </Box>
