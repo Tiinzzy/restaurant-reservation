@@ -178,6 +178,20 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async load_user_email(callback) {
+        return axios.post('api/user/load-by-email', {}, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {
