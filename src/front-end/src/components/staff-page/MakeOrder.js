@@ -25,7 +25,7 @@ export default class MakeOrder extends React.Component {
         backend.all_menu_items((data) => {
             let that = this;
             that.setState({ data });
-        })
+        });
     }
 
     getReservationId(e) {
@@ -37,9 +37,10 @@ export default class MakeOrder extends React.Component {
     }
 
     addToReservationOrder(menuItemId) {
-        console.log(this.state.count, 'count');
-        console.log(this.state.reservationId, 'reservation id');
-        console.log(menuItemId);
+        let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': menuItemId, 'count': this.state.count };
+        backend.add_order_item(query, (data) => {
+            console.log(data);
+        })
     }
 
     render() {
