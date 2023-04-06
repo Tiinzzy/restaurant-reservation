@@ -179,8 +179,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async load_user_email(callback) {
-        return axios.post('api/user/load-by-email', {}, {})
+    async load_user_by_email(email, callback) {
+        return axios.post('api/user/load-by-email', { 'email': email }, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
