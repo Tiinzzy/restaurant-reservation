@@ -34,7 +34,12 @@ export default class MakeOrder extends React.Component {
     }
 
     getReservationId(e) {
-        this.setState({ reservationId: e.target.value });
+        this.setState({ reservationId: e.target.value }, () => {
+            backend.all_order_items(this.state.reservationId, (data) => {
+                let that = this;
+                that.setState({ allOrderItems: data });
+            })
+        });
     }
 
     getMenuItemCount(e) {
@@ -71,12 +76,38 @@ export default class MakeOrder extends React.Component {
                         <Typography fontSize={14} variant="body1" mb={.5}>Enter Reservation ID: </Typography>
                         <TextField size="small" variant="outlined"
                             onChange={(e) => this.getReservationId(e)} />
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <th>Reservation ID</th>
+                                    <th>Menu Item ID</th>
+                                    <th>Count</th>
+                                    <th>Order Item ID</th>
+                                </tr>
+                                {this.state.allOrderItems && this.state.allOrderItems.map((e, i) => (
+                                    <tr key={i}>
+                                        <td id="td-menu-item-id" onClick={(e) => this.handleOpenDialog(e)}>
+                                            {e.reservation_id}
+                                        </td>
+                                        <td>
+                                            {e.menu_item_id}
+
+                                        </td>
+                                        <td>
+                                            {e.count}
+                                        </td>
+                                        <td>
+                                            {e.order_item_id}
+                                        </td>
+                                    </tr>))}
+                            </tbody>
+                        </table>
                     </Box>
                     <Box className="user-page-reservation-form-4">
                         {this.state.data && this.state.data.map((e, i) => (
                             <Box key={i}>
                                 <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee', alignItems: 'center' }}>
-                                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1em" color="rgb(37, 37, 37)">{e.name}</Typography>
+                                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1em" color="rgb(37, 37, 37)"> <span style={{ marginRight: 5 }}>{e.id}</span>{e.name}</Typography>
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
