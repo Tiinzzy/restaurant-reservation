@@ -19,7 +19,8 @@ export default class EditMenuDialog extends React.Component {
         super(props);
         this.state = {
             closeDialog: props.closeDialog,
-            reservationId: props.reservationId
+            reservationId: props.reservationId,
+            updateError: false
         }
     }
 
@@ -35,55 +36,55 @@ export default class EditMenuDialog extends React.Component {
     }
 
     getCustomerName(e) {
-        this.setState({ customerName: e.target.value });
+        this.setState({ customerName: e.target.value, updateError: false });
     }
 
     getCustomerId(e) {
-        this.setState({ customerId: e.target.value });
+        this.setState({ customerId: e.target.value, updateError: false });
     }
 
     getDate(e) {
-        this.setState({ date: e.target.value });
+        this.setState({ date: e.target.value, updateError: false });
     }
 
     getTime(e) {
-        this.setState({ time: e.target.value });
+        this.setState({ time: e.target.value, updateError: false });
     }
 
     getDuration(e) {
-        this.setState({ duration: e.target.value });
+        this.setState({ duration: e.target.value, updateError: false });
     }
 
     getComments(e) {
-        this.setState({ comment: e.target.value });
+        this.setState({ comment: e.target.value, updateError: false });
     }
 
     getReservationType(e) {
-        this.setState({ reservationType: e.target.value });
+        this.setState({ reservationType: e.target.value, updateError: false });
     }
 
     getSeatCount(e) {
-        this.setState({ numberOfPeople: e.target.value });
+        this.setState({ numberOfPeople: e.target.value, updateError: false });
     }
 
     getTableId(e) {
-        this.setState({ tableId: e.target.value });
+        this.setState({ tableId: e.target.value, updateError: false });
     }
 
     getStatus(e) {
-        this.setState({ status: e.target.value });
+        this.setState({ status: e.target.value, updateError: false });
     }
 
     getWaiterId(e) {
-        this.setState({ waiterId: e.target.value });
+        this.setState({ waiterId: e.target.value, updateError: false });
     }
 
     getTipPercent(e) {
-        this.setState({ tip: e.target.value });
+        this.setState({ tip: e.target.value, updateError: false });
     }
 
     getTotalPrice(e) {
-        this.setState({ total: e.target.value });
+        this.setState({ total: e.target.value, updateError: false });
     }
 
     cancelAndClose() {
@@ -100,6 +101,8 @@ export default class EditMenuDialog extends React.Component {
             let that = this;
             if (data.result) {
                 that.state.closeDialog({ action: 'changes-made-successfully' });
+            } else {
+                that.setState({ updateError: true });
             }
         })
     }
@@ -115,43 +118,43 @@ export default class EditMenuDialog extends React.Component {
                         The following are current data, type in textfield to change.
                     </DialogContentText>
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Customer Name: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.customerName && this.state.customerName}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.customerName && this.state.customerName}
                         onChange={(e) => this.getCustomerName(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Customer ID: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.customerId && this.state.customerId}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.customerId && this.state.customerId}
                         onChange={(e) => this.getCustomerId(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Date: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.date && this.state.date}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.date && this.state.date}
                         onChange={(e) => this.getDate(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Time: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.time && this.state.time}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.time && this.state.time}
                         onChange={(e) => this.getTime(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Duration: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.duration && this.state.duration}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.duration && this.state.duration}
                         onChange={(e) => this.getDuration(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Comments: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.comment && this.state.comment}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.comment && this.state.comment}
                         onChange={(e) => this.getComments(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Reservation Type: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.reservationType && this.state.reservationType}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.reservationType && this.state.reservationType}
                         onChange={(e) => this.getReservationType(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Number of People: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.numberOfPeople && this.state.numberOfPeople}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.numberOfPeople && this.state.numberOfPeople}
                         onChange={(e) => this.getSeatCount(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Table ID: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.tableId && this.state.tableId}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.tableId && this.state.tableId}
                         onChange={(e) => this.getTableId(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Status: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.status && this.state.status}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.status && this.state.status}
                         onChange={(e) => this.getStatus(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Waiter ID: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.waiterId && this.state.waiterId}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.waiterId && this.state.waiterId}
                         onChange={(e) => this.getWaiterId(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Tip Percent: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.tip && this.state.tip}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.tip && this.state.tip}
                         onChange={(e) => this.getTipPercent(e)} className="menu-item-detail-text" />
                     <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Total: </Typography>
-                    <TextField size="small" variant="outlined" value={this.state.total && this.state.total}
+                    <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.total && this.state.total}
                         onChange={(e) => this.getTotalPrice(e)} className="menu-item-detail-text" />
                 </DialogContent >
                 <DialogActions>
