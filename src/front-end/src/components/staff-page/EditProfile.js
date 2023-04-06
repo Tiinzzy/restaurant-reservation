@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import dayjs from 'dayjs';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -25,7 +27,9 @@ export default class EditProfile extends React.Component {
             newPassword: '',
             confirmNewPassword: '',
             showPassword: false,
-            anchorEl: null
+            anchorEl: null,
+            changesMade: false,
+            openSnack: false
         }
     }
 
@@ -70,8 +74,15 @@ export default class EditProfile extends React.Component {
     saveNewChanges() {
         let query = { 'user_id': this.state.userId, 'name': this.state.fullName, 'email': this.state.email, 'password': this.state.currentPassword, 'birthday': this.state.birthday };
         backend.update_user(query, (data) => {
-            console.log(data);
+            let that = this;
+            if (data.result) {
+                that.setState({ changesMade: true, openSnack: true });
+            };
         })
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -123,6 +134,12 @@ export default class EditProfile extends React.Component {
                         </Box>
                     </Box>
                 </Box>
+                {this.state.changesMade === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity="success">
+                            Changes Made Successfully!
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }
