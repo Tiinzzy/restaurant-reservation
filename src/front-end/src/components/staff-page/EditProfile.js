@@ -24,7 +24,8 @@ export default class EditProfile extends React.Component {
             user: props.user,
             newPassword: '',
             confirmNewPassword: '',
-            showPassword: false
+            showPassword: false,
+            anchorEl: null
         }
     }
 
@@ -44,8 +45,10 @@ export default class EditProfile extends React.Component {
     }
 
     getBirthDate(e) {
-        let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
-        this.setState({ birthDate: e, birthday: date, generalError: false });
+        let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
+        this.setState({ anchorEl: e.currentTarget, birthDate: e, birthday: date, generalError: false }, () => {
+            this.setState({ anchorEl: null });
+        });
     }
 
     getCurrentPassword(e) {
@@ -91,7 +94,11 @@ export default class EditProfile extends React.Component {
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                                defaultValue={dayjs(this.state.birthDate)}
+                                PopperProps={{
+                                    placement: "bottom-end",
+                                    anchorEl: this.state.anchorEl
+                                }}
+                                value={dayjs(this.state.birthDate)}
                                 onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
                     </Box>
