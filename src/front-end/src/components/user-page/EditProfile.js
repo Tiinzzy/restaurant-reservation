@@ -37,7 +37,6 @@ export default class EditProfile extends React.Component {
 
     componentDidMount() {
         backend.load_user_by_email(this.state.user, (data) => {
-            console.log(data)
             let that = this;
             that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password, userId: data.id });
         })
