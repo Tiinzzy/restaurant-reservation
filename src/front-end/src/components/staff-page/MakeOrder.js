@@ -109,12 +109,11 @@ export default class MakeOrder extends React.Component {
                                 {this.state.allOrderItems && this.state.allOrderItems.map((e, i) => (
                                     <tr key={i}>
                                         <td id="td-menu-item-id"
-                                            onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count })}>
+                                            onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count, 'menuItemId': e.menu_item_id })}>
                                             {e.reservation_id}
                                         </td>
                                         <td>
                                             {e.menu_item_id}
-
                                         </td>
                                         <td>
                                             {e.count}
