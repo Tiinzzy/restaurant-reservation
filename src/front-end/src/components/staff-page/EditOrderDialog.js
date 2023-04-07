@@ -11,7 +11,12 @@ export default class EditOrderDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            clickedData: props.clickedData
         }
+    }
+
+    componentDidMount() {
+        console.log(this.state.clickedData)
     }
 
     render() {
