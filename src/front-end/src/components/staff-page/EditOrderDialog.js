@@ -45,7 +45,7 @@ export default class EditOrderDialog extends React.Component {
         let query = { 'reservation_id': this.state.reservationId, 'order_item_id': this.state.orderItemId, 'count': this.state.count };
         backend.update_order_items(query, (data) => {
             if (data.result) {
-                this.state.closeDialog();
+                this.state.closeDialog({ action: 'changes-made-successfully', reserveId: this.state.reservationId });
             }
         })
     }
