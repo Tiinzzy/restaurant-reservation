@@ -20,7 +20,8 @@ export default class EditOrderDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clickedData: props.clickedData
+            clickedData: props.clickedData,
+            closeDialog: props.closeDialog
         }
     }
 
@@ -34,6 +35,14 @@ export default class EditOrderDialog extends React.Component {
 
     increaseTheCount() {
         this.setState({ count: (this.state.count * 1) + 1 });
+    }
+
+    cancelAndClose() {
+        this.state.closeDialog();
+    }
+
+    saveChanges() {
+        this.state.closeDialog();
     }
 
     render() {
