@@ -10,6 +10,8 @@ import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import Dialog from '@mui/material/Dialog';
 
+import EditOrderDialog from "./EditOrderDialog";
+
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
@@ -140,7 +142,7 @@ export default class MakeOrder extends React.Component {
                     </Snackbar>}
 
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    this is a test
+                    <EditOrderDialog />
                 </Dialog>
             </Box>
         );
