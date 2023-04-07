@@ -28,6 +28,7 @@ export default class MakeOrder extends React.Component {
             changeError: false,
             openDialog: false
         }
+        this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
 
     componentDidMount() {
@@ -143,7 +144,7 @@ export default class MakeOrder extends React.Component {
                     </Snackbar>}
 
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    <EditOrderDialog clickedData={this.state.clickedData} />
+                    <EditOrderDialog clickedData={this.state.clickedData} closeDialog={this.handleCloseDialog} />
                 </Dialog>
             </Box>
         );
