@@ -235,8 +235,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async update_order_items(callback) {
-        return axios.post('api/order-item/update', {}, {})
+    async update_order_items(query, callback) {
+        return axios.post('api/order-item/update', query, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
