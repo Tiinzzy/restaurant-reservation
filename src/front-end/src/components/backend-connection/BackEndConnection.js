@@ -234,6 +234,34 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async update_order_item(query, callback) {
+        return axios.post('api/order-item/update', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async delete_order_item(query, callback) {
+        return axios.post('api/order-item/delete', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
 }
 
 export default class BackEndConnection {

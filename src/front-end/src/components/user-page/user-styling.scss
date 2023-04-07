@@ -103,7 +103,11 @@ th {
     padding: 10px;
 }
 
-.user-page-reservation-form-3{
+tr:hover {
+    background-color: #e0e0e0;
+}
+
+.user-page-reservation-form-3 {
     overflow-y: scroll;
     // border: solid 1px red;
     align-items: left;
@@ -114,11 +118,11 @@ th {
     height: 420px;
 }
 
-.user-page-submit-bt-4{
+.user-page-submit-bt-4 {
     width: 100px;
 }
 
-#td-menu-item-id{
+#td-menu-item-id {
     cursor: pointer;
 
     &:hover {
@@ -126,7 +130,7 @@ th {
     }
 }
 
-.menu-item-detail-text{
+.menu-item-detail-text {
     width: 400px !important;
 }
 
@@ -159,7 +163,7 @@ th {
     overflow-y: scroll;
 }
 
-.menu-box-logo-user{
+.menu-box-logo-user {
     flex-direction: row;
     display: flex;
     align-items: center;
@@ -168,12 +172,13 @@ th {
     padding-bottom: 20px;
     color: rgb(35, 35, 146);
     cursor: pointer;
-    &:hover{
+
+    &:hover {
         color: rgb(92, 92, 234);
     }
 }
 
-.user-page-reservation-form-4{
+.user-page-reservation-form-4 {
     padding: 5px;
     border: solid 1px #eaeaea;
     border-radius: 4px;
@@ -186,7 +191,7 @@ th {
     height: 420px;
 }
 
-.all-reservations-single-box{
+.all-reservations-single-box {
     display: flex;
     flex-direction: column;
     cursor: pointer;

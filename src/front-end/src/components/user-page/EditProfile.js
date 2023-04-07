@@ -7,6 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import dayjs from 'dayjs';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -22,16 +25,21 @@ export default class EditProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fullName: '',
-            email: '',
-            birthDate: null,
-            birthday: '',
-            currentPassword: '',
             newPassword: '',
             confirmNewPassword: '',
             showPassword: false,
-
+            user: props.user,
+            changesMade: false,
+            openSnack: false,
+            changeError: false
         }
+    }
+
+    componentDidMount() {
+        backend.load_user_by_email(this.state.user, (data) => {
+            let that = this;
+            that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password, userId: data.id });
+        })
     }
 
     getFullName(e) {
@@ -59,16 +67,30 @@ export default class EditProfile extends React.Component {
         this.setState({ confirmNewPassword: e.target.value });
     }
 
-    checkBoxClicked(e) {
+    checkBoxClicked() {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
     saveNewChanges() {
-
+        let query = { 'user_id': this.state.userId, 'name': this.state.fullName, 'email': this.state.email, 'password': this.state.currentPassword, 'birthday': this.state.birthday };
+        backend.update_user(query, (data) => {
+            let that = this;
+            if (data.result) {
+                that.setState({ changesMade: true, openSnack: true }, () => {
+                    this.componentDidMount();
+                });
+            } else {
+                that.setState({ changesMade: true, openSnack: true, changeError: true });
+            }
+        })
     }
 
     deleteUsersAccount() {
 
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -83,15 +105,15 @@ export default class EditProfile extends React.Component {
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                                value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
+                                value={dayjs(this.state.birthDate)} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
                     </Box>
                     <Box display="flex" flexGrow={1} />
@@ -116,6 +138,12 @@ export default class EditProfile extends React.Component {
                         </Box>
                     </Box>
                 </Box>
+                {this.state.changesMade === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity={this.state.changeError === true ? "error" : "success"}>
+                            {this.state.changeError === true ? 'Sorry, Something went wrong!' : 'Changes Made Successfully!'}
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }

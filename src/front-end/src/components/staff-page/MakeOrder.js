@@ -8,6 +8,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Dialog from '@mui/material/Dialog';
+
+import EditOrderDialog from "./EditOrderDialog";
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -22,19 +25,26 @@ export default class MakeOrder extends React.Component {
             count: '',
             changesMade: false,
             openSnack: false,
-            changeError: false
+            changeError: false,
+            openDialog: false
         }
+        this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount(reserveId) {
         backend.all_menu_items((data) => {
             let that = this;
             that.setState({ data });
         });
+
+        backend.all_order_items(reserveId, (data) => {
+            let that = this;
+            that.setState({ allOrderItems: data });
+        })
     }
 
     getReservationId(e) {
-        this.setState({ reservationId: e.target.value }, () => {
+        this.setState({ reservationId: e.target.value || e }, () => {
             backend.all_order_items(this.state.reservationId, (data) => {
                 let that = this;
                 that.setState({ allOrderItems: data });
@@ -51,7 +61,9 @@ export default class MakeOrder extends React.Component {
         backend.add_order_item(query, (data) => {
             let that = this;
             if (data.result) {
-                that.setState({ changesMade: true, openSnack: true });
+                that.setState({ changesMade: true, openSnack: true }, () => {
+                    this.componentDidMount(this.state.reservationId);
+                });
             } else {
                 that.setState({ changesMade: true, openSnack: true, changeError: true });
             }
@@ -60,6 +72,18 @@ export default class MakeOrder extends React.Component {
 
     closeAlert() {
         this.setState({ openSnack: false });
+    }
+
+    handleOpenDialog(data) {
+        this.setState({ openDialog: true, clickedData: data });
+    }
+
+    handleCloseDialog(data) {
+        if (data && data.action === 'changes-made-successfully') {
+            this.setState({ openDialog: false });
+            this.componentDidMount(data.reserveId);
+        }
+        this.setState({ openDialog: false });
     }
 
     render() {
@@ -86,12 +110,12 @@ export default class MakeOrder extends React.Component {
                                 </tr>
                                 {this.state.allOrderItems && this.state.allOrderItems.map((e, i) => (
                                     <tr key={i}>
-                                        <td id="td-menu-item-id" onClick={(e) => this.handleOpenDialog(e)}>
+                                        <td id="td-menu-item-id"
+                                            onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count, 'menuItemId': e.menu_item_id })}>
                                             {e.reservation_id}
                                         </td>
                                         <td>
                                             {e.menu_item_id}
-
                                         </td>
                                         <td>
                                             {e.count}
@@ -128,6 +152,10 @@ export default class MakeOrder extends React.Component {
                             {this.state.changeError === true ? 'Sorry, Something went wrong!' : 'Order Item Added Successfully!'}
                         </Alert>
                     </Snackbar>}
+
+                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
+                    <EditOrderDialog clickedData={this.state.clickedData} closeDialog={this.handleCloseDialog} />
+                </Dialog>
             </Box>
         );
     }
