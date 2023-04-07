@@ -28,6 +28,10 @@ export default class EditOrderDialog extends React.Component {
         this.setState({ reservationId: this.state.clickedData.reservationId, orderItemId: this.state.clickedData.orderItemId, count: this.state.clickedData.count });
     }
 
+    reduceTheCount(){
+        this.setState({count: (this.state.count *1) - 1});
+    }
+
     render() {
         return (
             <Box>
