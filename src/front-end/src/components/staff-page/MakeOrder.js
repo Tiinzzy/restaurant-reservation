@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Dialog from '@mui/material/Dialog';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -22,7 +23,8 @@ export default class MakeOrder extends React.Component {
             count: '',
             changesMade: false,
             openSnack: false,
-            changeError: false
+            changeError: false,
+            openDialog: false
         }
     }
 
@@ -60,6 +62,14 @@ export default class MakeOrder extends React.Component {
 
     closeAlert() {
         this.setState({ openSnack: false });
+    }
+
+    handleOpenDialog() {
+        this.setState({ openDialog: true });
+    }
+
+    handleCloseDialog() {
+        this.setState({ openDialog: false });
     }
 
     render() {
@@ -128,6 +138,10 @@ export default class MakeOrder extends React.Component {
                             {this.state.changeError === true ? 'Sorry, Something went wrong!' : 'Order Item Added Successfully!'}
                         </Alert>
                     </Snackbar>}
+
+                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
+                    this is a test
+                </Dialog>
             </Box>
         );
     }
