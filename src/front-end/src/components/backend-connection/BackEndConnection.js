@@ -235,8 +235,22 @@ class BackEndConnectionImpl {
             })
     }
 
-    async update_order_items(query, callback) {
+    async update_order_item(query, callback) {
         return axios.post('api/order-item/update', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async delete_order_item(callback) {
+        return axios.post('api/order-item/delete', {}, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
