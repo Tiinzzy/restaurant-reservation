@@ -66,8 +66,8 @@ export default class MakeOrder extends React.Component {
         this.setState({ openSnack: false });
     }
 
-    handleOpenDialog() {
-        this.setState({ openDialog: true });
+    handleOpenDialog(data) {
+        this.setState({ openDialog: true, clickedData: data });
     }
 
     handleCloseDialog() {
@@ -98,7 +98,8 @@ export default class MakeOrder extends React.Component {
                                 </tr>
                                 {this.state.allOrderItems && this.state.allOrderItems.map((e, i) => (
                                     <tr key={i}>
-                                        <td id="td-menu-item-id" onClick={(e) => this.handleOpenDialog(e)}>
+                                        <td id="td-menu-item-id"
+                                            onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count })}>
                                             {e.reservation_id}
                                         </td>
                                         <td>
@@ -142,7 +143,7 @@ export default class MakeOrder extends React.Component {
                     </Snackbar>}
 
                 <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
-                    <EditOrderDialog />
+                    <EditOrderDialog clickedData={this.state.clickedData} />
                 </Dialog>
             </Box>
         );
