@@ -249,8 +249,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async delete_order_item(callback) {
-        return axios.post('api/order-item/delete', {}, {})
+    async delete_order_item(query, callback) {
+        return axios.post('api/order-item/delete', query, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
