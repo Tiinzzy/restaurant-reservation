@@ -19,12 +19,10 @@ const CURRENT_PATH = window.location.pathname;
 const usrParams = new URLSearchParams(window.location.search);
 
 
-
 function checkUserLogin(setIsLogin, setUser, setPageReady) {
     let user = usrParams.get('user');
     window.history.pushState({}, "", "/");
     backend.authentication_is_login(user, (data) => {
-        console.log(data);
         if (data.is_login) {
             setIsLogin(true);
             setUser(user);
