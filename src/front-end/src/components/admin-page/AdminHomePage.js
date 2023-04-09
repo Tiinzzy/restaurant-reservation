@@ -43,8 +43,8 @@ export default class AdminHomePage extends React.Component {
                     <Box className="user-home-page-users-name">
                         <Typography>Hi {this.state.user}, Welcome Back!</Typography>
                         <Box display="flex" flexGrow={1} />
-                        <IconButton color="primary" aria-label="menu">
-                            <MenuIcon fontSize="large" onClick={(e) => this.openMenuDetails(e)} />
+                        <IconButton color="primary" aria-label="menu" onClick={(e) => this.openMenuDetails(e)} >
+                            <MenuIcon fontSize="large" />
                         </IconButton>
                         <Menu
                             anchorEl={this.state.anchorEl}
