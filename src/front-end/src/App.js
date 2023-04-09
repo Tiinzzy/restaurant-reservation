@@ -17,47 +17,52 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
 
+let callCounter = 0;
 
-function checkUserLogin(setIsLogin, setUser, user) {
-    backend.authentication_is_login((data) => {
-        if (data.is_login !== false) {
+function checkUserLogin(setIsLogin, setUser, setPageReady) {
+    let sessionId = localStorage.getItem('sessionId');
+    window.history.pushState({}, "", "/");
+    backend.authentication_is_login(sessionId, (data) => {
+        if (data.is_login) {
             setIsLogin(true);
+            setUser({ username: data.user, roles: data.roles, sessionId: data.session_id });
+        } else {
+            setIsLogin(false);
+            setUser(null);
         }
+        setPageReady(true);
     })
 }
 
 export default function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [user, setUser] = useState(null);
+    const [pageReady, setPageReady] = useState(false);
 
-    checkUserLogin(setIsLogin, setUser);
-
-    function callBack(data) {
-        if (data.login) {
-            setUser(data.user)
-        };
+    if (callCounter++ < 1) {
+        checkUserLogin(setIsLogin, setUser, setPageReady);
     }
 
     return (
         <div>
-            {isLogin ?
+            {pageReady && (isLogin ?
                 <>
-                    <HeaderLogin user={user} />
-                    {user !== null && <UserHomePage user={user} />}
+                    <HeaderLogin user={user} />                    
+                    {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
+                    {user !== null && !user.roles.includes('Admin') && <UserHomePage user={user} />}
                     <Footer />
                 </>
                 :
                 <>
                     <Header />
-                    {(CURRENT_PATH === '/login' && user === null) && <Login callBack={callBack} />}
-                    {(CURRENT_PATH === '/' || CURRENT_PATH === '/home') && <Home />}
+                    {(CURRENT_PATH === '/login' && user === null) && <Login />}
+                    {((CURRENT_PATH === '/' || CURRENT_PATH === '/home') && user === null) && <Home />}
                     {CURRENT_PATH === '/signup' && <Signup />}
                     {CURRENT_PATH === '/menu' && <Menu />}
                     {CURRENT_PATH === '/reservation' && <Reservation />}
                     <Footer />
-
                 </>
-            }
+            )}
         </div>
     );
 };

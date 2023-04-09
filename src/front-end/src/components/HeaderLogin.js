@@ -20,7 +20,7 @@ export default class HeaderLogin extends React.Component {
     }
 
     logUserOut() {
-        backend.authentication_logout(this.state.user, (data) => {
+        backend.authentication_logout(this.state.user.sessionId, (data) => {
             if (data.success) {
                 window.location = '/';
             };
