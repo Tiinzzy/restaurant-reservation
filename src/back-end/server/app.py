@@ -117,10 +117,11 @@ def menu_item_update():
     result = app_menu_item.update(parameters)
     return jsonify(result)
 
+
 @app.route('/menu-item/truncate', methods=["POST"])
 def menu_item_truncate():
     result = app_menu_item.truncate()
-    return jsonify(result)    
+    return jsonify(result)
 
 
 @app.route('/seating-table/add', methods=["POST"])
@@ -229,5 +230,5 @@ def logout():
 @app.route('/authentication/is_login', methods=["POST"])
 def is_login():
     parameters = get_parameters(request)
-    result = app_authentication.is_login(session, parameters)
+    result = app_authentication.is_login(parameters)
     return jsonify(result)

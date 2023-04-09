@@ -11,8 +11,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { InputLabel } from "@mui/material";
 
-const NUMBER_OF_PEOPLE = ['Number of People', 1, 2, 3, 4, 5, 6, '6+'];
+const NUMBER_OF_PEOPLE = [1, 2, 3, 4, 5, 6, '6+'];
 
 export default class Reservation extends React.Component {
 
@@ -26,7 +27,7 @@ export default class Reservation extends React.Component {
             fullName: '',
             email: '',
             phoneNumber: '',
-            numberOfPeople: 'Number of People',
+            numberOfPeople: 2,
             open: false
         }
     }
@@ -37,6 +38,7 @@ export default class Reservation extends React.Component {
     }
 
     setReserveTime(e) {
+        console.log(e);
         let resTime = e.$H + '/' + e.$m;
         this.setState({ reservationTime: resTime });
     }
@@ -70,24 +72,36 @@ export default class Reservation extends React.Component {
                             Reservation
                         </Typography>
                     </Box>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker value={this.state.reserveDate} onChange={(newValue) => this.getReserveDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
-                    </LocalizationProvider>
 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <TimePicker
-                            className="time-picker-box"
-                            value={this.state.time}
-                            onChange={(newValue) => {
-                                this.setState({ time: newValue }, () => {
-                                    this.setReserveTime(newValue)
-                                })
-                            }}
-                        />
-                    </LocalizationProvider>
 
                     <FormControl>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker value={this.state.reserveDate} label="Date"
+                                onChange={(newValue) => this.getReserveDate(newValue)}
+                                format="DD-MM-YYYY" views={["year", "month", "day"]} />
+                        </LocalizationProvider>
+                    </FormControl>
+
+                    <FormControl>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <TimePicker
+                                label="Time"
+                                className="time-picker-box"
+                                value={this.state.time}
+                                onChange={(e) =>
+                                    this.setState({ time: e }, () => {
+                                        this.setReserveTime(e)
+                                    })
+                                }
+                            />
+                        </LocalizationProvider>
+                    </FormControl>
+
+                    <FormControl>
+                        <InputLabel id="no-people-labell">Number of People</InputLabel>
                         <Select
+                            label="Number of People"
+                            labelId="no-people-label"
                             value={this.state.numberOfPeople}
                             onChange={(e) => this.handleOpenMenu(e)}>
                             {NUMBER_OF_PEOPLE.map((e, i) => (
