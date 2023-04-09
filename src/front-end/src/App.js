@@ -18,14 +18,15 @@ const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
 const usrParams = new URLSearchParams(window.location.search);
 
+let callCounter = 0;
 
 function checkUserLogin(setIsLogin, setUser, setPageReady) {
-    let user = usrParams.get('user');
+    let sessionId = localStorage.getItem('sessionId');
     window.history.pushState({}, "", "/");
-    backend.authentication_is_login(user, (data) => {
+    backend.authentication_is_login(sessionId, (data) => {
         if (data.is_login) {
             setIsLogin(true);
-            setUser(user);
+            setUser({ username: data.user, roles: data.roles, sessionId: data.session_id });
         } else {
             setIsLogin(false);
             setUser(null);
@@ -39,14 +40,17 @@ export default function App() {
     const [user, setUser] = useState(null);
     const [pageReady, setPageReady] = useState(false);
 
-    checkUserLogin(setIsLogin, setUser, setPageReady);
+    if (callCounter++ < 2) {
+        checkUserLogin(setIsLogin, setUser, setPageReady);
+    }
 
     return (
         <div>
             {pageReady && (isLogin ?
                 <>
-                    <HeaderLogin user={user} />
-                    {user !== null && <UserHomePage user={user} />}
+                    <HeaderLogin user={user} />                    
+                    {user !== null && user.roles.includes('Admin1') && <AdminHomePage user={user} />}
+                    {user !== null && !user.roles.includes('Admin1') && <UserHomePage user={user} />}
                     <Footer />
                 </>
                 :
