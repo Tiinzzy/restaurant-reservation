@@ -27,6 +27,7 @@ class BackEndConnectionImpl {
         return axios.post('/api/authentication/login', query, {})
             .then(function (response) {
                 if (callback) {
+                    localStorage.setItem('sessionId', response.data.session_id);
                     callback(response.data);
                 }
                 return response.data;
@@ -37,11 +38,11 @@ class BackEndConnectionImpl {
             })
     }
 
-    async authentication_is_login(user, callback) {
-        user = user || this.#user
-        return axios.post('/api/authentication/is_login', { 'user':  user}, {})
+    async authentication_is_login(sessionId, callback) {
+        return axios.post('/api/authentication/is_login', { 'session_id': sessionId }, {})
             .then(function (response) {
                 if (callback) {
+                    console.log(response.data);
                     callback(response.data);
                 }
                 return response.data;
@@ -52,10 +53,11 @@ class BackEndConnectionImpl {
             })
     }
 
-    async authentication_logout(user, callback) {
-        return axios.post('/api/authentication/logout', { 'username': user }, {})
+    async authentication_logout(sessionId, callback) {
+        return axios.post('/api/authentication/logout', { 'session_id': sessionId }, {})
             .then(function (response) {
                 if (callback) {
+                    localStorage.setItem('sessionId', null);
                     callback(response.data);
                 }
                 return response.data;
