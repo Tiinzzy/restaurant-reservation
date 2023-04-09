@@ -45,12 +45,11 @@ export default class Login extends React.Component {
     loginTheUser() {
         let that = this;
         backend.authentication_login(this.state.email, this.state.password, (data) => {
-            window.location = '/?user=' + that.state.email
-            // if (data.success === true) {
-            //     that.state.callBack({ 'user': that.state.email, 'login': data.success, roles: data.roles });
-            // } else {
-            //     that.setState({ wrongPass: true });
-            // }
+            if (data.success === true) {
+                window.location = '/?user=' + that.state.email
+            } else {
+                that.setState({ wrongPass: true });
+            }
         });
     }
 
