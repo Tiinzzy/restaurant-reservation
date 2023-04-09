@@ -16,31 +16,36 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
+const usrParams = new URLSearchParams(window.location.search);
 
 
-function checkUserLogin(setIsLogin, setUser, user) {
-    backend.authentication_is_login((data) => {
-        if (data.is_login !== false) {
+
+function checkUserLogin(setIsLogin, setUser, setPageReady) {
+    let user = usrParams.get('user');
+    window.history.pushState({}, "", "/");
+    backend.authentication_is_login(user, (data) => {
+        console.log(data);
+        if (data.is_login) {
             setIsLogin(true);
+            setUser(user);
+        } else {
+            setIsLogin(false);
+            setUser(null);
         }
+        setPageReady(true);
     })
 }
 
 export default function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [user, setUser] = useState(null);
+    const [pageReady, setPageReady] = useState(false);
 
-    checkUserLogin(setIsLogin, setUser);
-
-    function callBack(data) {
-        if (data.login) {
-            setUser(data.user)
-        };
-    }
+    checkUserLogin(setIsLogin, setUser, setPageReady);
 
     return (
         <div>
-            {isLogin ?
+            {pageReady && (isLogin ?
                 <>
                     <HeaderLogin user={user} />
                     {user !== null && <UserHomePage user={user} />}
@@ -49,15 +54,14 @@ export default function App() {
                 :
                 <>
                     <Header />
-                    {(CURRENT_PATH === '/login' && user === null) && <Login callBack={callBack} />}
-                    {(CURRENT_PATH === '/' || CURRENT_PATH === '/home') && <Home />}
+                    {(CURRENT_PATH === '/login' && user === null) && <Login />}
+                    {((CURRENT_PATH === '/' || CURRENT_PATH === '/home') && user === null) && <Home />}
                     {CURRENT_PATH === '/signup' && <Signup />}
                     {CURRENT_PATH === '/menu' && <Menu />}
                     {CURRENT_PATH === '/reservation' && <Reservation />}
                     <Footer />
-
                 </>
-            }
+            )}
         </div>
     );
 };
