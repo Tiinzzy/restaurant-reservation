@@ -1,7 +1,6 @@
 from datetime import datetime
 from database import Database
 
-
 session_storage = {}
 
 
@@ -19,10 +18,17 @@ def login(session, params):
     username = params.get('user')
     password = params.get('password')
     success = valid_user(username, password)
+    roles = []
     if success:
         session[username] = __get_user_session(username)
+        roles = get_user_roles(username)
         print(session[username])
-    return {'success': success}
+    return {'success': success, 'roles': roles}
+
+
+def get_user_roles(username):
+    roles = ['Admin', 'Cashier']
+    return roles
 
 
 def logout(session, params):
@@ -33,10 +39,15 @@ def logout(session, params):
 
 def is_login(session, params):
     username = params.get('user')
+    print('------------------')
+    print(session)
+    print('------------------')
     result = username in session
+    roles = []
     if result:
+        roles = get_user_roles(username)
         print(session[username])
-    return {'is_login': result, 'user': username}
+    return {'is_login': result, 'user': username, 'roles': roles}
 
 
 def valid_user(username, password):
