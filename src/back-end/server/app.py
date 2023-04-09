@@ -230,5 +230,5 @@ def logout():
 @app.route('/authentication/is_login', methods=["POST"])
 def is_login():
     parameters = get_parameters(request)
-    result = app_authentication.is_login(session, parameters)
+    result = app_authentication.is_login(parameters)
     return jsonify(result)
