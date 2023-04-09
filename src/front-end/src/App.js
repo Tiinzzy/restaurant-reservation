@@ -16,7 +16,6 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
-const usrParams = new URLSearchParams(window.location.search);
 
 let callCounter = 0;
 
@@ -40,7 +39,7 @@ export default function App() {
     const [user, setUser] = useState(null);
     const [pageReady, setPageReady] = useState(false);
 
-    if (callCounter++ < 2) {
+    if (callCounter++ < 1) {
         checkUserLogin(setIsLogin, setUser, setPageReady);
     }
 
@@ -49,8 +48,8 @@ export default function App() {
             {pageReady && (isLogin ?
                 <>
                     <HeaderLogin user={user} />                    
-                    {user !== null && user.roles.includes('Admin1') && <AdminHomePage user={user} />}
-                    {user !== null && !user.roles.includes('Admin1') && <UserHomePage user={user} />}
+                    {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
+                    {user !== null && !user.roles.includes('Admin') && <UserHomePage user={user} />}
                     <Footer />
                 </>
                 :
