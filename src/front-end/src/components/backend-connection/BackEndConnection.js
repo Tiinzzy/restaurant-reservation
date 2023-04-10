@@ -20,10 +20,10 @@ class BackEndConnectionImpl {
             })
     }
 
-    async authentication_login(user, password, callback) {
+    async authentication_login(user, password, userId, callback) {
         this.#user = user;
 
-        let query = { user, 'password': md5(password) }
+        let query = { user, 'password': md5(password), 'user_id': userId }
         return axios.post('/api/authentication/login', query, {})
             .then(function (response) {
                 if (callback) {
