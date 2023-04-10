@@ -47,9 +47,10 @@ export default function App() {
         <div>
             {pageReady && (isLogin ?
                 <>
-                    <HeaderLogin user={user} />                    
+                    <HeaderLogin user={user} />
                     {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
-                    {user !== null && !user.roles.includes('Admin') && <UserHomePage user={user} />}
+                    {user !== null && user.roles.includes('Customer') && <UserHomePage user={user} />}
+                    {user !== null && user.roles.includes('Waiter') && <WaiterHomePage user={user} />}
                     <Footer />
                 </>
                 :

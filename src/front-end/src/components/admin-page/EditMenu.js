@@ -111,7 +111,7 @@ export default class EditMenu extends React.Component {
                         <Box display="flex" flexGrow={1} />
                         <Box className="user-page-reservation-form-3">
                             <Box className="table-data-display-box">
-                                <table width="100%">
+                                <table width="100%" style={{fontSize: '80%'}} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                         <tr>
                                             <th>id</th>
