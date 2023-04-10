@@ -78,7 +78,7 @@ export default class UserHomePage extends React.Component {
                         </Menu>
                     </Box>
                     {(this.state.changePage === '' && this.state.val === 'Edit Profile') && <EditProfile user={this.state.user} />}
-                    {(this.state.changePage === 'Make Reservation' || this.state.val === 'Make Reservation') && <MakeReservation />}
+                    {(this.state.changePage === 'Make Reservation' || this.state.val === 'Make Reservation') && <MakeReservation userEmail={this.state.user.username}/>}
                     {(this.state.changePage === '' && this.state.val === 'Reservation History') && <ReservationHistory />}
                     {(this.state.changePage === '' && this.state.val === 'View Menu') && <ViewMenu callBack={this.callBack} />}
                 </Box>
