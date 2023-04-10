@@ -31,6 +31,17 @@ export default class Signup extends React.Component {
         }
     }
 
+    componentDidMount(email) {
+        backend.load_user_by_email(email, (data) => {
+            let userId = data.id;
+            let roleName = 'Customer'
+            let query = { 'user_id': userId, 'role_name': roleName };
+            backend.add_user_role(query, (data) => {
+                console.log(data);
+            })
+        })
+    }
+
     getFullName(e) {
         this.setState({ fullName: e.target.value, generalError: false });
     }
@@ -64,11 +75,12 @@ export default class Signup extends React.Component {
         } else {
             backend.add_user(this.state.fullName, this.state.email, this.state.confirmPassword, this.state.birthday, (data) => {
                 if (data.result === true) {
-                    backend.authentication_login(this.state.email, this.state.password, (data) => {
-                        if (data.success === true) {
-                            window.location = '/';
-                        }
-                    });
+                    this.componentDidMount(this.state.email);
+                    // backend.authentication_login(this.state.email, this.state.password, (data) => {
+                    //     if (data.success === true) {
+                    //         window.location = '/';
+                    //     }
+                    // });
                 };
             });
         }
