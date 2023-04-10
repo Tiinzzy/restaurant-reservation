@@ -1,9 +1,12 @@
 from datetime import datetime
 from database import Database
+import business.users_class_sql as users_table
+
 import uuid
 
 session_storage = {}
 session_id_to_user_name = {}
+user_role_storage = {}
 
 
 def __get_user_session(username):
@@ -22,19 +25,31 @@ def __get_user_session(username):
 def login(session, params):
     username = params.get('user')
     password = params.get('password')
+    user_id = params.get('user_id')
     success = valid_user(username, password)
     roles = []
     session_id = None
     if success:
         session[username] = __get_user_session(username)
         session_id = session[username]['session_id']
-        roles = get_user_roles(username)
+        roles = get_user_roles(user_id, username)
     return {'success': success, 'roles': roles, 'session_id': session_id}
 
 
-def get_user_roles(username):
-    roles = ['Admin', 'Cashier']
-    return roles
+def get_user_roles(user_id, username):
+    if username in user_role_storage:
+        return user_role_storage[username]
+    else:
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(users_table.select_user_roles_sql, (int(user_id),))
+        rows = cur.fetchall()
+        db.close_database()
+        data = []
+        for row in rows:
+            data.append({'role_id': row[0], 'role': row[1]})
+        user_role_storage[username] = data[0]['role']
+    return user_role_storage[username]
 
 
 def logout(session, params):
@@ -52,7 +67,7 @@ def is_login(params):
     if session_id in session_id_to_user_name.keys():
         result = True
         username = session_id_to_user_name[session_id]
-        roles = get_user_roles(username)
+        roles = user_role_storage[username]
     return {'is_login': result, 'user': username, 'roles': roles, 'session_id': session_id}
 
 
