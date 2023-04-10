@@ -20,10 +20,10 @@ class BackEndConnectionImpl {
             })
     }
 
-    async authentication_login(user, password, callback) {
+    async authentication_login(user, password, userId, callback) {
         this.#user = user;
 
-        let query = { user, 'password': md5(password) }
+        let query = { user, 'password': md5(password), 'user_id': userId }
         return axios.post('/api/authentication/login', query, {})
             .then(function (response) {
                 if (callback) {
@@ -42,7 +42,6 @@ class BackEndConnectionImpl {
         return axios.post('/api/authentication/is_login', { 'session_id': sessionId }, {})
             .then(function (response) {
                 if (callback) {
-                    console.log(response.data);
                     callback(response.data);
                 }
                 return response.data;
@@ -254,6 +253,20 @@ class BackEndConnectionImpl {
 
     async delete_order_item(query, callback) {
         return axios.post('api/order-item/delete', query, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async add_user_role(query, callback) {
+        return axios.post('api/user/add-role', query, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);

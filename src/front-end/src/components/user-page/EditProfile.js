@@ -31,12 +31,14 @@ export default class EditProfile extends React.Component {
             user: props.user,
             changesMade: false,
             openSnack: false,
-            changeError: false
+            changeError: false,
+            fullName: '',
+            email: '',
         }
     }
 
     componentDidMount() {
-        backend.load_user_by_email(this.state.user, (data) => {
+        backend.load_user_by_email(this.state.user.username, (data) => {
             let that = this;
             that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password, userId: data.id });
         })
@@ -101,22 +103,32 @@ export default class EditProfile extends React.Component {
                     <Box display="flex" flexGrow={1} />
                     <Typography fontSize={16} variant="body1">To edit profile, simply change your information and click save.</Typography>
                 </Box>
+
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
+
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
+                        
                         <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getFullName(e)} />
+                            onChange={(e) => this.getFullName(e)} /> 
+                            
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
+                        
                         <TextField value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
+
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
+
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 value={dayjs(this.state.birthDate)} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
-                        </LocalizationProvider>
-                    </Box>
+                        </LocalizationProvider> 
+
+                    </Box> 
+                    
                     <Box display="flex" flexGrow={1} />
+
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Current Password: </Typography>
                         <TextField variant="outlined" className="localization-provider"
@@ -138,6 +150,7 @@ export default class EditProfile extends React.Component {
                         </Box>
                     </Box>
                 </Box>
+
                 {this.state.changesMade === true &&
                     <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
                         <Alert severity={this.state.changeError === true ? "error" : "success"}>

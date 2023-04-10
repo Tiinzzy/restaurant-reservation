@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -26,25 +28,34 @@ export default class MakeReservation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userEmail: props.userEmail,
             reserveDate: null,
             reservation: '',
             time: null,
             reservationTime: '',
             fullName: '',
-            email: '',
-            phoneNumber: '',
-            numberOfPeople: 1,
-            open: false
+            numberOfPeople: 2,
+            open: false,
+            madeReservation: false,
+            openSnack: false,
+            reservationError: false
         }
     }
 
+    componentDidMount() {
+        backend.load_user_by_email(this.state.userEmail, (data) => {
+            let that = this;
+            that.setState({ userId: data.id });
+        })
+    }
+
     getReserveDate(e) {
-        let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
+        let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
         this.setState({ reserveDate: e, reservation: date });
     }
 
     setReserveTime(e) {
-        let resTime = e.$H + '/' + e.$m;
+        let resTime = e.$H + ':' + e.$m;
         this.setState({ reservationTime: resTime });
     }
 
@@ -56,16 +67,23 @@ export default class MakeReservation extends React.Component {
         this.setState({ fullName: e.target.value });
     }
 
-    getEmail(e) {
-        this.setState({ email: e.target.value });
-    }
-
-    getPhoneNumber(e) {
-        this.setState({ phoneNumber: e.target.value })
-    }
-
     submitReservation() {
+        let query = {
+            'timestamp': this.state.reservationTime, 'customer_name': this.state.fullName, 'seat_count': this.state.numberOfPeople,
+            'for_date': this.state.reservation, 'reservation_type': 'Online', 'status': 'Reserved', 'customer_id': this.state.userId
+        };
+        backend.add_reservation(query, (data) => {
+            let that = this;
+            if (data.result) {
+                that.setState({ madeReservation: true, openSnack: true, reservationTime: '', fullName: '', numberOfPeople: 2, reservation: '', reserveDate: null, time: null });
+            } else {
+                that.setState({ madeReservation: true, openSnack: true, reservationError: true });
+            }
+        })
+    }
 
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -112,18 +130,18 @@ export default class MakeReservation extends React.Component {
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
                         <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getFullName(e)} />
-                        <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getEmail(e)} />
-                        <Typography fontSize={14} variant="body1" mb={.5}>Phone Number: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getPhoneNumber(e)} />
+                            onChange={(e) => this.getFullName(e)} value={this.state.fullName}/>
                         <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginTop: 40 }}>
                             < Button onClick={() => this.submitReservation()} variant="contained" className="user-page-submit-bt-4">Submit</Button>
                         </Box>
                     </Box>
                 </Box>
+                {this.state.madeReservation === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity={this.state.reservationError ? "error" : "success"}>
+                            {this.state.reservationError ? "Sorry, Something went wrong!" : "Reservation Made Successfully!"}
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }
