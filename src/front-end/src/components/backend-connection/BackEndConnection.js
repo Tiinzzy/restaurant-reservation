@@ -42,7 +42,6 @@ class BackEndConnectionImpl {
         return axios.post('/api/authentication/is_login', { 'session_id': sessionId }, {})
             .then(function (response) {
                 if (callback) {
-                    console.log(response.data);
                     callback(response.data);
                 }
                 return response.data;
