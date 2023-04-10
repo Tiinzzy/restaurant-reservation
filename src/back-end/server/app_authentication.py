@@ -6,7 +6,6 @@ import uuid
 
 session_storage = {}
 session_id_to_user_name = {}
-user_role_storage = {}
 
 
 def __get_user_session(username):
@@ -37,19 +36,17 @@ def login(session, params):
 
 
 def get_user_roles(user_id, username):
-    if username in user_role_storage:
-        return user_role_storage[username]
-    else:
-        db = Database()
-        con, cur = db.open_database()
-        cur.execute(users_table.select_user_roles_sql, (int(user_id),))
-        rows = cur.fetchall()
-        db.close_database()
-        data = []
-        for row in rows:
-            data.append({'role_id': row[0], 'role': row[1]})
-        user_role_storage[username] = data[0]['role']
-    return user_role_storage[username]
+    db = Database()
+    con, cur = db.open_database()
+    username = '' if username is None else username
+    user_id = -1 if user_id is None else int(user_id)
+    cur.execute(users_table.select_user_roles_sql, (user_id, username))
+    rows = cur.fetchall()
+    db.close_database()
+    data = []
+    for row in rows:
+        data.append({'role_id': row[0], 'role': row[1]})
+    return data[0]['role']
 
 
 def logout(session, params):
@@ -67,7 +64,7 @@ def is_login(params):
     if session_id in session_id_to_user_name.keys():
         result = True
         username = session_id_to_user_name[session_id]
-        roles = user_role_storage[username]
+        roles = get_user_roles(None, username)
     return {'is_login': result, 'user': username, 'roles': roles, 'session_id': session_id}
 
 
