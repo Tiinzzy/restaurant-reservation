@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -30,7 +32,10 @@ export default class Reservation extends React.Component {
             reservationTime: '',
             fullName: '',
             numberOfPeople: 2,
-            open: false
+            open: false,
+            madeReservation: false,
+            openSnack: false,
+            reservationError: false
         }
     }
 
@@ -58,8 +63,17 @@ export default class Reservation extends React.Component {
             'for_date': this.state.reservation, 'reservation_type': 'Online', 'status': 'Reserved'
         };
         backend.add_reservation(query, (data) => {
-            console.log(data);
+            let that = this;
+            if (data.result) {
+                that.setState({ madeReservation: true, openSnack: true, reservationTime: '', fullName: '', numberOfPeople: 2, reservation: '', reserveDate: null, time: null });
+            } else {
+                that.setState({ madeReservation: true, openSnack: true, reservationError: true });
+            }
         })
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -108,13 +122,19 @@ export default class Reservation extends React.Component {
                         </Select>
                     </FormControl>
 
-                    <TextField label="Full Name" variant="outlined" style={{ marginTop: 25, width: 300, marginBottom: 25 }}
+                    <TextField value={this.state.fullName} label="Full Name" variant="outlined" style={{ marginTop: 25, width: 300, marginBottom: 25 }}
                         onChange={(e) => this.getFullName(e)} />
                     < Button onClick={() => this.submitReservation()} variant="contained" className="login-box-btn">Submit</Button>
                     <Typography style={{ color: 'rgb(21, 21, 21)' }} variant="body1">
                         Already have an Account? <span className="login-box-span">Login to Make Reservation.</span>
                     </Typography>
                 </Box>
+                {this.state.madeReservation === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity={this.state.reservationError ? "error" : "success"}>
+                            {this.state.reservationError ? "Sorry, Something went wrong!" : "Reservation Made Successfully!"}
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }
