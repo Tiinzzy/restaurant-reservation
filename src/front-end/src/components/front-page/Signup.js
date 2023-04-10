@@ -48,7 +48,7 @@ export default class Signup extends React.Component {
     }
 
     getBirthDate(e) {
-        let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
+        let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
         this.setState({ birthDate: e, birthday: date, generalError: false });
     }
 
