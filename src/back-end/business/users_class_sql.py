@@ -26,7 +26,7 @@ select_user_roles_sql = """
 SELECT r.id, r.name as role FROM tests.rr_user u
 join tests.rr_user_roles ur on u.id = ur.user_id
 join tests.rr_roles r on r.id = ur.role_id
-WHERE u.id = %s;
+WHERE u.id = %s OR u.email = %s;
 """
 
 insert_user_role_sql = """
