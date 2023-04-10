@@ -37,7 +37,13 @@ export default class Signup extends React.Component {
             let roleName = 'Customer'
             let query = { 'user_id': userId, 'role_name': roleName };
             backend.add_user_role(query, (data) => {
-                console.log(data);
+                if (data.result[0] === true) {
+                    backend.authentication_login(this.state.email, this.state.password, (data) => {
+                        if (data.success === true) {
+                            window.location = '/';
+                        }
+                    });
+                }
             })
         })
     }
@@ -76,11 +82,6 @@ export default class Signup extends React.Component {
             backend.add_user(this.state.fullName, this.state.email, this.state.confirmPassword, this.state.birthday, (data) => {
                 if (data.result === true) {
                     this.componentDidMount(this.state.email);
-                    // backend.authentication_login(this.state.email, this.state.password, (data) => {
-                    //     if (data.success === true) {
-                    //         window.location = '/';
-                    //     }
-                    // });
                 };
             });
         }
