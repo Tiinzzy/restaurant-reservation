@@ -53,7 +53,11 @@ export default class ViewMenu extends React.Component {
                 <Box className="top-header-reservation">
                     <Typography fontSize={20} fontWeight="bold">Our Menu</Typography>
                     <Box display="flex" flexGrow={1} />
-                    <Typography fontSize={16} variant="body1">You can brows our latest menu options.</Typography>
+                    <Typography fontSize={16} variant="body1">
+                        You can brows our latest menu options and 
+                        <span className="menu-user-reservation-logo" onClick={() => this.takeToReservationPage()}>
+                             make reservation
+                        </span>.</Typography>
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
 
@@ -107,9 +111,6 @@ export default class ViewMenu extends React.Component {
                         ))}
                     </Box>
                 </Box>
-                {/* <Box className="menu-box-logo-user">
-                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1.5em" onClick={() => this.takeToReservationPage()}>Make a Reservation</Typography>
-                </Box> */}
             </Box>
         );
     }
