@@ -16,6 +16,7 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
+const HEIGHT = window.innerHeight - 175;
 
 let callCounter = 0;
 
@@ -48,19 +49,23 @@ export default function App() {
             {pageReady && (isLogin ?
                 <>
                     <HeaderLogin user={user} />
-                    {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
-                    {user !== null && user.roles.includes('Customer') && <UserHomePage user={user} />}
-                    {user !== null && user.roles.includes('Waiter') && <WaiterHomePage user={user} />}
+                    <div style={{ height: HEIGHT }}>
+                        {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
+                        {user !== null && user.roles.includes('Customer') && <UserHomePage user={user} />}
+                        {user !== null && user.roles.includes('Waiter') && <WaiterHomePage user={user} />}
+                    </div>
                     <Footer />
                 </>
                 :
                 <>
                     <Header />
-                    {(CURRENT_PATH === '/login' && user === null) && <Login />}
-                    {((CURRENT_PATH === '/' || CURRENT_PATH === '/home') && user === null) && <Home />}
-                    {CURRENT_PATH === '/signup' && <Signup />}
-                    {CURRENT_PATH === '/menu' && <Menu />}
-                    {CURRENT_PATH === '/reservation' && <Reservation />}
+                    <div style={{ height: HEIGHT }}>
+                        {(CURRENT_PATH === '/login' && user === null) && <Login />}
+                        {((CURRENT_PATH === '/' || CURRENT_PATH === '/home') && user === null) && <Home />}
+                        {CURRENT_PATH === '/signup' && <Signup />}
+                        {CURRENT_PATH === '/menu' && <Menu />}
+                        {CURRENT_PATH === '/reservation' && <Reservation />}
+                    </div>
                     <Footer />
                 </>
             )}

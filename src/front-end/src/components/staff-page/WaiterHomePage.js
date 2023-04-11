@@ -30,6 +30,13 @@ export default class WaiterHomePage extends React.Component {
         }
     }
 
+    componentDidMount() {
+        backend.load_user_by_email(this.state.user.username, (data) => {
+            let that = this;
+            that.setState({ usersName: data.name })
+        })
+    }
+
     openMenuDetails(e) {
         this.setState({ openMenu: true, anchorEl: e.currentTarget });
     }
@@ -43,10 +50,10 @@ export default class WaiterHomePage extends React.Component {
             <Box className="user-home-page-main-box">
                 <Box className="user-home-page-data-box">
                     <Box className="user-home-page-users-name">
-                        <Typography>Hi {this.state.user.username}, Welcome Back!</Typography>
+                        <Typography>Hi {this.state.usersName}, Welcome Back!</Typography>
                         <Box display="flex" flexGrow={1} />
                         <IconButton color="primary" aria-label="menu" onClick={(e) => this.openMenuDetails(e)} >
-                            <MenuIcon fontSize="large"/>
+                            <MenuIcon fontSize="large" />
                         </IconButton>
                         <Menu
                             anchorEl={this.state.anchorEl}

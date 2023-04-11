@@ -32,13 +32,13 @@ export default class HeaderLogin extends React.Component {
         return (
             <Box className="header-box">
                 <Box className="header-box-left">
-                    <Typography id="links-typograpphy" onClick={() => this.openUserHomePage()}> Home </Typography>
+                    <Typography ml={5} id="links-typograpphy" onClick={() => this.openUserHomePage()}> Home </Typography>
                 </Box>
                 <Box className="header-box-logo">
                     <Typography fontSize="25px" id="links-typograpphy"> Restaurant Reservation </Typography>
                 </Box>
                 <Box className="header-box-right">
-                    <Typography id="links-typograpphy" onClick={() => this.logUserOut()}> Log Out </Typography>
+                    <Typography mr={5} id="links-typograpphy" onClick={() => this.logUserOut()}> Log Out </Typography>
                 </Box>
             </Box>
         );
