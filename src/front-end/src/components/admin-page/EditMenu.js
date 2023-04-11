@@ -91,7 +91,7 @@ export default class EditMenu extends React.Component {
                         <Box display="flex" flexGrow={1} />
                     </Box>
                     <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
+                    <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, justifyContent: 'space-between' }}>
                         <Box className="user-page-reservation-form-1">
                             <Typography fontSize={14} variant="body1" mb={.5}>Name: </Typography>
                             <TextField variant="outlined" className="localization-provider"
@@ -105,10 +105,9 @@ export default class EditMenu extends React.Component {
                             <Typography fontSize={14} variant="body1" mb={.5}>Description: </Typography>
                             <TextField variant="outlined" className="localization-provider"
                                 onChange={(e) => this.getDescription(e)} />
-                            <Button onClick={() => this.submitAddingMenuItem()} variant="contained">Submit</Button>
+                            <Button onClick={() => this.submitAddingMenuItem()} variant="contained" style={{ marginTop: 75 }}>Submit</Button>
 
                         </Box>
-                        <Box display="flex" flexGrow={1} />
                         <Box className="user-page-reservation-form-3">
                             <Box className="table-data-display-box">
                                 <table width="100%" style={{ fontSize: '80%' }} cellPadding={0} cellSpacing={0}>
