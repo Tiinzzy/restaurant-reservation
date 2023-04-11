@@ -49,7 +49,7 @@ export default class Menu extends React.Component {
                 </Box>
                 <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                     <Box className="menu-box-left-side">
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.3em" mb={1.6} mt={1.6}>Entrée</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.4em" mb={.9}>Entrée</Typography>
                         {this.state.entrees && this.state.entrees.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
                                 <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
@@ -60,7 +60,7 @@ export default class Menu extends React.Component {
                                 <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
                             </Box>
                         ))}
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.3em" mb={1.6} mt={1.6}>Main Course</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.4em" mb={.9} mt={2.5}>Main Course</Typography>
                         {this.state.mainCourse && this.state.mainCourse.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
                                 <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
@@ -73,7 +73,7 @@ export default class Menu extends React.Component {
                         ))}
                     </Box>
                     <Box className="menu-box-right-side">
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.3em" mb={1.6} mt={1.6}>Drinks</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.4em" mb={.9}>Drinks</Typography>
                         {this.state.drinks && this.state.drinks.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
                                 <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
@@ -84,7 +84,7 @@ export default class Menu extends React.Component {
                                 <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
                             </Box>
                         ))}
-                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.3em" mb={1.6} mt={1.6}>Dessert</Typography>
+                        <Typography fontFamily="serif" fontWeight="bold" fontSize="1.4em" mb={.9} mt={2.5}>Dessert</Typography>
                         {this.state.dessert && this.state.dessert.map((e, i) => (
                             <Box key={i} className="each-menu-item-box">
                                 <span style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee' }}>
