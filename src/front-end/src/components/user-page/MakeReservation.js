@@ -72,14 +72,19 @@ export default class MakeReservation extends React.Component {
             'timestamp': this.state.reservationTime, 'customer_name': this.state.fullName, 'seat_count': this.state.numberOfPeople,
             'for_date': this.state.reservation, 'reservation_type': 'Online', 'status': 'Reserved', 'customer_id': this.state.userId
         };
-        backend.add_reservation(query, (data) => {
-            let that = this;
-            if (data.result) {
-                that.setState({ madeReservation: true, openSnack: true, reservationTime: '', fullName: '', numberOfPeople: 2, reservation: '', reserveDate: null, time: null });
-            } else {
-                that.setState({ madeReservation: true, openSnack: true, reservationError: true });
-            }
-        })
+        if (this.state.reservation.length > 0 && this.state.reservationTime.length > 0 && this.state.fullName.length > 0 && this.state.numberOfPeople > 0) {
+            backend.add_reservation(query, (data) => {
+                let that = this;
+                if (data.result) {
+                    that.setState({ madeReservation: true, openSnack: true, reservationTime: '', fullName: '', numberOfPeople: 2, reservation: '', reserveDate: null, time: null });
+                } else {
+                    that.setState({ madeReservation: true, openSnack: true, reservationError: true });
+                }
+            })
+        } else {
+            this.setState({ madeReservation: true, openSnack: true, reservationError: true });
+        }
+
     }
 
     closeAlert() {
@@ -130,8 +135,8 @@ export default class MakeReservation extends React.Component {
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
                         <TextField variant="outlined" className="localization-provider"
-                            onChange={(e) => this.getFullName(e)} value={this.state.fullName}/>
-                        <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginTop: 40 }}>
+                            onChange={(e) => this.getFullName(e)} value={this.state.fullName} />
+                        <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right', marginTop: 140 }}>
                             < Button onClick={() => this.submitReservation()} variant="contained" className="user-page-submit-bt-4">Submit</Button>
                         </Box>
                     </Box>
