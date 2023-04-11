@@ -45,7 +45,7 @@ export default class EditMenuDialog extends React.Component {
     }
 
     getPrice(e) {
-        this.setState({ price: e.target.value * 1 });
+        this.setState({ price: e.target.value });
     }
 
     getDescription(e) {
@@ -56,8 +56,16 @@ export default class EditMenuDialog extends React.Component {
         this.state.handleCloseDialog();
     }
 
+    deleteAndClose() {
+        backend.delete_menu_item(this.state.id, (data) => {
+            if (data.result === true) {
+                this.state.handleCloseDialog();
+            }
+        })
+    }
+
     saveChanges() {
-        backend.update_menu_item(this.state.id, this.state.name, this.state.category, this.state.price, this.state.description, (data) => {
+        backend.update_menu_item(this.state.id, this.state.name, this.state.category, this.state.price * 1, this.state.description, (data) => {
             if (data.result === true) {
                 this.state.handleCloseDialog();
             }
@@ -89,8 +97,9 @@ export default class EditMenuDialog extends React.Component {
                         onChange={(e) => this.getDescription(e)} className="menu-item-detail-text" />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => this.cancelAndClose()}>Cancel</Button>
-                    <Button onClick={() => this.saveChanges()} autoFocus>
+                    <Button onClick={() => this.cancelAndClose()} variant="contained" size="small">Cancel</Button>
+                    <Button onClick={() => this.deleteAndClose()} variant="contained" size="small">Delete</Button>
+                    <Button onClick={() => this.saveChanges()} variant="contained" size="small">
                         Save Changes
                     </Button>
                 </DialogActions>
