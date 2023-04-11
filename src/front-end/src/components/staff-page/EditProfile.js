@@ -24,6 +24,12 @@ export default class EditProfile extends React.Component {
         super(props);
         this.state = {
             user: props.user,
+            fullName: '',
+            birthDate: null,
+            birthday: '',
+            email: '',
+            currentPassword: '',
+            userId: '',
             newPassword: '',
             confirmNewPassword: '',
             showPassword: false,
@@ -35,7 +41,7 @@ export default class EditProfile extends React.Component {
     }
 
     componentDidMount() {
-        backend.load_user_by_email(this.state.user, (data) => {
+        backend.load_user_by_email(this.state.user.username, (data) => {
             let that = this;
             that.setState({ fullName: data.name, birthDate: data.birthday, email: data.email, birthday: data.birthday, currentPassword: data.password, userId: data.id });
         })
