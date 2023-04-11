@@ -59,7 +59,7 @@ export default class EditMenuDialog extends React.Component {
     deleteAndClose() {
         backend.delete_menu_item(this.state.id, (data) => {
             if (data.result === true) {
-                this.state.handleCloseDialog();
+                this.state.handleCloseDialog({ action: 'changes-has-been-made' });
             }
         })
     }
@@ -67,7 +67,7 @@ export default class EditMenuDialog extends React.Component {
     saveChanges() {
         backend.update_menu_item(this.state.id, this.state.name, this.state.category, this.state.price * 1, this.state.description, (data) => {
             if (data.result === true) {
-                this.state.handleCloseDialog();
+                this.state.handleCloseDialog({ action: 'changes-has-been-made' });
             }
         })
     }
