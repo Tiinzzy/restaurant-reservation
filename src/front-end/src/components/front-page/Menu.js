@@ -47,6 +47,9 @@ export default class Menu extends React.Component {
                 <Box className="menu-box-menu-logo">
                     <Typography fontFamily="serif" fontWeight="bold" fontSize="2em">Menu</Typography>
                 </Box>
+                <Box className="menu-box-menu-logo-1">
+                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1.3em" onClick={() => this.takeToReservationPage()}>Make a Reservation</Typography>
+                </Box>
                 <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                     <Box className="menu-box-left-side">
                         <Typography fontFamily="serif" fontWeight="bold" fontSize="1.4em" mb={.9}>Entrée</Typography>
@@ -96,9 +99,6 @@ export default class Menu extends React.Component {
                             </Box>
                         ))}
                     </Box>
-                </Box>
-                <Box className="menu-box-menu-logo-1">
-                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1.5em" onClick={() => this.takeToReservationPage()}>Make a Reservation ...</Typography>
                 </Box>
             </Box>
         );
