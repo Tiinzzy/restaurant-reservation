@@ -86,6 +86,10 @@
     border: solid 1px #dfdfdf;
     border-radius: 4px;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
 }
 
 table,
@@ -107,7 +111,6 @@ tr:hover {
 }
 
 .user-page-reservation-form-3 {
-    overflow-y: scroll;
     // border: solid 1px red;
     align-items: left;
     justify-content: left;
