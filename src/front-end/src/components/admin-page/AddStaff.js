@@ -37,6 +37,20 @@ export default class AddStaff extends React.Component {
         }
     }
 
+    componentDidMount(email) {
+        backend.load_user_by_email(email, (data) => {
+            let userId = data.id;
+            this.setState({ userId });
+            let query = { 'user_id': userId, 'role_name': this.state.userRole };
+            backend.add_user_role(query, (data) => {
+                let that = this;
+                if (data.result[0] === true) {
+                    that.setState({ fullName: '', email: '', birthDate: null, birthday: '', password: '', birthDate: null, userRole: '' });
+                }
+            })
+        })
+    }
+
     getFullName(e) {
         this.setState({ fullName: e.target.value });
     }
@@ -46,7 +60,7 @@ export default class AddStaff extends React.Component {
     }
 
     getBirthDate(e) {
-        let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
+        let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
         this.setState({ birthDate: e, birthday: date, generalError: false });
     }
 
@@ -70,7 +84,9 @@ export default class AddStaff extends React.Component {
 
     createNewUserAccount() {
         backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
-            console.log(data);
+            if (data.result === true) {
+                this.componentDidMount(this.state.email);
+            };
         });
     }
 
@@ -82,13 +98,13 @@ export default class AddStaff extends React.Component {
                     <Box display="flex" flexGrow={1} />
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, justifyContent: 'space-between' }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -106,7 +122,6 @@ export default class AddStaff extends React.Component {
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Create Password: </Typography>
                         <TextField
