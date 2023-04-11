@@ -19,7 +19,12 @@ export default class EditMenuDialog extends React.Component {
         super(props);
         this.state = {
             menuItemId: props.menuItemId,
-            handleCloseDialog: props.handleCloseDialog
+            handleCloseDialog: props.handleCloseDialog,
+            id: '',
+            name: '',
+            category: '',
+            price: '',
+            description: ''
         }
         this.cancelAndClose = this.cancelAndClose.bind(this);
     }
@@ -40,7 +45,7 @@ export default class EditMenuDialog extends React.Component {
     }
 
     getPrice(e) {
-        this.setState({ price: e.target.value });
+        this.setState({ price: e.target.value * 1 });
     }
 
     getDescription(e) {
