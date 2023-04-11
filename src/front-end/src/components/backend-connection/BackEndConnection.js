@@ -279,8 +279,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async delete_menu_item(callback) {
-        return axios.post('api/menu-item/delete', {}, {})
+    async delete_menu_item(id, callback) {
+        return axios.post('api/menu-item/delete', { 'id': id }, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
