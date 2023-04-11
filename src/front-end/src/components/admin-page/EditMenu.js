@@ -56,7 +56,7 @@ export default class EditMenu extends React.Component {
     }
 
     submitAddingMenuItem() {
-        backend.add_menu_item(this.state.foodName, this.state.category, this.state.price, this.state.description, (data) => {
+        backend.add_menu_item(this.state.foodName, this.state.category, this.state.price * 1, this.state.description, (data) => {
             let that = this;
             if (data.result === true) {
                 that.setState({ addItem: true, openSnack: true }, () => {
