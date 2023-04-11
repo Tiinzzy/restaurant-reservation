@@ -19,7 +19,12 @@ export default class EditMenuDialog extends React.Component {
         super(props);
         this.state = {
             menuItemId: props.menuItemId,
-            handleCloseDialog: props.handleCloseDialog
+            handleCloseDialog: props.handleCloseDialog,
+            id: '',
+            name: '',
+            category: '',
+            price: '',
+            description: ''
         }
         this.cancelAndClose = this.cancelAndClose.bind(this);
     }
@@ -51,10 +56,18 @@ export default class EditMenuDialog extends React.Component {
         this.state.handleCloseDialog();
     }
 
-    saveChanges() {
-        backend.update_menu_item(this.state.id, this.state.name, this.state.category, this.state.price, this.state.description, (data) => {
+    deleteAndClose() {
+        backend.delete_menu_item(this.state.id, (data) => {
             if (data.result === true) {
-                this.state.handleCloseDialog();
+                this.state.handleCloseDialog({ action: 'changes-has-been-made' });
+            }
+        })
+    }
+
+    saveChanges() {
+        backend.update_menu_item(this.state.id, this.state.name, this.state.category, this.state.price * 1, this.state.description, (data) => {
+            if (data.result === true) {
+                this.state.handleCloseDialog({ action: 'changes-has-been-made' });
             }
         })
     }
@@ -84,8 +97,9 @@ export default class EditMenuDialog extends React.Component {
                         onChange={(e) => this.getDescription(e)} className="menu-item-detail-text" />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => this.cancelAndClose()}>Cancel</Button>
-                    <Button onClick={() => this.saveChanges()} autoFocus>
+                    <Button onClick={() => this.cancelAndClose()} variant="contained" size="small">Cancel</Button>
+                    <Button onClick={() => this.deleteAndClose()} variant="contained" size="small">Delete</Button>
+                    <Button onClick={() => this.saveChanges()} variant="contained" size="small">
                         Save Changes
                     </Button>
                 </DialogActions>

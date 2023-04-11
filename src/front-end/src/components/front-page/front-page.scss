@@ -51,9 +51,9 @@ a {
     flex-direction: column;
     display: flex;
     font-family: serif;
-    border: groove 1px red;
+    // border: dotted 4px rgb(90, 90, 90);
     margin: 50px 50px 0px 50px;
-    padding: 15px 15px 15px 15px;
+    padding: 20px;
 }
 
 .menu-box-menu-logo {
@@ -64,12 +64,13 @@ a {
 }
 
 .menu-box-left-side {
+    border: solid 1px #eaeaea;
     flex-direction: column;
     display: flex;
     align-items: left;
     justify-content: left;
     float: left;
-    margin: 20px 10px 0px 0px;
+    margin: 15px 0px 0px 0px;
     padding: 20px;
     height: 600px;
     overflow-y: scroll;
@@ -80,13 +81,13 @@ a {
 }
 
 .menu-box-right-side {
-    // border: solid 1px purple;
+    border: solid 1px #eaeaea;
     flex-direction: column;
     display: flex;
     align-items: right;
     justify-content: right;
     float: right;
-    margin: 20px 0px 0px 10px;
+    margin: 15px 0px 0px 0px;
     padding: 20px;
     height: 600px;
     width: 700px;
@@ -191,8 +192,7 @@ a {
 .each-menu-item-box {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 5px;
     height: 90px;
     border-bottom: solid .5px rgb(116, 116, 116);
 }
@@ -203,7 +203,6 @@ a {
     align-items: center;
     justify-content: center;
     color: rgb(35, 35, 146);
-    margin-top: 20px;
     cursor: pointer;
 
     &:hover {

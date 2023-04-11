@@ -27,7 +27,8 @@ export default class EditMenu extends React.Component {
             addItem: false,
             openSnack: false,
             menuError: false,
-            openDialog: false
+            openDialog: false,
+            successMsg: ''
         }
         this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
@@ -56,10 +57,10 @@ export default class EditMenu extends React.Component {
     }
 
     submitAddingMenuItem() {
-        backend.add_menu_item(this.state.foodName, this.state.category, this.state.price, this.state.description, (data) => {
+        backend.add_menu_item(this.state.foodName, this.state.category, this.state.price * 1, this.state.description, (data) => {
             let that = this;
             if (data.result === true) {
-                that.setState({ addItem: true, openSnack: true }, () => {
+                that.setState({ addItem: true, openSnack: true, successMsg: 'Menu Item Added Successfully!' }, () => {
                     that.componentDidMount();
                 });
             } else {
@@ -73,13 +74,19 @@ export default class EditMenu extends React.Component {
     }
 
     handleOpenDialog(e) {
-        this.setState({ openDialog: true, menuItemId: e.target.innerHTML });
+        this.setState({ openDialog: true, menuItemId: e });
     }
 
-    handleCloseDialog() {
-        this.setState({ openDialog: false }, () => {
-            this.componentDidMount();
-        });
+    handleCloseDialog(data) {
+        if (data && data.action === 'changes-has-been-made') {
+            this.setState({ addItem: true, openSnack: true, successMsg: 'Changes Made Successfully!', openDialog: false }, () => {
+                this.componentDidMount();
+            });
+        } else {
+            this.setState({ openDialog: false }, () => {
+                this.componentDidMount();
+            });
+        }
     }
 
     render() {
@@ -91,7 +98,7 @@ export default class EditMenu extends React.Component {
                         <Box display="flex" flexGrow={1} />
                     </Box>
                     <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
+                    <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, justifyContent: 'space-between' }}>
                         <Box className="user-page-reservation-form-1">
                             <Typography fontSize={14} variant="body1" mb={.5}>Name: </Typography>
                             <TextField variant="outlined" className="localization-provider"
@@ -105,13 +112,12 @@ export default class EditMenu extends React.Component {
                             <Typography fontSize={14} variant="body1" mb={.5}>Description: </Typography>
                             <TextField variant="outlined" className="localization-provider"
                                 onChange={(e) => this.getDescription(e)} />
-                            <Button onClick={() => this.submitAddingMenuItem()} variant="contained">Submit</Button>
+                            <Button onClick={() => this.submitAddingMenuItem()} variant="contained" style={{ marginTop: 75 }}>Submit</Button>
 
                         </Box>
-                        <Box display="flex" flexGrow={1} />
                         <Box className="user-page-reservation-form-3">
                             <Box className="table-data-display-box">
-                                <table width="100%" style={{fontSize: '80%'}} cellPadding={0} cellSpacing={0}>
+                                <table width="100%" style={{ fontSize: '80%' }} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                         <tr>
                                             <th>id</th>
@@ -121,8 +127,9 @@ export default class EditMenu extends React.Component {
                                             <th>Description</th>
                                         </tr>
                                         {this.state.menuItems && this.state.menuItems.map((e, i) => (
-                                            <tr key={i}>
-                                                <td id="td-menu-item-id" onClick={(e) => this.handleOpenDialog(e)}>
+                                            <tr key={i} id="td-menu-item-id"
+                                                onClick={() => this.handleOpenDialog(e.id)}>
+                                                <td>
                                                     {e.id}
                                                 </td>
                                                 <td>
@@ -147,7 +154,7 @@ export default class EditMenu extends React.Component {
                 {this.state.addItem === true &&
                     <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
                         <Alert severity={this.state.menuError === true ? "error" : "success"}>
-                            {this.state.menuError === true ? "Sorry, Something went wrong!" : "Menu Item Added Successfully!"}
+                            {this.state.menuError === true ? "Sorry, Something went wrong!" : this.state.successMsg}
                         </Alert>
                     </Snackbar>}
 

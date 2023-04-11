@@ -33,6 +33,13 @@ export default class UserHomePage extends React.Component {
         this.callBack = this.callBack.bind(this);
     }
 
+    componentDidMount() {
+        backend.load_user_by_email(this.state.user.username, (data) => {
+            let that = this;
+            that.setState({ usersName: data.name })
+        })
+    }
+
     openMenuDetails(e) {
         this.setState({ openMenu: true, anchorEl: e.currentTarget });
     }
@@ -52,7 +59,7 @@ export default class UserHomePage extends React.Component {
             <Box className="user-home-page-main-box">
                 <Box className="user-home-page-data-box">
                     <Box className="user-home-page-users-name">
-                        <Typography>Hi {this.state.user.username}, Welcome Back!</Typography>
+                        <Typography>Hi {this.state.usersName}, Welcome Back!</Typography>
                         <Box display="flex" flexGrow={1} />
                         <IconButton color="primary" aria-label="menu" onClick={(e) => this.openMenuDetails(e)} >
                             <MenuIcon fontSize="large" />
@@ -78,7 +85,7 @@ export default class UserHomePage extends React.Component {
                         </Menu>
                     </Box>
                     {(this.state.changePage === '' && this.state.val === 'Edit Profile') && <EditProfile user={this.state.user} />}
-                    {(this.state.changePage === 'Make Reservation' || this.state.val === 'Make Reservation') && <MakeReservation userEmail={this.state.user.username}/>}
+                    {(this.state.changePage === 'Make Reservation' || this.state.val === 'Make Reservation') && <MakeReservation userEmail={this.state.user.username} />}
                     {(this.state.changePage === '' && this.state.val === 'Reservation History') && <ReservationHistory />}
                     {(this.state.changePage === '' && this.state.val === 'View Menu') && <ViewMenu callBack={this.callBack} />}
                 </Box>

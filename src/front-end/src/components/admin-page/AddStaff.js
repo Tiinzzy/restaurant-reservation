@@ -10,6 +10,8 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -32,8 +34,26 @@ export default class AddStaff extends React.Component {
             password: '',
             showPassword: false,
             open: false,
-            userRole: ''
+            userRole: '',
+            buttonOff: true,
+            addUser: false,
+            openSnack: false,
+            userError: false
         }
+    }
+
+    componentDidMount(email) {
+        backend.load_user_by_email(email, (data) => {
+            let userId = data.id;
+            this.setState({ userId });
+            let query = { 'user_id': userId, 'role_name': this.state.userRole };
+            backend.add_user_role(query, (data) => {
+                let that = this;
+                if (data.result[0] === true) {
+                    that.setState({ fullName: '', email: '', birthDate: null, birthday: '', password: '', birthDate: null, userRole: '' });
+                }
+            })
+        })
     }
 
     getFullName(e) {
@@ -45,12 +65,16 @@ export default class AddStaff extends React.Component {
     }
 
     getBirthDate(e) {
-        let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
+        let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
         this.setState({ birthDate: e, birthday: date, generalError: false });
     }
 
     handleOpenMenu(e) {
-        this.setState({ open: true, userRole: e.target.value });
+        this.setState({ open: true, userRole: e.target.value }, () => {
+            if (this.state.fullName.length > 0) {
+                this.setState({ buttonOff: false })
+            }
+        });
     }
 
     checkBoxClicked(e) {
@@ -65,8 +89,19 @@ export default class AddStaff extends React.Component {
 
     createNewUserAccount() {
         backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
-            console.log(data);
+            let that = this;
+            if (data.result === true) {
+                that.setState({ openSnack: true, addUser: true }, () => {
+                    this.componentDidMount(this.state.email);
+                })
+            } else {
+                that.setState({ userError: true, openSnack: true, addUser: true });
+            }
         });
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -77,13 +112,13 @@ export default class AddStaff extends React.Component {
                     <Box display="flex" flexGrow={1} />
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, justifyContent: 'space-between' }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -101,9 +136,8 @@ export default class AddStaff extends React.Component {
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
-                        <Typography fontSize={14} variant="body1" mb={.5}>Current Password: </Typography>
+                        <Typography fontSize={14} variant="body1" mb={.5}>Create Password: </Typography>
                         <TextField
                             value={this.state.password}
                             variant="outlined" className="localization-provider"
@@ -112,13 +146,20 @@ export default class AddStaff extends React.Component {
                             <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
                                 label="Show Password" />
                             <Box display="flex" flexGrow={1} />
-                            <Button variant="contained" onClick={() => this.generateTempPassword()}>Generate Password</Button>
+                            <Button variant="contained" onClick={() => this.generateTempPassword()} disabled={this.state.buttonOff}>
+                                Generate Password</Button>
                         </Box>
                         <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right' }}>
                             <Button onClick={() => this.createNewUserAccount()} variant="contained" className="user-page-submit-bt-2">Create User Account</Button>
                         </Box>
                     </Box>
                 </Box>
+                {this.state.addUser === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity={this.state.userError === true ? "error" : "success"}>
+                            {this.state.userError === true ? "Sorry, Something went wrong!" : "Account Created Successfully!"}
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }

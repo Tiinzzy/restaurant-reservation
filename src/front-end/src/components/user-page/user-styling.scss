@@ -46,24 +46,24 @@
 }
 
 .user-page-reservation-form {
-    // border: solid 1px yellow;
+    border: solid 0px green;
     align-items: left;
     justify-content: left;
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 50%;
     height: 420px;
 }
 
 .user-page-reservation-form-1 {
-    // border: solid 1px red;
+    border: solid 0px red;
     align-items: left;
     justify-content: left;
     display: flex;
     flex-direction: column;
-    width: 500px;
-    margin-right: 50px;
-    height: 420px;
+    margin-right: 10px;
+    width: 50%;
+    height: 500px;
 }
 
 .localization-provider {
@@ -87,12 +87,16 @@
     border: solid 1px #dfdfdf;
     border-radius: 4px;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
 }
 
 table,
 th,
 td {
-    border: 1px solid rgb(146, 146, 146);
+    border: 1px solid rgb(146, 146, 146);    
 }
 
 td {
@@ -108,14 +112,13 @@ tr:hover {
 }
 
 .user-page-reservation-form-3 {
-    overflow-y: scroll;
-    // border: solid 1px red;
+    // border: solid 1px blue;
     align-items: left;
     justify-content: left;
     display: flex;
     flex-direction: column;
     width: 500px;
-    height: 420px;
+    height: 500px;
 }
 
 .user-page-submit-bt-4 {
@@ -135,32 +138,40 @@ tr:hover {
 }
 
 .menu-box-right-side-user {
-    border: solid 2px #e1e1e1;
+    border: solid 1px #eaeaea;
     border-radius: 4px;
     flex-direction: column;
     display: flex;
     align-items: right;
     justify-content: right;
     float: right;
-    margin: 0px 0px 0px 150px;
-    padding: 6px 6px 6px 6px;
-    height: 400px;
+    margin: 15px 0px 0px 0px;
+    padding: 20px;
+    height: 500px;
     width: 700px;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
 }
 
 .menu-box-left-side-user {
-    border: solid 2px #e1e1e1;
+    border: solid 1px #eaeaea;
     border-radius: 4px;
     flex-direction: column;
     display: flex;
     align-items: left;
     justify-content: left;
     float: left;
-    margin: 0px 150px 0px 0px;
-    padding: 6px 6px 6px 6px;
-    height: 400px;
+    margin: 15px 60px 0px 0px;
+    padding: 20px;
+    height: 500px;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
 }
 
 .menu-box-logo-user {
@@ -197,4 +208,14 @@ tr:hover {
     cursor: pointer;
     align-items: left;
     justify-content: left;
+}
+
+.menu-user-reservation-logo {
+    margin-left: 4px;
+    color: rgb(49, 49, 235);
+    cursor: pointer;
+
+    &:hover {
+        color: rgb(118, 118, 251);
+    }
 }
