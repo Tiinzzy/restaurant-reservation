@@ -73,7 +73,7 @@ export default class EditMenu extends React.Component {
     }
 
     handleOpenDialog(e) {
-        this.setState({ openDialog: true, menuItemId: e.target.innerHTML });
+        this.setState({ openDialog: true, menuItemId: e });
     }
 
     handleCloseDialog() {
@@ -111,7 +111,7 @@ export default class EditMenu extends React.Component {
                         <Box display="flex" flexGrow={1} />
                         <Box className="user-page-reservation-form-3">
                             <Box className="table-data-display-box">
-                                <table width="100%" style={{fontSize: '80%'}} cellPadding={0} cellSpacing={0}>
+                                <table width="100%" style={{ fontSize: '80%' }} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                         <tr>
                                             <th>id</th>
@@ -121,8 +121,9 @@ export default class EditMenu extends React.Component {
                                             <th>Description</th>
                                         </tr>
                                         {this.state.menuItems && this.state.menuItems.map((e, i) => (
-                                            <tr key={i}>
-                                                <td id="td-menu-item-id" onClick={(e) => this.handleOpenDialog(e)}>
+                                            <tr key={i} id="td-menu-item-id"
+                                                onClick={() => this.handleOpenDialog(e.id)}>
+                                                <td>
                                                     {e.id}
                                                 </td>
                                                 <td>
