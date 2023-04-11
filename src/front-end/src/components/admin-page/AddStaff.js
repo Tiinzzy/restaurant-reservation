@@ -32,7 +32,8 @@ export default class AddStaff extends React.Component {
             password: '',
             showPassword: false,
             open: false,
-            userRole: ''
+            userRole: '',
+            buttonOff: true
         }
     }
 
@@ -50,7 +51,11 @@ export default class AddStaff extends React.Component {
     }
 
     handleOpenMenu(e) {
-        this.setState({ open: true, userRole: e.target.value });
+        this.setState({ open: true, userRole: e.target.value }, () => {
+            if (this.state.fullName.length > 0) {
+                this.setState({ buttonOff: false })
+            }
+        });
     }
 
     checkBoxClicked(e) {
@@ -103,7 +108,7 @@ export default class AddStaff extends React.Component {
                     </Box>
                     <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
-                        <Typography fontSize={14} variant="body1" mb={.5}>Current Password: </Typography>
+                        <Typography fontSize={14} variant="body1" mb={.5}>Create Password: </Typography>
                         <TextField
                             value={this.state.password}
                             variant="outlined" className="localization-provider"
@@ -112,7 +117,8 @@ export default class AddStaff extends React.Component {
                             <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
                                 label="Show Password" />
                             <Box display="flex" flexGrow={1} />
-                            <Button variant="contained" onClick={() => this.generateTempPassword()}>Generate Password</Button>
+                            <Button variant="contained" onClick={() => this.generateTempPassword()} disabled={this.state.buttonOff}>
+                                Generate Password</Button>
                         </Box>
                         <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'right', justifyContent: 'right' }}>
                             <Button onClick={() => this.createNewUserAccount()} variant="contained" className="user-page-submit-bt-2">Create User Account</Button>
