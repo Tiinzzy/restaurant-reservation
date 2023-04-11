@@ -35,7 +35,7 @@ export default class Header extends React.Component {
         return (
             <Box className="header-box">
                 <Box className="header-box-left">
-                    <Typography id="links-typograpphy" onClick={() => this.openMenuPage()}> Menu </Typography>
+                    <Typography ml={5} id="links-typograpphy" onClick={() => this.openMenuPage()}> Menu </Typography>
                     <Typography ml={3} id="links-typograpphy" onClick={() => this.openReservationPage()}> Reservations </Typography>
                 </Box>
                 <Box className="header-box-logo">
@@ -43,7 +43,7 @@ export default class Header extends React.Component {
                 </Box>
                 <Box className="header-box-right">
                     <Typography mr={3} id="links-typograpphy" onClick={() => this.openLoginPage()}> Login </Typography>
-                    <Typography id="links-typograpphy" onClick={() => this.openSignupPage()}> Sign Up </Typography>
+                    <Typography mr={5} id="links-typograpphy" onClick={() => this.openSignupPage()}> Sign Up </Typography>
                 </Box>
             </Box>
         );
