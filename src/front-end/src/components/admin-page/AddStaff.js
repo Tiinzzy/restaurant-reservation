@@ -10,6 +10,8 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -33,7 +35,10 @@ export default class AddStaff extends React.Component {
             showPassword: false,
             open: false,
             userRole: '',
-            buttonOff: true
+            buttonOff: true,
+            addUser: false,
+            openSnack: false,
+            userError: false
         }
     }
 
@@ -84,10 +89,19 @@ export default class AddStaff extends React.Component {
 
     createNewUserAccount() {
         backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
+            let that = this;
             if (data.result === true) {
-                this.componentDidMount(this.state.email);
-            };
+                that.setState({ openSnack: true, addUser: true }, () => {
+                    this.componentDidMount(this.state.email);
+                })
+            } else {
+                that.setState({ userError: true, openSnack: true, addUser: true });
+            }
         });
+    }
+
+    closeAlert() {
+        this.setState({ openSnack: false });
     }
 
     render() {
@@ -140,6 +154,12 @@ export default class AddStaff extends React.Component {
                         </Box>
                     </Box>
                 </Box>
+                {this.state.addUser === true &&
+                    <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+                        <Alert severity={this.state.userError === true ? "error" : "success"}>
+                            {this.state.userError === true ? "Sorry, Something went wrong!" : "Account Created Successfully!"}
+                        </Alert>
+                    </Snackbar>}
             </Box>
         );
     }
