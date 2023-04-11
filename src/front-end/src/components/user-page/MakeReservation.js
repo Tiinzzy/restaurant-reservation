@@ -99,7 +99,7 @@ export default class MakeReservation extends React.Component {
                     <Box display="flex" flexGrow={1} />
                     <Typography fontSize={16} variant="body1">To make a reservation please fill out the form bellow.</Typography>
                 </Box>
-                <Divider style={{ margingTop: 10, marginBottom: 25 }} />
+                <Divider style={{ margingTop: 10, marginBottom: 25, justifyContent: 'space-between' }} />
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Date: </Typography>
@@ -131,7 +131,6 @@ export default class MakeReservation extends React.Component {
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
                         <TextField variant="outlined" className="localization-provider"
