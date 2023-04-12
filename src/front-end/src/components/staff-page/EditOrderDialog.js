@@ -11,6 +11,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Button from '@mui/material/Button';
 
+// import InputSpinner from "react-native-input-spinner";
+import { NumericTextBoxComponent } from '@syncfusion/ej2-react-inputs';
+
+
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
@@ -38,6 +42,11 @@ export default class EditOrderDialog extends React.Component {
 
     increaseTheCount() {
         this.setState({ count: (this.state.count * 1) + 1 });
+    }
+
+    getNewCount(e) {
+        this.setState({ count: (e.target.value * 1) });
+        console.log(e.target.value)
     }
 
     cancelAndClose() {
@@ -78,18 +87,20 @@ export default class EditOrderDialog extends React.Component {
                             {this.state.orderItemId}
                         </span>
                     </Typography>
-                    <Typography style={{ display: 'flex', justifyContent: 'space-between' }}
+                    <input type="number" step="1" value={this.state.count} onChange={(e) => this.getNewCount(e)} />
+                    {/* <Typography style={{ display: 'flex', justifyContent: 'space-between', border: 'solid 1px red', alignItems: 'center' }}
                         fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Count:
-                        <span>
-                            <IconButton style={{ marginRight: 10 }} onClick={() => this.reduceTheCount()}>
+                        <InputSpinner value={this.state.count} onChange={(e) => this.getNewCount(e)} step={1} /> 
+                        <span style={{ marginLeft: 10 }}>
+                            <IconButton style={{}} onClick={() => this.reduceTheCount()}>
                                 <RemoveCircleOutlineIcon />
                             </IconButton>
                             {this.state.count}
-                            <IconButton style={{ marginLeft: 10 }} onClick={() => this.increaseTheCount()}>
+                            <IconButton style={{}} onClick={() => this.increaseTheCount()}>
                                 <AddCircleOutlineIcon />
                             </IconButton>
                         </span>
-                    </Typography>
+                    </Typography> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => this.cancelAndClose()} variant="contained">Cancel</Button>
