@@ -61,7 +61,7 @@ export default class AllReservations extends React.Component {
                     <Typography fontSize={16} variant="body1">Click on any reservation to view and edit.</Typography>
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, overflowY: 'scroll' }}>
+                <Box className="staff-all-reservations-main-box">
                     {this.state.data && this.state.data.map((e, i) => (
                         <Box key={i} onClick={() => this.openReservationsDialog(e.id)} className="all-reservations-single-box">
                             <Box style={{ display: 'flex', flexDirection: 'row' }}>
