@@ -10,6 +10,7 @@ import Snackbar from '@mui/material/Snackbar';
 import EditReservationDialog from "./EditReservationDialog";
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
+import { Button } from "@mui/material";
 
 const backend = BackEndConnection.INSTANCE();
 
@@ -63,22 +64,27 @@ export default class AllReservations extends React.Component {
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box className="staff-all-reservations-main-box">
                     {this.state.data && this.state.data.map((e, i) => (
-                        <Box key={i} onClick={() => this.openReservationsDialog(e.id)} className="all-reservations-single-box">
-                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                                <Typography fontSize={18} fontWeight="700">Reservation ID:</Typography>
-                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.id}</Typography>
+                        <Box key={i} className="all-reservations-single-box">
+                            <Box className="all-reservations-data-box">
+                                <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Typography fontSize={18} fontWeight="700">Reservation ID:</Typography>
+                                    <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.id}</Typography>
+                                </Box>
+                                <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Typography fontSize={18} fontWeight="700">Customer Name:</Typography>
+                                    <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.customer_name}</Typography>
+                                </Box>
+                                <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Typography fontSize={18} fontWeight="700">Timestamp:</Typography>
+                                    <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.timestamp}</Typography>
+                                </Box>
+                                <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Typography fontSize={18} fontWeight="700">Date:</Typography>
+                                    <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.for_date}</Typography>
+                                </Box>
                             </Box>
-                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                                <Typography fontSize={18} fontWeight="700">Customer Name:</Typography>
-                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.customer_name}</Typography>
-                            </Box>
-                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                                <Typography fontSize={18} fontWeight="700">Timestamp:</Typography>
-                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.timestamp}</Typography>
-                            </Box>
-                            <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                                <Typography fontSize={18} fontWeight="700">Date:</Typography>
-                                <Typography fontSize={18} fontWeight="500" ml={1.5}>{e.for_date}</Typography>
+                            <Box className="all-reservations-edit-one-box">
+                                <Button variant="contained" onClick={() => this.openReservationsDialog(e.id)} >Edit</Button>
                             </Box>
                         </Box>
                     ))}
