@@ -20,7 +20,20 @@ export default class EditMenuDialog extends React.Component {
         this.state = {
             closeDialog: props.closeDialog,
             reservationId: props.reservationId,
-            updateError: false
+            updateError: false,
+            customerName: '',
+            customerId: '',
+            date: '',
+            duration: '',
+            comment: '',
+            reservationType: '',
+            numberOfPeople: '',
+            status: '',
+            tableId: '',
+            waiterId: '',
+            tip: '',
+            total: '',
+            time: ''
         }
     }
 
@@ -158,8 +171,8 @@ export default class EditMenuDialog extends React.Component {
                         onChange={(e) => this.getTotalPrice(e)} className="menu-item-detail-text" />
                 </DialogContent >
                 <DialogActions>
-                    <Button onClick={() => this.cancelAndClose()}>Cancel</Button>
-                    <Button onClick={() => this.saveChanges()} autoFocus>
+                    <Button onClick={() => this.cancelAndClose()} variant="contained">Cancel</Button>
+                    <Button onClick={() => this.saveChanges()} variant="contained">
                         Save Changes
                     </Button>
                 </DialogActions>
