@@ -96,7 +96,7 @@ export default class MakeOrder extends React.Component {
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                    <Box className="user-page-reservation-form-4">
+                    <Box className="staff-page-make-order-menu-box">
                         <Typography fontSize={14} variant="body1" mb={.5}>Enter Reservation ID: </Typography>
                         <TextField size="small" variant="outlined"
                             onChange={(e) => this.getReservationId(e)} />
@@ -127,7 +127,7 @@ export default class MakeOrder extends React.Component {
                             </tbody>
                         </table>
                     </Box>
-                    <Box className="user-page-reservation-form-4">
+                    <Box className="staff-page-make-order-menu-box">
                         {this.state.data && this.state.data.map((e, i) => (
                             <Box key={i}>
                                 <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee', alignItems: 'center' }}>
@@ -135,10 +135,10 @@ export default class MakeOrder extends React.Component {
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
+                                        <TextField variant="outlined" style={{ width: '50px', marginLeft:10 }} onChange={(e) => this.getMenuItemCount(e)} />
                                         <IconButton onClick={() => this.addToReservationOrder(e.id)}>
                                             <AddCircleOutlineIcon />
                                         </IconButton>
-                                        <TextField variant="outlined" style={{ width: '50px' }} onChange={(e) => this.getMenuItemCount(e)} />
                                     </span>
                                 </Box>
                                 <Typography fontFamily="serif" fontSize=".8em" color="rgb(94, 94, 94)">{e.description}</Typography>
