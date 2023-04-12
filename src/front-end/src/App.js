@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -16,7 +16,6 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
-const HEIGHT = window.innerHeight - 175;
 
 let callCounter = 0;
 
@@ -44,12 +43,34 @@ export default function App() {
         checkUserLogin(setIsLogin, setUser, setPageReady);
     }
 
+
+    function resizeHeight() {
+        return window.innerHeight - 175;
+    }
+
+    function myComponent() {
+        const [resizeDesktop, setResizeDesktop] = useState(resizeHeight);
+
+        useEffect(() => {
+
+            function autoResize() {
+                setResizeDesktop(resizeHeight());
+            }
+
+            window.addEventListener('resize', autoResize);
+            autoResize();
+            return () => window.removeEventListener('resize', autoResize);
+        }, [])
+
+        return resizeDesktop;
+    }
+
     return (
         <div>
             {pageReady && (isLogin ?
                 <>
                     <HeaderLogin user={user} />
-                    <div style={{ height: HEIGHT }}>
+                    <div style={{ height: myComponent }}>
                         {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
                         {user !== null && user.roles.includes('Customer') && <UserHomePage user={user} />}
                         {user !== null && user.roles.includes('Waiter') && <WaiterHomePage user={user} />}
@@ -59,7 +80,7 @@ export default function App() {
                 :
                 <>
                     <Header />
-                    <div style={{ height: HEIGHT }}>
+                    <div style={{ height: myComponent }}>
                         {(CURRENT_PATH === '/login' && user === null) && <Login />}
                         {((CURRENT_PATH === '/' || CURRENT_PATH === '/home') && user === null) && <Home />}
                         {CURRENT_PATH === '/signup' && <Signup />}
