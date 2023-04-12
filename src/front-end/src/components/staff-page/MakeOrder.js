@@ -88,7 +88,7 @@ export default class MakeOrder extends React.Component {
 
     handleCloseDialog(data) {
         if (data && data.action === 'changes-made-successfully') {
-            this.setState({ openDialog: false });
+            this.setState({ openDialog: false, changesMade: true, openSnack: true, snackMsg: 'Changes Made Successfully!' });
             this.componentDidMount(data.reserveId);
         }
         this.setState({ openDialog: false });
