@@ -6,14 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
-// import InputSpinner from "react-native-input-spinner";
-import { NumericTextBoxComponent } from '@syncfusion/ej2-react-inputs';
-
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
@@ -25,7 +19,11 @@ export default class EditOrderDialog extends React.Component {
         super(props);
         this.state = {
             clickedData: props.clickedData,
-            closeDialog: props.closeDialog
+            closeDialog: props.closeDialog,
+            count: '',
+            reservationId: '',
+            orderItemId: '',
+            menuItemId: ''
         }
     }
 
@@ -36,17 +34,8 @@ export default class EditOrderDialog extends React.Component {
         });
     }
 
-    reduceTheCount() {
-        this.setState({ count: (this.state.count * 1) - 1 });
-    }
-
-    increaseTheCount() {
-        this.setState({ count: (this.state.count * 1) + 1 });
-    }
-
     getNewCount(e) {
         this.setState({ count: (e.target.value * 1) });
-        console.log(e.target.value)
     }
 
     cancelAndClose() {
@@ -87,20 +76,8 @@ export default class EditOrderDialog extends React.Component {
                             {this.state.orderItemId}
                         </span>
                     </Typography>
-                    <input type="number" step="1" value={this.state.count} onChange={(e) => this.getNewCount(e)} />
-                    {/* <Typography style={{ display: 'flex', justifyContent: 'space-between', border: 'solid 1px red', alignItems: 'center' }}
-                        fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Count:
-                        <InputSpinner value={this.state.count} onChange={(e) => this.getNewCount(e)} step={1} /> 
-                        <span style={{ marginLeft: 10 }}>
-                            <IconButton style={{}} onClick={() => this.reduceTheCount()}>
-                                <RemoveCircleOutlineIcon />
-                            </IconButton>
-                            {this.state.count}
-                            <IconButton style={{}} onClick={() => this.increaseTheCount()}>
-                                <AddCircleOutlineIcon />
-                            </IconButton>
-                        </span>
-                    </Typography> */}
+                    <TextField type="number" InputLabelProps={{ shrink: true, }} size="small" style={{ width: 300, marginTop: 15 }}
+                        value={this.state.count} onChange={(e) => this.getNewCount(e)} label="Count" variant="standard" />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => this.cancelAndClose()} variant="contained">Cancel</Button>
