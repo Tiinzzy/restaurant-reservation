@@ -153,7 +153,7 @@ export default class MakeOrder extends React.Component {
                         </Alert>
                     </Snackbar>}
 
-                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()}>
+                <Dialog open={this.state.openDialog} onClose={() => this.handleCloseDialog()} size="md">
                     <EditOrderDialog clickedData={this.state.clickedData} closeDialog={this.handleCloseDialog} />
                 </Dialog>
             </Box>
