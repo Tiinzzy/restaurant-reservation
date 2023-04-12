@@ -17,6 +17,8 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
+import './staff-styling.scss';
+
 const backend = BackEndConnection.INSTANCE();
 
 const NUMBER_OF_PEOPLE = [1, 2, 3, 4, 5, 6];
@@ -144,7 +146,7 @@ export default class MakeReservation extends React.Component {
                         <Typography fontSize={16} variant="body1">To make a reservation please fill out the form bellow.</Typography>
                     </Box>
                     <Divider style={{ margingTop: 10, marginBottom: 25 }} />
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, overflowY: 'scroll' }}>
+                    <Box className="staff-make-reservation-main-box">
                         <Box className="user-page-reservation-form-1">
                             <Typography fontSize={14} variant="body1" mb={.5}>Date: </Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
