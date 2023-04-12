@@ -109,9 +109,9 @@ export default class MakeOrder extends React.Component {
                                     <th>Order Item ID</th>
                                 </tr>
                                 {this.state.allOrderItems && this.state.allOrderItems.map((e, i) => (
-                                    <tr key={i}>
-                                        <td id="td-menu-item-id"
-                                            onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count, 'menuItemId': e.menu_item_id })}>
+                                    <tr id="td-menu-item-id"
+                                        key={i} onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count, 'menuItemId': e.menu_item_id })}>
+                                        <td>
                                             {e.reservation_id}
                                         </td>
                                         <td>
@@ -135,7 +135,7 @@ export default class MakeOrder extends React.Component {
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
-                                        <TextField variant="outlined" style={{ width: '50px', marginLeft:10 }} onChange={(e) => this.getMenuItemCount(e)} />
+                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
                                         <IconButton onClick={() => this.addToReservationOrder(e.id)}>
                                             <AddCircleOutlineIcon />
                                         </IconButton>
