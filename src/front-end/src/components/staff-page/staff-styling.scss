@@ -22,8 +22,25 @@
 
 .all-reservations-single-box {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px rgb(207, 207, 207);
+    justify-content: space-between;
+    // border: solid 1px red;
+}
+
+.all-reservations-data-box{
+    display: flex;
     flex-direction: column;
-    cursor: pointer;
-    align-items: left;
-    justify-content: left;
+}
+
+.all-reservations-edit-one-box{
+    margin-top: 70px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
