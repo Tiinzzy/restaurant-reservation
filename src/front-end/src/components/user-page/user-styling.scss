@@ -105,10 +105,13 @@ td {
 
 th {
     padding: 5px;
+    position: sticky;
+    top: 0;
+    background-color: rgb(230, 230, 230);
 }
 
 tr:hover {
-    background-color: #e0e0e0;
+    background-color: #e9e9e9;
 }
 
 .user-page-reservation-form-3 {
