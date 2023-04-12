@@ -1,0 +1,64 @@
+.staff-make-reservation-main-box {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+}
+
+.staff-all-reservations-main-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+}
+
+.all-reservations-single-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px rgb(207, 207, 207);
+    justify-content: space-between;
+    // border: solid 1px red;
+}
+
+.all-reservations-data-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.all-reservations-edit-one-box {
+    margin-top: 70px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.staff-page-make-order-menu-box {
+    padding: 5px;
+    border: solid 1px #eaeaea;
+    border-radius: 4px;
+    overflow-y: scroll;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 420px;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+}

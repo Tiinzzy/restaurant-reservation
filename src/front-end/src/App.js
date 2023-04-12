@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -16,7 +16,7 @@ import BackEndConnection from './components/backend-connection/BackEndConnection
 
 const backend = BackEndConnection.INSTANCE();
 const CURRENT_PATH = window.location.pathname;
-const HEIGHT = window.innerHeight - 175;
+const FOOTER_OFFSET = 200
 
 let callCounter = 0;
 
@@ -35,21 +35,34 @@ function checkUserLogin(setIsLogin, setUser, setPageReady) {
     })
 }
 
+function getWindowSize() {
+    return { h: window.innerHeight, w: window.innerWidth }
+}
+
 export default function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [user, setUser] = useState(null);
     const [pageReady, setPageReady] = useState(false);
+    const [windowSize, setWindowSize] = useState(getWindowSize());
 
     if (callCounter++ < 1) {
         checkUserLogin(setIsLogin, setUser, setPageReady);
     }
+
+    useEffect(() => {
+        function resizeHandler() {
+            setWindowSize(getWindowSize())
+        }
+        window.addEventListener('resize', resizeHandler);
+        return () => window.removeEventListener('resize', resizeHandler);
+    })
 
     return (
         <div>
             {pageReady && (isLogin ?
                 <>
                     <HeaderLogin user={user} />
-                    <div style={{ height: HEIGHT }}>
+                    <div style={{ height: windowSize.h - FOOTER_OFFSET }}>
                         {user !== null && user.roles.includes('Admin') && <AdminHomePage user={user} />}
                         {user !== null && user.roles.includes('Customer') && <UserHomePage user={user} />}
                         {user !== null && user.roles.includes('Waiter') && <WaiterHomePage user={user} />}
@@ -59,7 +72,7 @@ export default function App() {
                 :
                 <>
                     <Header />
-                    <div style={{ height: HEIGHT }}>
+                    <div style={{ height: windowSize.h - FOOTER_OFFSET }}>
                         {(CURRENT_PATH === '/login' && user === null) && <Login />}
                         {((CURRENT_PATH === '/' || CURRENT_PATH === '/home') && user === null) && <Home />}
                         {CURRENT_PATH === '/signup' && <Signup />}
@@ -72,3 +85,6 @@ export default function App() {
         </div>
     );
 };
+
+
+

@@ -8,10 +8,12 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -21,6 +23,19 @@ import BackEndConnection from '../backend-connection/BackEndConnection';
 const backend = BackEndConnection.INSTANCE();
 
 const STAFF_ROLE = ['Admin', 'Customer', 'Waiter', 'Cashier'];
+
+const ITEM_HEIGHT = 48;
+
+const ITEM_PADDING_TOP = 8;
+
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 export default class AddStaff extends React.Component {
 
@@ -34,7 +49,7 @@ export default class AddStaff extends React.Component {
             password: '',
             showPassword: false,
             open: false,
-            userRole: '',
+            userRole: [],
             buttonOff: true,
             addUser: false,
             openSnack: false,
@@ -47,10 +62,11 @@ export default class AddStaff extends React.Component {
             let userId = data.id;
             this.setState({ userId });
             let query = { 'user_id': userId, 'role_name': this.state.userRole };
+
             backend.add_user_role(query, (data) => {
                 let that = this;
                 if (data.result[0] === true) {
-                    that.setState({ fullName: '', email: '', birthDate: null, birthday: '', password: '', birthDate: null, userRole: '' });
+                    that.setState({ fullName: '', email: '', birthDate: null, birthday: '', password: '', birthDate: null, userRole: [] });
                 }
             })
         })
@@ -69,12 +85,10 @@ export default class AddStaff extends React.Component {
         this.setState({ birthDate: e, birthday: date, generalError: false });
     }
 
-    handleOpenMenu(e) {
-        this.setState({ open: true, userRole: e.target.value }, () => {
-            if (this.state.fullName.length > 0) {
-                this.setState({ buttonOff: false })
-            }
-        });
+    handleMenuChange(e) {
+        let value = e.target.value;
+        let userRole = (typeof value === 'string' ? value.split(',') : value);
+        this.setState({ userRole });
     }
 
     checkBoxClicked(e) {
@@ -125,14 +139,22 @@ export default class AddStaff extends React.Component {
                             <DatePicker
                                 value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
-                        <Typography fontSize={14} variant="body1" mb={.5} mt={2}>User Role: </Typography>
+                        <Typography id="user-role-id" fontSize={14} variant="body1" mb={.5} mt={2}>User Role: </Typography>
                         <FormControl>
                             <Select
+                                labelId="user-role-id"
+                                multiple
                                 className="localization-provider"
                                 value={this.state.userRole}
-                                onChange={(e) => this.handleOpenMenu(e)}>
+                                renderValue={(selected) => selected.join(', ')}
+                                onChange={(e) => this.handleMenuChange(e)}                                                           
+                            >
                                 {STAFF_ROLE.map((e, i) => (
-                                    <MenuItem key={i} value={e}>{e}</MenuItem>))}
+                                    <MenuItem key={i} value={e}>
+                                        <Checkbox
+                                            checked={this.state.userRole.includes(e)} />
+                                        <ListItemText primary={e} />
+                                    </MenuItem>))}
                             </Select>
                         </FormControl>
                     </Box>
