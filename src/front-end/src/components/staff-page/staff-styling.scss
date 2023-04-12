@@ -32,15 +32,33 @@
     // border: solid 1px red;
 }
 
-.all-reservations-data-box{
+.all-reservations-data-box {
     display: flex;
     flex-direction: column;
 }
 
-.all-reservations-edit-one-box{
+.all-reservations-edit-one-box {
     margin-top: 70px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.staff-page-make-order-menu-box {
+    padding: 5px;
+    border: solid 1px #eaeaea;
+    border-radius: 4px;
+    overflow-y: scroll;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 420px;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
 }
