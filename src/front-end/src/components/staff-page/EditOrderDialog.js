@@ -92,8 +92,8 @@ export default class EditOrderDialog extends React.Component {
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => this.cancelAndClose()}>Cancel</Button>
-                    <Button onClick={() => this.saveChanges()} autoFocus>
+                    <Button onClick={() => this.cancelAndClose()} variant="contained">Cancel</Button>
+                    <Button onClick={() => this.saveChanges()} variant="contained">
                         Save Changes
                     </Button>
                 </DialogActions>
