@@ -88,7 +88,7 @@ export default class AddStaff extends React.Component {
     handleMenuChange(e) {
         let value = e.target.value;
         let userRole = (typeof value === 'string' ? value.split(',') : value);
-        this.setState({ userRole });
+        this.setState({ userRole, buttonOff: false });
     }
 
     checkBoxClicked(e) {
@@ -104,6 +104,7 @@ export default class AddStaff extends React.Component {
     createNewUserAccount() {
         backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
             let that = this;
+            console.log(data)
             if (data.result === true) {
                 that.setState({ openSnack: true, addUser: true }, () => {
                     this.componentDidMount(this.state.email);
@@ -147,7 +148,7 @@ export default class AddStaff extends React.Component {
                                 className="localization-provider"
                                 value={this.state.userRole}
                                 renderValue={(selected) => selected.join(', ')}
-                                onChange={(e) => this.handleMenuChange(e)}                                                           
+                                onChange={(e) => this.handleMenuChange(e)}
                             >
                                 {STAFF_ROLE.map((e, i) => (
                                     <MenuItem key={i} value={e}>
