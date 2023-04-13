@@ -1,8 +1,19 @@
+.satff-main-box {
+    // border: solid 1px green;
+    display: flex;
+    flex-direction: column;
+    width: 1300px;
+    margin: 25px 0px 0px 0px;
+    height: 700px;
+}
+
 .staff-make-reservation-main-box {
     display: flex;
     flex-direction: row;
+    // border: solid 1px red;
     margin-bottom: 40px;
     overflow-y: scroll;
+    height: 450px;
 
     &::-webkit-scrollbar {
         width: 0 !important
@@ -46,7 +57,7 @@
 }
 
 
-.staff-page-make-order-menu-box {
+.staff-page-make-order-menu-box-left {
     padding: 5px;
     border: solid 1px #eaeaea;
     border-radius: 4px;
@@ -56,7 +67,25 @@
     display: flex;
     flex-direction: column;
     width: 700px;
-    height: 420px;
+    height: 450px;
+    margin-right: 20px;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+}
+
+.staff-page-make-order-menu-box-right {
+    padding: 5px;
+    border: solid 1px #eaeaea;
+    border-radius: 4px;
+    overflow-y: scroll;
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 450px;
 
     &::-webkit-scrollbar {
         width: 0 !important
