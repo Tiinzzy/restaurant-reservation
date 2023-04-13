@@ -58,18 +58,20 @@ export default class AddStaff extends React.Component {
     }
 
     componentDidMount(email) {
-        backend.load_user_by_email(email, (data) => {
-            let userId = data.id;
-            this.setState({ userId });
-            let query = { 'user_id': userId, 'role_name': this.state.userRole };
+        if (email) {
+            backend.load_user_by_email(email, (data) => {
+                let userId = data.id;
+                this.setState({ userId });
+                let query = { 'user_id': userId, 'role_name': this.state.userRole };
 
-            backend.add_user_role(query, (data) => {
-                let that = this;
-                if (data.result[0] === true) {
-                    that.setState({ fullName: '', email: '', birthDate: null, birthday: '', password: '', birthDate: null, userRole: [] });
-                }
+                backend.add_user_role(query, (data) => {
+                    let that = this;
+                    if (data.result[0] === true) {
+                        that.setState({ fullName: '', email: '', birthDate: null, birthday: '', password: '', birthDate: null, userRole: [] });
+                    }
+                })
             })
-        })
+        }
     }
 
     getFullName(e) {
@@ -104,7 +106,6 @@ export default class AddStaff extends React.Component {
     createNewUserAccount() {
         backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
             let that = this;
-            console.log(data)
             if (data.result === true) {
                 that.setState({ openSnack: true, addUser: true }, () => {
                     this.componentDidMount(this.state.email);
