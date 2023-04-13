@@ -63,16 +63,16 @@ export default class MakeOrder extends React.Component {
     addToReservationOrder(menuItemId) {
         let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': menuItemId, 'count': this.state.count };
         if (this.state.count === 0 || this.state.count === null || this.state.count.length === 0 || this.state.count === '') {
-            this.setState({ changesMade: true, openSnack: true, changeError: true, snackMsgErr: 'Sorry, Something went wrong!' });
+            this.setState({ changesMade: true, openSnack: true, changeError: true, snackMsgErr: 'Sorry, Something went wrong!', count: '' });
         } else {
             backend.add_order_item(query, (data) => {
                 let that = this;
                 if (data.result) {
-                    that.setState({ count: '', changesMade: true, openSnack: true, snackMsg: 'Order Item Added Successfully!' }, () => {
+                    that.setState({ count: '', changesMade: true, openSnack: true, snackMsg: 'Order Item Added Successfully!', count: '' }, () => {
                         this.componentDidMount(this.state.reservationId);
                     });
                 } else {
-                    that.setState({ changesMade: true, openSnack: true, changeError: true, snackMsgErr: 'Sorry, Something went wrong!' });
+                    that.setState({ changesMade: true, openSnack: true, changeError: true, snackMsgErr: 'Sorry, Something went wrong!', count: '' });
                 }
             })
         }
