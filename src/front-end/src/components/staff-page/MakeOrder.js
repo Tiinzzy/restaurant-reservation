@@ -96,7 +96,7 @@ export default class MakeOrder extends React.Component {
 
     render() {
         return (
-            <Box className="delete-account-main-box">
+            <Box className="satff-main-box">
                 <Box className="top-header-reservation">
                     <Typography fontSize={20} fontWeight="bold">Make an Order</Typography>
                     <Box display="flex" flexGrow={1} />
@@ -104,7 +104,7 @@ export default class MakeOrder extends React.Component {
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                    <Box className="staff-page-make-order-menu-box">
+                    <Box className="staff-page-make-order-menu-box-left">
                         <Typography fontSize={14} variant="body1" mb={.5}>Enter Reservation ID: </Typography>
                         <TextField size="small" variant="outlined"
                             onChange={(e) => this.getReservationId(e)} />
@@ -135,7 +135,7 @@ export default class MakeOrder extends React.Component {
                             </tbody>
                         </table>
                     </Box>
-                    <Box className="staff-page-make-order-menu-box">
+                    <Box className="staff-page-make-order-menu-box-right">
                         {this.state.data && this.state.data.map((e, i) => (
                             <Box key={i}>
                                 <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee', alignItems: 'center' }}>
