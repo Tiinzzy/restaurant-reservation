@@ -14,7 +14,7 @@ import BackEndConnection from '../backend-connection/BackEndConnection';
 const backend = BackEndConnection.INSTANCE();
 
 
-const INPUIT_FIELDS = ['customer_id', 'cutomer_name'];
+const INPUIT_FIELDS = ['id', 'waiter_id', 'reservation_type', 'status', 'for_date', 'timestamp', 'customer_id', 'cutomer_name', 'for_how_long', 'latest_comment', 'seat_count', 'table_id', 'tip_percent', 'total_price'];
 
 export default class EditMenuDialog extends React.Component {
 
@@ -47,6 +47,7 @@ export default class EditMenuDialog extends React.Component {
             Object.keys(data).forEach(k => data[k] = data[k] || '');
 
             that.setState({ rsvData: data });
+            console.log(data)
         })
     }
 
@@ -55,12 +56,7 @@ export default class EditMenuDialog extends React.Component {
     }
 
     saveChanges() {
-        let query = {
-            'id': this.state.reservationId, 'for_how_long': this.state.duration, 'customer_name': this.state.customerName, 'customer_id': this.state.customerId, 'seat_count': this.state.numberOfPeople,
-            'table_id': this.state.tableId, 'for_date': this.state.date, 'timestamp': this.state.time, 'status': this.state.status, 'latest_comment': this.state.comment, 'waiter_id': this.state.waiterId,
-            'reservation_type': this.state.reservationType, 'total_price': this.state.total, 'tip_percent': this.state.tip
-        }
-        backend.update_reservation(query, (data) => {
+        backend.update_reservation(this.state.rsvData, (data) => {
             let that = this;
             if (data.result) {
                 that.state.closeDialog({ action: 'changes-made-successfully' });
