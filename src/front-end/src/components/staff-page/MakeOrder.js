@@ -76,7 +76,7 @@ export default class MakeOrder extends React.Component {
     }
 
     closeAlert() {
-        this.setState({ openSnack: false });
+        this.setState({ openSnack: false, changeError: false });
     }
 
     handleOpenDialog(data) {
@@ -140,7 +140,7 @@ export default class MakeOrder extends React.Component {
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
-                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
+                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10, marginTop: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
                                         <IconButton onClick={() => this.addToReservationOrder(e.id)} disabled={this.state.buttonOff}>
                                             <AddCircleOutlineIcon />
                                         </IconButton>
