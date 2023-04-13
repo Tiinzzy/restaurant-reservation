@@ -56,7 +56,6 @@ export default class MakeOrder extends React.Component {
     }
 
     getMenuItemCount(e) {
-        console.log(e.target.value)
         this.setState({ count: (e.target.value * 1) });
     }
 
