@@ -151,21 +151,23 @@ class User:
             data.append({'role_id': row[0], 'role': row[1]})
         return data
 
-    def add_role(self, role_name):
-        if role_name is None or role_name not in ROLES:
-            return False
+    def add_role(self, role_names):
+        for name in role_names:
+            if name is None or name not in ROLES:
+                return False
 
-        data = (self.__id, role_name)
-        db = Database()
-        con, cur = db.open_database()
-        error = None
-        try:
-            cur.execute(users_table.insert_user_role_sql, data)
-            con.commit()
-            result = (cur.rowcount == 1)
-        except Database.MySqlError as err:
-            error = err.msg
-            result = False
+            data = (self.__id, name)
+            print(data, 'data going into MYSQL')
+            db = Database()
+            con, cur = db.open_database()
+            error = None
+            try:
+                cur.execute(users_table.insert_user_role_sql, data)
+                con.commit()
+                result = (cur.rowcount == 1)
+            except Database.MySqlError as err:
+                error = err.msg
+                result = False
 
         db.close_database()
         return result, error

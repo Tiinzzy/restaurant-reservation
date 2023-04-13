@@ -28,7 +28,8 @@ export default class EditMenu extends React.Component {
             openSnack: false,
             menuError: false,
             openDialog: false,
-            successMsg: ''
+            successMsg: '',
+            emptyField: false
         }
         this.handleCloseDialog = this.handleCloseDialog.bind(this);
     }
@@ -41,32 +42,37 @@ export default class EditMenu extends React.Component {
     }
 
     getFoodName(e) {
-        this.setState({ foodName: e.target.value });
+        this.setState({ foodName: e.target.value, emptyField: false });
     }
 
     getCategory(e) {
-        this.setState({ category: e.target.value });
+        this.setState({ category: e.target.value, emptyField: false });
     }
 
     getPrice(e) {
-        this.setState({ price: e.target.value });
+        this.setState({ price: e.target.value, emptyField: false });
     }
 
     getDescription(e) {
-        this.setState({ description: e.target.value });
+        this.setState({ description: e.target.value, emptyField: false });
     }
 
     submitAddingMenuItem() {
-        backend.add_menu_item(this.state.foodName, this.state.category, this.state.price * 1, this.state.description, (data) => {
-            let that = this;
-            if (data.result === true) {
-                that.setState({ addItem: true, openSnack: true, successMsg: 'Menu Item Added Successfully!' }, () => {
-                    that.componentDidMount();
-                });
-            } else {
-                that.setState({ menuError: true });
-            }
-        })
+        if (this.state.foodName.length > 0 && this.state.category.length > 0 && this.state.price > 0 && this.state.description.length > 0) {
+            backend.add_menu_item(this.state.foodName, this.state.category, this.state.price * 1, this.state.description, (data) => {
+                let that = this;
+                if (data.result === true) {
+                    that.setState({ addItem: true, openSnack: true, successMsg: 'Menu Item Added Successfully!' }, () => {
+                        that.componentDidMount();
+                    });
+                } else {
+                    that.setState({ addItem: true, openSnack: true, menuError: true });
+                }
+            });
+        } else {
+            this.setState({ emptyField: true, addItem: true, openSnack: true, menuError: true });
+        }
+
     }
 
     closeAlert() {
@@ -101,16 +107,16 @@ export default class EditMenu extends React.Component {
                     <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, justifyContent: 'space-between' }}>
                         <Box className="user-page-reservation-form-1">
                             <Typography fontSize={14} variant="body1" mb={.5}>Name: </Typography>
-                            <TextField variant="outlined" className="localization-provider"
+                            <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                                 onChange={(e) => this.getFoodName(e)} />
                             <Typography fontSize={14} variant="body1" mb={.5}>Category: </Typography>
-                            <TextField variant="outlined" className="localization-provider"
+                            <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                                 onChange={(e) => this.getCategory(e)} />
                             <Typography fontSize={14} variant="body1" mb={.5}>Price: </Typography>
-                            <TextField variant="outlined" className="localization-provider"
+                            <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                                 onChange={(e) => this.getPrice(e)} />
                             <Typography fontSize={14} variant="body1" mb={.5}>Description: </Typography>
-                            <TextField variant="outlined" className="localization-provider"
+                            <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                                 onChange={(e) => this.getDescription(e)} />
                             <Button onClick={() => this.submitAddingMenuItem()} variant="contained" style={{ marginTop: 75 }}>Submit</Button>
 

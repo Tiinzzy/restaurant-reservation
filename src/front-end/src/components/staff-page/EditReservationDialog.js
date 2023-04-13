@@ -11,10 +11,20 @@ import TextField from '@mui/material/TextField';
 
 import BackEndConnection from '../backend-connection/BackEndConnection';
 
+import './staff-styling.scss';
+
 const backend = BackEndConnection.INSTANCE();
 
 
-const INPUIT_FIELDS = ['customer_id', 'cutomer_name'];
+const INPUIT_FIELDS = ['id', 'timestamp', 'customer_name', 'customer_id', 'seat_count', 'table_id', 'for_date', 'for_how_long', 'status', 'latest_comment', 'waiter_id', 'reservation_type', 'total_price', 'tip_percent'];
+
+function capitalizeFirst(mySentence) {
+    const words = mySentence.split('_');
+    for (var w in words) {
+        words[w] = words[w][0].toUpperCase() + words[w].substring(1);
+    }
+    return words.join(' ');
+}
 
 export default class EditMenuDialog extends React.Component {
 
@@ -23,20 +33,7 @@ export default class EditMenuDialog extends React.Component {
         this.state = {
             closeDialog: props.closeDialog,
             reservationId: props.reservationId,
-            updateError: false,
-            customerName: '',
-            customerId: '',
-            date: '',
-            duration: '',
-            comment: '',
-            reservationType: '',
-            numberOfPeople: '',
-            status: '',
-            tableId: '',
-            waiterId: '',
-            tip: '',
-            total: '',
-            time: ''
+            updateError: false
         }
     }
 
@@ -55,15 +52,19 @@ export default class EditMenuDialog extends React.Component {
     }
 
     saveChanges() {
-        let query = {
-            'id': this.state.reservationId, 'for_how_long': this.state.duration, 'customer_name': this.state.customerName, 'customer_id': this.state.customerId, 'seat_count': this.state.numberOfPeople,
-            'table_id': this.state.tableId, 'for_date': this.state.date, 'timestamp': this.state.time, 'status': this.state.status, 'latest_comment': this.state.comment, 'waiter_id': this.state.waiterId,
-            'reservation_type': this.state.reservationType, 'total_price': this.state.total, 'tip_percent': this.state.tip
+        let availableChanges = {};
+        for (let i in this.state.rsvData) {
+            if (this.state.rsvData[i].length > 0 || this.state.rsvData[i] !== '') {
+                availableChanges[i] = this.state.rsvData[i];
+            }
         }
-        backend.update_reservation(query, (data) => {
+
+        backend.update_reservation(availableChanges, (data) => {
             let that = this;
             if (data.result) {
-                that.state.closeDialog({ action: 'changes-made-successfully' });
+                that.state.closeDialog({ action: 'changes-made-successfully' }, () => {
+                    that.componentDidMount();
+                });
             } else {
                 that.setState({ updateError: true });
             }
@@ -81,19 +82,20 @@ export default class EditMenuDialog extends React.Component {
             <Box>
                 <DialogTitle id="alert-dialog-title">
                     {"Edit Reservation #" + this.state.reservationId}
-                </DialogTitle>
-                <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         The following are current data, type in textfield to change.
                     </DialogContentText>
-                    {this.state.rsvData && INPUIT_FIELDS.map((k, i) => (
-                        <Box key={i} p={1}>
-                            <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>{k.replaceAll('_', ' ')}: </Typography>
-                            <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.rsvData[k]}
-                                onChange={(e) => this.smartChange(e, k)} className="menu-item-detail-text" />
-                        </Box>
-                    ))}
-
+                </DialogTitle>
+                <DialogContent>
+                    <Box className="staff-edit-reservation-dialog-box">
+                        {this.state.rsvData && INPUIT_FIELDS.map((k, i) => (
+                            <Box key={i} p={1}>
+                                <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>{capitalizeFirst(k).replaceAll('_', ' ')}: </Typography>
+                                <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.rsvData[k]}
+                                    onChange={(e) => this.smartChange(e, k)} className="staff-edit-reservation-textfield" />
+                            </Box>
+                        ))}
+                    </Box>
                 </DialogContent >
                 <DialogActions>
                     <Button onClick={() => this.cancelAndClose()} variant="contained">Cancel</Button>

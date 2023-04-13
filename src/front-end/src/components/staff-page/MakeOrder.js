@@ -27,8 +27,6 @@ export default class MakeOrder extends React.Component {
             openSnack: false,
             changeError: false,
             openDialog: false,
-            snackMsg: '',
-            snackMsgErr: '',
             buttonOff: true
         }
         this.handleCloseDialog = this.handleCloseDialog.bind(this);
@@ -56,30 +54,29 @@ export default class MakeOrder extends React.Component {
     }
 
     getMenuItemCount(e) {
-        console.log(e.target.value)
         this.setState({ count: (e.target.value * 1) });
     }
 
     addToReservationOrder(menuItemId) {
         let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': menuItemId, 'count': this.state.count };
         if (this.state.count === 0 || this.state.count === null || this.state.count.length === 0 || this.state.count === '') {
-            this.setState({ changesMade: true, openSnack: true, changeError: true, snackMsgErr: 'Sorry, Something went wrong!' });
+            this.setState({ changesMade: true, openSnack: true, changeError: true, count: '' });
         } else {
             backend.add_order_item(query, (data) => {
                 let that = this;
                 if (data.result) {
-                    that.setState({ count: '', changesMade: true, openSnack: true, snackMsg: 'Order Item Added Successfully!' }, () => {
+                    that.setState({ count: '', changesMade: true, openSnack: true, count: '' }, () => {
                         this.componentDidMount(this.state.reservationId);
                     });
                 } else {
-                    that.setState({ changesMade: true, openSnack: true, changeError: true, snackMsgErr: 'Sorry, Something went wrong!' });
+                    that.setState({ changesMade: true, openSnack: true, changeError: true, count: '' });
                 }
             })
         }
     }
 
     closeAlert() {
-        this.setState({ openSnack: false });
+        this.setState({ openSnack: false, changeError: false });
     }
 
     handleOpenDialog(data) {
@@ -88,7 +85,7 @@ export default class MakeOrder extends React.Component {
 
     handleCloseDialog(data) {
         if (data && data.action === 'changes-made-successfully') {
-            this.setState({ openDialog: false, changesMade: true, openSnack: true, snackMsg: 'Changes Made Successfully!' });
+            this.setState({ openDialog: false, changesMade: true, openSnack: true });
             this.componentDidMount(data.reserveId);
         }
         this.setState({ openDialog: false });
@@ -96,7 +93,7 @@ export default class MakeOrder extends React.Component {
 
     render() {
         return (
-            <Box className="delete-account-main-box">
+            <Box className="satff-main-box">
                 <Box className="top-header-reservation">
                     <Typography fontSize={20} fontWeight="bold">Make an Order</Typography>
                     <Box display="flex" flexGrow={1} />
@@ -104,7 +101,7 @@ export default class MakeOrder extends React.Component {
                 </Box>
                 <Divider style={{ margingTop: 10, marginBottom: 25 }} />
                 <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                    <Box className="staff-page-make-order-menu-box">
+                    <Box className="staff-page-make-order-menu-box-left">
                         <Typography fontSize={14} variant="body1" mb={.5}>Enter Reservation ID: </Typography>
                         <TextField size="small" variant="outlined"
                             onChange={(e) => this.getReservationId(e)} />
@@ -135,7 +132,7 @@ export default class MakeOrder extends React.Component {
                             </tbody>
                         </table>
                     </Box>
-                    <Box className="staff-page-make-order-menu-box">
+                    <Box className="staff-page-make-order-menu-box-right">
                         {this.state.data && this.state.data.map((e, i) => (
                             <Box key={i}>
                                 <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-betwee', alignItems: 'center' }}>
@@ -143,7 +140,7 @@ export default class MakeOrder extends React.Component {
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
-                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
+                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10, marginTop: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
                                         <IconButton onClick={() => this.addToReservationOrder(e.id)} disabled={this.state.buttonOff}>
                                             <AddCircleOutlineIcon />
                                         </IconButton>
@@ -157,7 +154,7 @@ export default class MakeOrder extends React.Component {
                 {this.state.changesMade === true &&
                     <Snackbar open={this.state.openSnack} onClose={() => this.closeAlert()} autoHideDuration={5000} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
                         <Alert severity={this.state.changeError === true ? "error" : "success"}>
-                            {this.state.changeError === true ? this.state.snackMsgErr : this.state.snackMsg}
+                            {this.state.changeError === true ? 'Sorry, Something Went Wrong!' : 'Changes Made Successfully!'}
                         </Alert>
                     </Snackbar>}
 
