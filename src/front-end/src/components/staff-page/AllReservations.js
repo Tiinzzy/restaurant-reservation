@@ -55,7 +55,7 @@ export default class AllReservations extends React.Component {
 
     render() {
         return (
-            <Box className="delete-account-main-box">
+            <Box className="satff-main-box">
                 <Box className="top-header-reservation">
                     <Typography fontSize={20} fontWeight="bold">All Reservation</Typography>
                     <Box display="flex" flexGrow={1} />
