@@ -91,3 +91,23 @@
         width: 0 !important
     }
 }
+
+.alert-dialog-description {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: white;
+    margin-top: 15px !important;
+}
+
+.staff-edit-reservation-dialog-box {
+    height: 350px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+}
+
+.staff-edit-reservation-textfield {
+    width: 500px;
+}
