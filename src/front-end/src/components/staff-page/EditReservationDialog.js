@@ -14,7 +14,7 @@ import BackEndConnection from '../backend-connection/BackEndConnection';
 const backend = BackEndConnection.INSTANCE();
 
 
-const INPUIT_FIELDS = ['id', 'waiter_id', 'reservation_type', 'status', 'for_date', 'timestamp', 'customer_id', 'cutomer_name', 'for_how_long', 'latest_comment', 'seat_count', 'table_id', 'tip_percent', 'total_price'];
+const INPUIT_FIELDS = ['id', 'timestamp', 'customer_name', 'customer_id', 'seat_count', 'table_id', 'for_date', 'for_how_long', 'status', 'latest_comment', 'waiter_id', 'reservation_type', 'total_price', 'tip_percent'];
 
 export default class EditMenuDialog extends React.Component {
 
@@ -23,20 +23,7 @@ export default class EditMenuDialog extends React.Component {
         this.state = {
             closeDialog: props.closeDialog,
             reservationId: props.reservationId,
-            updateError: false,
-            customerName: '',
-            customerId: '',
-            date: '',
-            duration: '',
-            comment: '',
-            reservationType: '',
-            numberOfPeople: '',
-            status: '',
-            tableId: '',
-            waiterId: '',
-            tip: '',
-            total: '',
-            time: ''
+            updateError: false
         }
     }
 
@@ -55,10 +42,19 @@ export default class EditMenuDialog extends React.Component {
     }
 
     saveChanges() {
-        backend.update_reservation(this.state.rsvData, (data) => {
+        let availableChanges = {};
+        for (let i in this.state.rsvData) {
+            if (this.state.rsvData[i].length > 0 || this.state.rsvData[i] !== '') {
+                availableChanges[i] = this.state.rsvData[i];
+            }
+        }
+
+        backend.update_reservation(availableChanges, (data) => {
             let that = this;
             if (data.result) {
-                that.state.closeDialog({ action: 'changes-made-successfully' });
+                that.state.closeDialog({ action: 'changes-made-successfully' }, () => {
+                    that.componentDidMount();
+                });
             } else {
                 that.setState({ updateError: true });
             }
