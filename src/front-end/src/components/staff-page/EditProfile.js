@@ -36,7 +36,8 @@ export default class EditProfile extends React.Component {
             anchorEl: null,
             changesMade: false,
             openSnack: false,
-            changeError: false
+            changeError: false,
+            emptyField: false
         }
     }
 
@@ -48,46 +49,50 @@ export default class EditProfile extends React.Component {
     }
 
     getFullName(e) {
-        this.setState({ fullName: e.target.value });
+        this.setState({ fullName: e.target.value, emptyField: false });
     }
 
     getEmail(e) {
-        this.setState({ email: e.target.value });
+        this.setState({ email: e.target.value, emptyField: false });
     }
 
     getBirthDate(e) {
         let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
-        this.setState({ anchorEl: e.currentTarget, birthDate: e, birthday: date, generalError: false }, () => {
+        this.setState({ anchorEl: e.currentTarget, birthDate: e, birthday: date, generalError: false, emptyField: false }, () => {
             this.setState({ anchorEl: null });
         });
     }
 
     getCurrentPassword(e) {
-        this.setState({ currentPassword: e.target.value });
+        this.setState({ currentPassword: e.target.value, emptyField: false });
     }
 
     getNewPassword(e) {
-        this.setState({ newPassword: e.target.value });
+        this.setState({ newPassword: e.target.value, emptyField: false });
     }
 
     getConfirmPassword(e) {
-        this.setState({ confirmNewPassword: e.target.value });
+        this.setState({ confirmNewPassword: e.target.value, emptyField: false });
     }
 
     checkBoxClicked() {
-        this.setState({ showPassword: !this.state.showPassword });
+        this.setState({ showPassword: !this.state.showPassword, emptyField: false });
     }
 
     saveNewChanges() {
         let query = { 'user_id': this.state.userId, 'name': this.state.fullName, 'email': this.state.email, 'password': this.state.currentPassword, 'birthday': this.state.birthday };
-        backend.update_user(query, (data) => {
-            let that = this;
-            if (data.result) {
-                that.setState({ changesMade: true, openSnack: true });
-            } else {
-                that.setState({ changesMade: true, openSnack: true, changeError: true });
-            }
-        })
+        if (this.state.userId > 0 && this.state.fullName.length > 0 && this.state.email.length > 0 && this.state.currentPassword.length > 0, this.state.birthday.length > 0) {
+            backend.update_user(query, (data) => {
+                let that = this;
+                if (data.result) {
+                    that.setState({ changesMade: true, openSnack: true });
+                } else {
+                    that.setState({ emptyField: true, changesMade: true, openSnack: true, changeError: true });
+                }
+            })
+        } else {
+            this.setState({ changesMade: true, openSnack: true, changeError: true });
+        }
     }
 
     closeAlert() {
@@ -106,14 +111,15 @@ export default class EditProfile extends React.Component {
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40 }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
-                        <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyField} value={this.state.fullName} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField value={this.state.email} variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyField} value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
+                                error={this.state.emptyField}
                                 PopperProps={{
                                     placement: "bottom-end",
                                     anchorEl: this.state.anchorEl
@@ -125,15 +131,15 @@ export default class EditProfile extends React.Component {
                     <Box display="flex" flexGrow={1} />
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Current Password: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getCurrentPassword(e)}
                             type={this.state.showPassword === false ? "password" : "text"} />
                         <Typography fontSize={14} variant="body1" mb={.5}>New Password: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getNewPassword(e)}
                             type={this.state.showPassword === false ? "password" : "text"} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Confirm Password: </Typography>
-                        <TextField variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyField} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getConfirmPassword(e)}
                             type={this.state.showPassword === false ? "password" : "text"} />
                         <FormControlLabel control={<Checkbox onChange={() => this.checkBoxClicked()} />}
