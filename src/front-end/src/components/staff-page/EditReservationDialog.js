@@ -18,6 +18,14 @@ const backend = BackEndConnection.INSTANCE();
 
 const INPUIT_FIELDS = ['id', 'timestamp', 'customer_name', 'customer_id', 'seat_count', 'table_id', 'for_date', 'for_how_long', 'status', 'latest_comment', 'waiter_id', 'reservation_type', 'total_price', 'tip_percent'];
 
+function capitalizeFirst(mySentence) {
+    const words = mySentence.split('_');
+    for (var w in words) {
+        words[w] = words[w][0].toUpperCase() + words[w].substring(1);
+    }
+    return words.join(' ');
+}
+
 export default class EditMenuDialog extends React.Component {
 
     constructor(props) {
@@ -82,7 +90,7 @@ export default class EditMenuDialog extends React.Component {
                     <Box className="staff-edit-reservation-dialog-box">
                         {this.state.rsvData && INPUIT_FIELDS.map((k, i) => (
                             <Box key={i} p={1}>
-                                <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>{k.replaceAll('_', ' ')}: </Typography>
+                                <Typography fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>{capitalizeFirst(k).replaceAll('_', ' ')}: </Typography>
                                 <TextField error={this.state.updateError} size="small" variant="outlined" value={this.state.rsvData[k]}
                                     onChange={(e) => this.smartChange(e, k)} className="staff-edit-reservation-textfield" />
                             </Box>
