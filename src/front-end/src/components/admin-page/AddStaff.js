@@ -53,7 +53,8 @@ export default class AddStaff extends React.Component {
             buttonOff: true,
             addUser: false,
             openSnack: false,
-            userError: false
+            userError: false,
+            emptyData: false
         }
     }
 
@@ -75,22 +76,22 @@ export default class AddStaff extends React.Component {
     }
 
     getFullName(e) {
-        this.setState({ fullName: e.target.value });
+        this.setState({ fullName: e.target.value, emptyData: false });
     }
 
     getEmail(e) {
-        this.setState({ email: e.target.value });
+        this.setState({ email: e.target.value, emptyData: false });
     }
 
     getBirthDate(e) {
         let date = e.$y + '/' + (e.$M + 1) + '/' + e.$D;
-        this.setState({ birthDate: e, birthday: date, generalError: false });
+        this.setState({ birthDate: e, birthday: date, generalError: false, emptyData: false });
     }
 
     handleMenuChange(e) {
         let value = e.target.value;
         let userRole = (typeof value === 'string' ? value.split(',') : value);
-        this.setState({ userRole, buttonOff: false });
+        this.setState({ userRole, buttonOff: false, emptyData: false });
     }
 
     checkBoxClicked(e) {
@@ -100,20 +101,24 @@ export default class AddStaff extends React.Component {
     generateTempPassword() {
         let random = (Math.random() + 1).toString(36).substring(6);
         let temporaryPassword = this.state.fullName.replace(' ', '') + '-' + random;
-        this.setState({ password: temporaryPassword });
+        this.setState({ password: temporaryPassword, emptyData: false });
     }
 
     createNewUserAccount() {
-        backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
-            let that = this;
-            if (data.result === true) {
-                that.setState({ openSnack: true, addUser: true }, () => {
-                    this.componentDidMount(this.state.email);
-                })
-            } else {
-                that.setState({ userError: true, openSnack: true, addUser: true });
-            }
-        });
+        if (this.state.fullName.length > 0 && this.state.email.length > 0 && this.state.password.length > 0 && this.state.birthday.length > 0) {
+            backend.add_user(this.state.fullName, this.state.email, this.state.password, this.state.birthday, (data) => {
+                let that = this;
+                if (data.result === true) {
+                    that.setState({ openSnack: true, addUser: true }, () => {
+                        this.componentDidMount(this.state.email);
+                    })
+                } else {
+                    that.setState({ userError: true, openSnack: true, addUser: true });
+                }
+            });
+        } else {
+            this.setState({ userError: true, openSnack: true, addUser: true, emptyData: true });
+        }
     }
 
     closeAlert() {
@@ -131,19 +136,21 @@ export default class AddStaff extends React.Component {
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 40, justifyContent: 'space-between' }}>
                     <Box className="user-page-reservation-form-1">
                         <Typography fontSize={14} variant="body1" mb={.5}>Full Name: </Typography>
-                        <TextField value={this.state.fullName} variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyData} value={this.state.fullName} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getFullName(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Email: </Typography>
-                        <TextField value={this.state.email} variant="outlined" className="localization-provider"
+                        <TextField error={this.state.emptyData} value={this.state.email} variant="outlined" className="localization-provider"
                             onChange={(e) => this.getEmail(e)} />
                         <Typography fontSize={14} variant="body1" mb={.5}>Birth Date: </Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
+                                error={this.state.emptyData}
                                 value={this.state.birthDate} onChange={(newValue) => this.getBirthDate(newValue)} format="DD-MM-YYYY" views={["year", "month", "day"]} />
                         </LocalizationProvider>
                         <Typography id="user-role-id" fontSize={14} variant="body1" mb={.5} mt={2}>User Role: </Typography>
                         <FormControl>
                             <Select
+                                error={this.state.emptyData}
                                 labelId="user-role-id"
                                 multiple
                                 className="localization-provider"
@@ -163,6 +170,7 @@ export default class AddStaff extends React.Component {
                     <Box className="user-page-reservation-form">
                         <Typography fontSize={14} variant="body1" mb={.5}>Create Password: </Typography>
                         <TextField
+                            error={this.state.emptyData}
                             value={this.state.password}
                             variant="outlined" className="localization-provider"
                             type={this.state.showPassword === false ? "password" : "text"} />
