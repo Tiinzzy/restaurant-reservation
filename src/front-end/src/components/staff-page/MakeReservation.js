@@ -25,6 +25,8 @@ const NUMBER_OF_PEOPLE = [1, 2, 3, 4, 5, 6];
 const RESERVATION_TYPE = ['Phone', 'Online', 'In person'];
 const STATUS_TYPE = ['Just walked in', 'Here sitting', 'Left', 'Completed', 'Reserved', 'Cancelled'];
 
+const QUERY = {};
+
 export default class MakeReservation extends React.Component {
 
     constructor(props) {
@@ -36,7 +38,6 @@ export default class MakeReservation extends React.Component {
             reservationTime: '',
             customerFullName: '',
             customerId: '',
-            status: '',
             tableId: '',
             numberOfPeople: 1,
             latestComment: '',
@@ -55,75 +56,117 @@ export default class MakeReservation extends React.Component {
 
     getReserveDate(e) {
         let date = e.$D + '/' + (e.$M + 1) + '/' + e.$y;
-        this.setState({ reserveDate: e, reservation: date });
+        this.setState({ reserveDate: e, reservation: date }, () => {
+            if (this.state.reservation.length > 0) {
+                QUERY['for_date'] = this.state.reservation;
+            }
+        });
     }
 
     setReserveTime(e) {
         let resTime = e.$H + ':' + e.$m;
-        this.setState({ reservationTime: resTime });
+        this.setState({ reservationTime: resTime }, () => {
+            if (this.state.reservationTime.length > 0) {
+                QUERY['timestamp'] = this.state.reservationTime;
+            }
+        });
     }
 
     handleOpenMenu(e) {
-        this.setState({ open: true, numberOfPeople: e.target.value * 1 });
+        this.setState({ open: true, numberOfPeople: e.target.value * 1 }, () => {
+            if (this.state.numberOfPeople > 0) {
+                QUERY['seat_count'] = this.state.numberOfPeople;
+            }
+        });
     }
 
     getTableId(e) {
-        this.setState({ tableId: e.target.value * 1 });
+        this.setState({ tableId: e.target.value * 1 }, () => {
+            if (this.state.tableId > 0) {
+                QUERY['table_id'] = this.state.tableId;
+            }
+        });
     }
 
     getCustomerFullName(e) {
-        this.setState({ customerFullName: e.target.value });
+        this.setState({ customerFullName: e.target.value }, () => {
+            if (this.state.customerFullName.length > 0) {
+                QUERY['customer_name'] = this.state.customerFullName;
+            }
+        });
     }
 
     getCustomerId(e) {
-        this.setState({ customerId: e.target.value * 1 });
-    }
-
-    getStatus(e) {
-        this.setState({ status: e.target.value })
+        this.setState({ customerId: e.target.value * 1 }, () => {
+            if (this.state.customerId > 0) {
+                QUERY['customer_id'] = this.state.customerId;
+            }
+        });
     }
 
     getLatestComment(e) {
-        this.setState({ latestComment: e.target.value });
+        this.setState({ latestComment: e.target.value }, () => {
+            if (this.state.latestComment.length > 0) {
+                QUERY['latest_comment'] = this.state.latestComment;
+            }
+        });
     }
 
     getDurationOfStay(e) {
-        this.setState({ duration: e.target.value });
+        this.setState({ duration: e.target.value }, () => {
+            if (this.state.duration.length > 0) {
+                QUERY['for_how_long'] = this.state.duration;
+            }
+        });
     }
 
     handleOpenReservationType(e) {
-        this.setState({ reservationType: e.target.value, open: true });
+        this.setState({ reservationType: e.target.value, open: true }, () => {
+            if (this.state.reservationType.length > 0) {
+                QUERY['reservation_type'] = this.state.reservationType;
+            }
+        });
     }
 
     handleOpenStatusType(e) {
-        this.setState({ statusType: e.target.value, open: true });
+        this.setState({ statusType: e.target.value, open: true }, () => {
+            if (this.state.statusType.length > 0) {
+                QUERY['status'] = this.state.statusType;
+            }
+        });
     }
 
     getTipPercent(e) {
-        this.setState({ tipPercent: e.target.value * 1 })
+        this.setState({ tipPercent: e.target.value * 1 }, () => {
+            if (this.state.tipPercent > 0) {
+                QUERY['tip_percent'] = this.state.tipPercent;
+            }
+        });
     }
 
     getTotalPrice(e) {
-        this.setState({ totalPrice: e.target.value * 1 });
+        this.setState({ totalPrice: e.target.value * 1 }, () => {
+            if (this.state.totalPrice > 0) {
+                QUERY['total_price'] = this.state.totalPrice;
+            }
+        });
     }
 
     getWaiterId(e) {
-        this.setState({ waiterId: e.target.value * 1 });
+        this.setState({ waiterId: e.target.value * 1 }, () => {
+            if (this.state.waiterId > 0) {
+                QUERY['waiter_id'] = this.state.waiterId;
+            }
+        });
     }
 
     submitReservation() {
-        let query = {
-            'timestamp': this.state.reservationTime, 'customer_name': this.state.customerFullName, 'customer_id': this.state.customerId, 'seat_count': this.state.numberOfPeople, 'table_id': this.state.tableId, 'for_date': this.state.reservation,
-            'for_how_long': this.state.duration, 'status': this.state.statusType, 'latest_comment': this.state.latestComment, 'waiter_id': this.state.waiterId, 'reservation_type': this.state.reservationType, 'total_price': this.state.totalPrice,
-            'tip_percent': this.state.tipPercent
-        };
-
-        backend.add_reservation(query, (data) => {
+        backend.add_reservation(QUERY, (data) => {
             let that = this;
             if (data.result) {
                 that.setState({
                     reservationSuccess: true, openSnack: true, reserveDate: null, reservation: '', reservationTime: '', numberOfPeople: '', tableId: '',
-                    customerFullName: '', customerId: '', status: '', latestComment: '', duration: '', reservationType: '', statusType: '', tipPercent: '', totalPrice: '', waiterId: ''
+                    customerFullName: '', customerId: '', latestComment: '', duration: '', reservationType: '', statusType: '', tipPercent: '', totalPrice: '', waiterId: ''
                 });
             } else {
                 that.setState({ reserveErr: true });
@@ -139,7 +182,7 @@ export default class MakeReservation extends React.Component {
     render() {
         return (
             <>
-                <Box className="delete-account-main-box">
+                <Box className="satff-main-box">
                     <Box className="top-header-reservation">
                         <Typography fontSize={20} fontWeight="bold">Make Reservation</Typography>
                         <Box display="flex" flexGrow={1} />
