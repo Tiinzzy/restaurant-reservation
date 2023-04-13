@@ -47,7 +47,6 @@ export default class EditMenuDialog extends React.Component {
             Object.keys(data).forEach(k => data[k] = data[k] || '');
 
             that.setState({ rsvData: data });
-            console.log(data)
         })
     }
 
