@@ -39,7 +39,7 @@ export default class Header extends React.Component {
                     <Typography ml={3} id="links-typograpphy" onClick={() => this.openReservationPage()}> Reservations </Typography>
                 </Box>
                 <Box className="header-box-logo">
-                    <Typography fontSize="25px" id="links-typograpphy" onClick={() => this.openHomepage()}> Restaurant Reservation </Typography>
+                    <Typography fontSize="26px" id="links-typograpphy" onClick={() => this.openHomepage()}> Pane e Vino </Typography>
                 </Box>
                 <Box className="header-box-right">
                     <Typography mr={3} id="links-typograpphy" onClick={() => this.openLoginPage()}> Login </Typography>
