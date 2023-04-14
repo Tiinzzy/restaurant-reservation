@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from '@mui/material/IconButton';
+
 import "./carousel.css";
 
 export const CarouselItem = ({ children, width }) => {
@@ -45,31 +49,19 @@ const Carousel = ({ children }) => {
     });
 
     return (
-        <div
-            {...handlers}
-            className="carousel"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-        >
-            <div
-                className="inner"
-                style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-            >
+        <div {...handlers} className="carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} style={{ border: 'solid 1px red' }}>
+            <div className="inner" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
                 {React.Children.map(children, (child, index) => {
                     return React.cloneElement(child, { width: "100%" });
                 })}
             </div>
             <div className="indicators">
-                <button
-                    onClick={() => { updateIndex(activeIndex - 1) }}>
-                    Prev
-                </button>
-                <button
-                    onClick={() => {
-                        updateIndex(activeIndex + 1)
-                    }}>
-                    Next
-                </button>
+                <IconButton onClick={() => { updateIndex(activeIndex - 1) }}>
+                    <ArrowBackIosIcon />
+                </IconButton>
+                <IconButton onClick={() => { updateIndex(activeIndex + 1) }}>
+                    <ArrowForwardIosIcon />
+                </IconButton>
             </div>
         </div>
     );
