@@ -49,7 +49,7 @@ const Carousel = ({ children }) => {
     });
 
     return (
-        <div {...handlers} className="carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} style={{ border: 'solid 1px red' }}>
+        <div {...handlers} className="carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
             <div className="inner" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
                 {React.Children.map(children, (child, index) => {
                     return React.cloneElement(child, { width: "100%" });
