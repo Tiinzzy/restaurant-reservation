@@ -20,9 +20,10 @@ UPDATE tests.rr_reservation SET timestamp = %s , customer_name = %s , customer_i
 """
 
 select_all_order_items_sql = """
-SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu_item_id, oi.count as count FROM 
-    tests.rr_reservation res 
+SELECT oi.id as id, oi.reservation_id as reservation_id, oi.menu_item_id as menu_item_id, oi.count as count, mi.name as name
+    FROM tests.rr_reservation res 
     JOIN tests.rr_order_items oi on oi.reservation_id = res.id
+    JOIN tests.rr_menu_items mi on mi.id = oi.menu_item_id
     WHERE res.id = %s ;
 """
 
