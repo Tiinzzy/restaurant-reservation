@@ -65,7 +65,7 @@ export default class MakeOrder extends React.Component {
             backend.add_order_item(query, (data) => {
                 let that = this;
                 if (data.result) {
-                    that.setState({ count: '', changesMade: true, openSnack: true, count: '' }, () => {
+                    that.setState({ changesMade: true, openSnack: true, count: '' }, () => {
                         this.componentDidMount(this.state.reservationId);
                     });
                 } else {
