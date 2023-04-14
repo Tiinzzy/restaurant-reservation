@@ -56,12 +56,16 @@ const Carousel = ({ children }) => {
                 })}
             </div>
             <div className="indicators">
-                <IconButton onClick={() => { updateIndex(activeIndex - 1) }}>
-                    <ArrowBackIosIcon />
-                </IconButton>
-                <IconButton onClick={() => { updateIndex(activeIndex + 1) }}>
-                    <ArrowForwardIosIcon />
-                </IconButton>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <IconButton onClick={() => { updateIndex(activeIndex - 1) }}>
+                        <ArrowBackIosIcon />
+                    </IconButton>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <IconButton onClick={() => { updateIndex(activeIndex + 1) }}>
+                        <ArrowForwardIosIcon />
+                    </IconButton>
+                </div>
             </div>
         </div>
     );
