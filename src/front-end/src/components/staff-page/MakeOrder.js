@@ -22,7 +22,7 @@ export default class MakeOrder extends React.Component {
         super(props);
         this.state = {
             reservationId: '',
-            count: '',
+            count: 0,
             changesMade: false,
             openSnack: false,
             changeError: false,
@@ -60,16 +60,16 @@ export default class MakeOrder extends React.Component {
     addToReservationOrder(menuItemId) {
         let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': menuItemId, 'count': this.state.count };
         if (this.state.count === 0 || this.state.count === null || this.state.count.length === 0 || this.state.count === '') {
-            this.setState({ changesMade: true, openSnack: true, changeError: true, count: '' });
+            this.setState({ changesMade: true, openSnack: true, changeError: true, count: 0 });
         } else {
             backend.add_order_item(query, (data) => {
                 let that = this;
                 if (data.result) {
-                    that.setState({ count: '', changesMade: true, openSnack: true, count: '' }, () => {
+                    that.setState({ changesMade: true, openSnack: true, count: 0 }, () => {
                         this.componentDidMount(this.state.reservationId);
                     });
                 } else {
-                    that.setState({ changesMade: true, openSnack: true, changeError: true, count: '' });
+                    that.setState({ changesMade: true, openSnack: true, changeError: true, count: 0 });
                 }
             })
         }
@@ -109,24 +109,20 @@ export default class MakeOrder extends React.Component {
                             <tbody>
                                 <tr>
                                     <th>Reservation ID</th>
-                                    <th>Menu Item ID</th>
+                                    <th>Item Name</th>
                                     <th>Count</th>
-                                    <th>Order Item ID</th>
                                 </tr>
                                 {this.state.allOrderItems && this.state.allOrderItems.map((e, i) => (
                                     <tr id="td-menu-item-id"
-                                        key={i} onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count, 'menuItemId': e.menu_item_id })}>
+                                        key={i} onClick={() => this.handleOpenDialog({ 'reservationId': e.reservation_id, 'orderItemId': e.order_item_id, 'count': e.count, 'menuItemId': e.menu_item_id, 'food_name': e.name })}>
                                         <td>
                                             {e.reservation_id}
                                         </td>
                                         <td>
-                                            {e.menu_item_id}
+                                            {e.name}
                                         </td>
                                         <td>
                                             {e.count}
-                                        </td>
-                                        <td>
-                                            {e.order_item_id}
                                         </td>
                                     </tr>))}
                             </tbody>
@@ -140,7 +136,7 @@ export default class MakeOrder extends React.Component {
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
-                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10, marginTop: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
+                                        <TextField value={this.state.count[e]} variant="outlined" style={{ width: '50px', marginLeft: 10, marginTop: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
                                         <IconButton onClick={() => this.addToReservationOrder(e.id)} disabled={this.state.buttonOff}>
                                             <AddCircleOutlineIcon />
                                         </IconButton>

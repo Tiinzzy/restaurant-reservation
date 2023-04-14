@@ -48,7 +48,7 @@ export default class Menu extends React.Component {
                     <Typography fontFamily="serif" fontWeight="bold" fontSize="2em">Menu</Typography>
                 </Box>
                 <Box className="menu-box-menu-logo-1">
-                    <Typography fontFamily="serif" fontWeight="bold" fontSize="1.3em" onClick={() => this.takeToReservationPage()}>Make a Reservation</Typography>
+                    <Typography fontWeight="bold" fontSize="1em" onClick={() => this.takeToReservationPage()}>Make a Reservation</Typography>
                 </Box>
                 <Box style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                     <Box className="menu-box-left-side">

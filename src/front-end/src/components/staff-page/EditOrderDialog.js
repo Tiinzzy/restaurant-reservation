@@ -30,7 +30,7 @@ export default class EditOrderDialog extends React.Component {
     componentDidMount() {
         this.setState({
             reservationId: this.state.clickedData.reservationId, orderItemId: this.state.clickedData.orderItemId,
-            count: this.state.clickedData.count, menuItemId: this.state.clickedData.menuItemId
+            count: this.state.clickedData.count, menuItemId: this.state.clickedData.menuItemId, name: this.state.clickedData.food_name
         });
     }
 
@@ -51,7 +51,7 @@ export default class EditOrderDialog extends React.Component {
                 }
             })
         } else if (this.state.count === 0) {
-            let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': this.state.menuItemId };
+            let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': this.state.menuItemId, 'order_item_id': this.state.orderItemId };
             backend.delete_order_item(query, (data) => {
                 if (data.result) {
                     this.state.closeDialog({ action: 'changes-made-successfully', reserveId: this.state.reservationId });
@@ -71,9 +71,9 @@ export default class EditOrderDialog extends React.Component {
                         To delete or change the count.
                     </DialogContentText>
                     <Typography style={{ display: 'flex', justifyContent: 'space-between' }}
-                        fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Order Item Id:
+                        fontWeight='bold' fontSize={14} variant="body1" mb={.5} mt={1.5}>Item Name:
                         <span>
-                            {this.state.orderItemId}
+                            {this.state.name}
                         </span>
                     </Typography>
                     <TextField type="number" InputLabelProps={{ shrink: true, }} size="small" style={{ width: 300, marginTop: 15 }}
