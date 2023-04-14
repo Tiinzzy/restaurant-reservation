@@ -118,8 +118,9 @@ def update_order_item(parameters):
 def delete_order_item(parameters):
     reservation_id = parameters.get('reservation_id')
     menu_item_id = parameters.get('menu_item_id')
+    order_item_id = parameters.get('order_item_id')
 
     reservation = Reservation()
     reservation.load(reservation_id)
-    result = reservation.delete_order_item(menu_item_id)
+    result = reservation.delete_order_item(menu_item_id, order_item_id)
     return {'result': result}
