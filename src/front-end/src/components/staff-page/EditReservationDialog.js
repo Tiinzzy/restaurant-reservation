@@ -15,7 +15,6 @@ import './staff-styling.scss';
 
 const backend = BackEndConnection.INSTANCE();
 
-
 const INPUIT_FIELDS = ['id', 'timestamp', 'customer_name', 'customer_id', 'seat_count', 'table_id', 'for_date', 'for_how_long', 'status', 'latest_comment', 'waiter_id', 'reservation_type', 'total_price', 'tip_percent'];
 
 function capitalizeFirst(mySentence) {
