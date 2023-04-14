@@ -22,7 +22,7 @@ export default class MakeOrder extends React.Component {
         super(props);
         this.state = {
             reservationId: '',
-            count: '',
+            count: 0,
             changesMade: false,
             openSnack: false,
             changeError: false,
@@ -60,16 +60,16 @@ export default class MakeOrder extends React.Component {
     addToReservationOrder(menuItemId) {
         let query = { 'reservation_id': this.state.reservationId, 'menu_item_id': menuItemId, 'count': this.state.count };
         if (this.state.count === 0 || this.state.count === null || this.state.count.length === 0 || this.state.count === '') {
-            this.setState({ changesMade: true, openSnack: true, changeError: true, count: '' });
+            this.setState({ changesMade: true, openSnack: true, changeError: true, count: 0 });
         } else {
             backend.add_order_item(query, (data) => {
                 let that = this;
                 if (data.result) {
-                    that.setState({ changesMade: true, openSnack: true, count: '' }, () => {
+                    that.setState({ changesMade: true, openSnack: true, count: 0 }, () => {
                         this.componentDidMount(this.state.reservationId);
                     });
                 } else {
-                    that.setState({ changesMade: true, openSnack: true, changeError: true, count: '' });
+                    that.setState({ changesMade: true, openSnack: true, changeError: true, count: 0 });
                 }
             })
         }
@@ -136,7 +136,7 @@ export default class MakeOrder extends React.Component {
                                     <Box display="flex" flexGrow={1} />
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <span fontFamily="serif" color="rgb(37, 37, 37)">${e.price}</span>
-                                        <TextField variant="outlined" style={{ width: '50px', marginLeft: 10, marginTop: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
+                                        <TextField value={this.state.count[e]} variant="outlined" style={{ width: '50px', marginLeft: 10, marginTop: 10 }} onChange={(e) => this.getMenuItemCount(e)} />
                                         <IconButton onClick={() => this.addToReservationOrder(e.id)} disabled={this.state.buttonOff}>
                                             <AddCircleOutlineIcon />
                                         </IconButton>
