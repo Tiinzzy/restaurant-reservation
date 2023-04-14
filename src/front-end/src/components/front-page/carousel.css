@@ -1,6 +1,7 @@
 .carousel {
     overflow: hidden;
     width: 1800px;
+    position: relative;
 }
 
 .inner {
@@ -15,12 +16,17 @@
     /* background-color: rgb(255, 255, 255); */
     color: #000000;
     height: 600px;
-    padding-left: 15px;
+    padding-left: 0px;
 }
 
 .indicators {
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;      
 }
 
 .indicators>button {
