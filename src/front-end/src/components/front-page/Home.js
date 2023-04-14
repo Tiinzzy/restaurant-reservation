@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 
 import { HOME_PAGE_DATA } from "./data";
+import Carousel, { CarouselItem } from "./Carousel";
 
 import "./front-page.scss";
 
@@ -18,7 +19,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <Box className="home-main-box">
-                <img src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2014/05/1399503143258.jpeg" height={550} />
+                {/* <img src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2014/05/1399503143258.jpeg" height={550} />
                 <Box className="home-main-box-about-us">
                     <Typography fontFamily="serif" fontWeight="bold" fontSize="5em" mb={2}>Discover the World of Fine Dining</Typography>
                     <Typography fontFamily="serif" fontWeight="400" fontSize="1.5em" mb={2}>ALWAYS EXCITING, ALWAYS TASTY, ALWAYS FRESH.</Typography>
@@ -33,6 +34,13 @@ export default class Home extends React.Component {
                             </a>
                         </Box>
                     </Box>
+                </Box> */}
+                <Box className="home-main-box-about-us">
+                    <Carousel>
+                        <CarouselItem>Item 1</CarouselItem>
+                        <CarouselItem>Item 2</CarouselItem>
+                        <CarouselItem>Item 3</CarouselItem>
+                    </Carousel>
                 </Box>
             </Box>
         );
