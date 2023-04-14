@@ -35,7 +35,7 @@ export default class HeaderLogin extends React.Component {
                     <Typography ml={5} id="links-typograpphy" onClick={() => this.openUserHomePage()}> Home </Typography>
                 </Box>
                 <Box className="header-box-logo">
-                    <Typography fontSize="25px" id="links-typograpphy"> Restaurant Reservation </Typography>
+                    <Typography fontSize="26px" id="links-typograpphy"> Pane e Vino </Typography>
                 </Box>
                 <Box className="header-box-right">
                     <Typography mr={5} id="links-typograpphy" onClick={() => this.logUserOut()}> Log Out </Typography>
