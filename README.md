@@ -21,6 +21,8 @@ I also used MUI Components for displaying data and also getting input from user.
 <li>Created documentation for the overall goal of the project and the design of tables and classes in back-end and database</li>
 <li>Created use-case and scenarios for each actor</li>
 <li>Learned running unit test in back-end, specifically python to make sure API's work properly before start working on front-end</li>
+<li>Started learning and working with PyCharm</li>
+
 <br/>
 <br/>
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232258318-ed22ce28-6f7a-4a6e-9ff3-759dfc74755d.jpg">
