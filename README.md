@@ -12,7 +12,15 @@ I used Flask as back-end framework to create REST API's and used Axios to handle
 For storing data, I have used MySQL Database. 
 I also used MUI Components for displaying data and also getting input from user.
 </p>
-<p>I never finished the project, since I lost control over prioritizing and giving importance on which section needs what features and developing each accordingly.</p>
+<h3>*I never finished the project, since I lost control over planing and having certain features and trying to make all happen at once!</h3>
+<br/>
+<h4>Achievements</h4>
+<li>Learned Sass and incorporated into css styling to avoid duplicates and have overall control of the style sheet</li>
+<li>Developed the project with webpack</li>
+<li>Learned to build, specifically with webpack</li>
+<li>Created documentation for the overall goal of the project and the design of tables and classes in back-end and database</li>
+<li>Created use-case and scenarios for each actor</li>
+<li>Learned running unit test in back-end, specifically python to make sure API's work properly before start working on front-end</li>
 <br/>
 <br/>
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232258318-ed22ce28-6f7a-4a6e-9ff3-759dfc74755d.jpg">
@@ -20,6 +28,8 @@ I also used MUI Components for displaying data and also getting input from user.
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232258356-eda5bde3-9e37-40eb-a043-cd2efb26eadb.jpg">
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232258371-260305b5-384c-4772-b1b8-00e696bfbdb8.jpg">
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232258397-f1cb3881-905f-4d44-b400-ed223f4adee5.jpg">
+<h6>*Main Page is like carousel, containing 3 different pages and content that move on their own or can be viewed by clicking on the arrows.</h6>
+<br/>
 
 <h4>Instructions</h4>
 <p>The application is designed to be used by Customers, Admin, Waiter and the Cashier of the restaurant. So, based on who has been logged in (roles will be checked upon login) the page will
@@ -98,3 +108,4 @@ The Admin, creates an account for each and every staff that is necessary and the
 
 <h5>*Never managed to make a page for Cashier, Unfortunately I didn't plan how to make the front-end and I lost control on order
 of pages and what each page requires.</h5>
+
