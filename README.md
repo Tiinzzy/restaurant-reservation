@@ -48,7 +48,7 @@ If the user is Customer, they have the options to sign up when visiting the webs
 <li>Edit their profile information if they wish to</li>
 <br/>
 <br/>
-<img width="300" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232256305-c08c2a8a-5d3e-4533-81c9-47166f4b5e40.jpg">
+<img width="300" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/233216620-e40ee7f4-9c10-453a-81f0-c883bcf4e9ae.jpg">
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232256347-8041da8b-80f8-4446-b71c-b368684e42b6.jpg">
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232256375-e2b42204-ecf9-45e5-825c-ee40dee2eb61.jpg">
 <img width="600" style="-webkit-user-select: none; display: block; margin: auto; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); cursor: zoom-in;" src="https://user-images.githubusercontent.com/117464310/232256395-3ca0faeb-6f02-4c52-a01c-34e89158197d.jpg">
